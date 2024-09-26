@@ -60,7 +60,7 @@
 	colframe=blue!40!black, 
 	sharp corners=northwest,
 	fonttitle=\sffamily\bfseries, 
-	title=Teorema~\thetcbcounter: #2, 
+	title=~\thetcbcounter: #2, 
 	#1
 }
 
@@ -70,9 +70,22 @@
 	colframe=red!40!black,
 	sharp corners=northwest,
 	fonttitle=\sffamily\bfseries,
-	title=Definizione~\thetcbcounter: #2,
+	title=~\thetcbcounter: #2,
 	#1
 }
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
 
 % disegni
 \usepackage{pgfplots}

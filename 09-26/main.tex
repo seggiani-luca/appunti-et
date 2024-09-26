@@ -1,0 +1,372 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=Teorema~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=Definizione~\thetcbcounter: #2,
+	#1
+}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+\begin{document}
+% sezione (data)
+\section{Lezione del 26-09-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Dipolo elettrico}
+Abbiamo introdotto i componenti circuitali come \textbf{dipoli elettrici}.
+In particolare, diciamo che un dipolo elettrico è un componente, con una certa differenza di potenziale $V_{AB}$ ai suoi capi e una corrente $i_{AB}(t)$ che vi scorre all'interno, tale per cui si può definire una funzione del tipo:
+$$
+V_{AB} = f(i_{AB}(t))
+$$
+
+Possiamo individuare alcune caratteristiche importanti dei dipoli:
+\begin{itemize}
+	\item \textbf{Linearità:} un dipolo si dice lineare se la funzione che lega voltaggio e corrente è lineare.
+		Tutti i dipoli che studieremo sono lineari (resistenze, capacitori, ecc...).
+		Esistono però svariati dipoli che hanno risposte non lineari ai voltaggi/correnti a cui vengono sottoposti (diodi (risposte diverse a direzioni diverse della corrente), amplificatori operazionali, ecc...).
+	\item \textbf{Tempo invarianza:} un dipolo si dice tempo invariante quando le sue caratteristiche non variano nel tempo.
+	\item \textbf{Memoria:} un dipolo si dice dotato di memoria quando i suoi valori di corrente e tensione attuali dipendono da valori di corrente e tensioni ad un'istante $t$ precedente.
+		I dipoli dotati di memoria presentano solitamente \textit{cicli di isteresi}.
+	\item \textbf{Passività/attività:} si dice \textbf{passivo} un dipolo che dissipa potenza, e \textbf{attivo} un dipolo che la eroga.
+		Più propriamente, si ha che un dipolo e passivo quando l'energia su di esso, presa un riferimento associato, è $\geq 0$.
+\end{itemize}
+
+\subsection{Resistori}
+Un resistore è un componente circuitale caratterizzato dalla legge di Ohm ($ J = \sigma E$), e quindi formato da un materiale \textit{ohmico} che ha risposta lineare in densità di corrente alle variazioni del campo.
+Si indica come:
+
+\begin{center}
+\begin{circuitikz}
+\draw (0,0) to[ resistor ] (2,0); 
+\end{circuitikz}
+\end{center}
+
+\begin{theorem}{Prima legge di Ohm}	
+Il voltaggio è legato alla corrente, in un resistore, secondo la relazione:
+$$V_R(t) = R \ i_R(t)$$
+\end{theorem}
+
+dove R prende il nome di \textbf{resistenza}, misurata in Ohm [$\ohm$], definita come:
+$$
+R = \frac{V}{i}
+$$
+
+\subsubsection{Resistenza e resistività}
+Conosciamo la legge di Ohm sui materiali ohmici riportata prima.
+Da questa legge si ricava:
+\begin{theorem}{Seconda legge di Ohm}
+	La resistenza di un filo di lunghezza $l$ e sezione $s$ è data da:
+	$$
+		R = \rho \frac{l}{s}
+	$$
+\end{theorem}
+dove $\rho$ prende il nome di \textbf{resistività}, misurata in Ohm per metro [$\ohm \cdot \meter$].
+
+Questo significa che la resistenza cresce con il crescere della lunghezza, e diminuisce con il crescere della sezione.
+
+In verità questa non sono le uniche caratteristiche che influenzano la resistenza: un apporto significativo è dato anche dalla \textbf{temperatura}, alla quale la resistenza ha proporzionalità quasi lineare, ma che noi ignoreremo.
+
+\subsubsection{Conduttanza e conducibilità}
+Conviene definire altre due unità di misura: l'inverso della resistenza, detta \textbf{conduttanza}, che si misura in Siemens [$\ohm^{-1} = \siemens$], o in \textbf{mho} [$\mho = \ohm^{-1}$]:
+$$
+G = \frac{1}{R}
+$$
+e l'inverso della resistività, detta \textbf{conducibilità}, che si misura in [$\ohm^{-1} \cdot \meter^{-1}$]:
+$$
+\sigma = \frac{1}{\rho}
+$$
+
+\par\smallskip
+
+I resistori sono inoltre:
+\begin{itemize}
+	\item Tempo invarianti (a patto di trascurare la temperatura);
+	\item Senza memoria;
+	\item Passivi (dissipano potenza per \textbf{effetto Joule}).
+		Ciò si può dimostrare calcolando la potenza dalla prima legge di Ohm:
+		$$
+		p(t) = v_{AB}(t) \cdot i_{AB}(t) = R \ i_{AB}^2(t) \geq 0
+		$$
+		e calcolando l'energia come integrale:
+		$$
+		w(t) = \int_{-\infty}^{t} p(t)dt \Rightarrow w(t) > 0
+		$$
+\end{itemize}
+
+\subsubsection{Circuiti aperti/chiusi}
+Le resistenza, sopratutto nei loro casi limite, aiutano a modellizzare varie parti di un circuito:
+\begin{itemize}
+	\item \textbf{Cortocircuito:} indicato da una resistenza nulla, ergo:
+		$$
+			V_{AB}(t) = 0 \Leftrightarrow R = 0
+		$$
+		
+		Modellizza il filo ideale, ergo ciò che per noi è un ramo.
+	\item \textbf{Circuito aperto:} indicato da una corrente nulla, ergo:
+		$$
+			i_{AB} = 0 \Leftrightarrow R = +\infty
+		$$
+
+		Modellizza interruzioni nel circuito: si può dimostrare che la corrente attraverso un'interruzione in un circuito è nulla sfruttando la prima legge di Kirchoff: una linea chiusa che comprende il nodo finale di un'interruzione avrà un ramo entrante e 0 uscenti, ovvero corrente entrante nulla.
+\end{itemize}
+
+\subsubsection{Resistenze in serie}
+Poniamo di avere una configurazione di resistenze del tipo:
+
+\begin{center}
+\begin{circuitikz}
+    \draw (0,0) node[left] {$A$} 
+        to[R, l=$R_1$] (2,0) 
+        to[R, l=$R_2$] (4,0) 
+        to[short] (5,0)
+        node[anchor=west,xshift=0.15cm] {\dots} (6,0) 
+        to[short] (7,0)
+        to[R, l=$R_n$] (9,0) node[right] {$B$};
+
+    \draw[decorate,decoration={brace,amplitude=10pt,mirror}] (0,-1) -- (9,-1)
+        node[midway,below=10pt]{$n$ resistori};
+\end{circuitikz}
+\end{center}
+
+Vogliamo calcolare una resistenza $R_{eq}$ che valga quando la resistenza cumulativa di tutte e $n$ le resistenze.
+Abbiamo allora che la corrente lungo ogni resistenza $i(t)$ è costante, mentre ogni resistenza contribuisce al potenziale $V_{AB}$ con una certa caduta di potenziale $V_1(t), V_2(t), ..., V_n(T)$.
+Si applica quindi la prima legge di Ohm:
+$$
+V_{AB} = V_1{t} + V_2{t} + ... + V_n{t} = R_1 \cdot i(t) + R_2 \cdot i(t) + ... + R_n \cdot i(t) = i(t) \cdot \left( R_1 + R_2 + ... + R_n \right)
+$$
+quindi, da $V_{AB} = i(t) \ R_{eq}$ si ha:
+$$
+R_{eq} = R_1 + R_2 + ... + R_n
+$$
+
+\subsubsection{Resistenze in parallelo}
+Poniamo di avere le resistenze in parallelo invece che in serie:
+\begin{center}
+\begin{circuitikz}
+    \draw (2,0) 
+				to[short] (0,0) node[left] {$A$};
+    
+    \draw (2,-2) 
+				to[short] (0,-2) node[left] {$B$};
+		
+		\draw (2,0 )to[R, l=$R_1$] (2,-2);
+		\draw (4,0 )to[R, l=$R_2$] (4,-2);
+		
+		
+    \draw (4,0) node[anchor=west,xshift=0.7cm] {\dots} (6,0);
+    \draw (4,-2) node[anchor=west,xshift=0.7cm] {\dots} (6,-2); 
+		
+		\draw (8,0 )to[R, l=$R_n$] (8,-2);
+        
+    % Draw horizontal lines at the top and bottom
+    \draw (0,0) -- (4,0);
+    \draw (0,-2) -- (4,-2);
+
+    \draw (6,0) -- (8,0);
+    \draw (6,-2) -- (8,-2);
+
+    % Bracket below the resistors
+    \draw[decorate,decoration={brace,amplitude=10pt,mirror}] (0,-3) -- (8,-3)
+        node[midway,below=10pt]{$n$ resistori};
+\end{circuitikz}
+\end{center}
+
+Vogliamo ancora calcolare una resistenza $R_{eq}$ che valga quando la resistenza cumulativa di tutte e $n$ le resistenze.
+Qui abbiamo che la differenza di potenziale lungo ogni resistenza $V(t)$ costante.
+Si applica ancora la prima legge di Ohm:
+$$
+i = i_1(t) + i_2(t) + ... + i_n(t) = \frac{V_{AB}(t)}{R_1} + \frac{V_{AB}(t)}{R_2} + ... + \frac{V_{AB}(t)}{R_n}
+$$
+conviene raccogliere e passare alle conduttanze:
+$$
+G_{eq} = V_{AB}(t)(G_1 + G_2 + ... + G_n) = G_{eq} \cdot V_{AB}(t)
+$$
+Ora, se $G = \frac{1}{R}$:
+$$
+R_{eq} = G_{eq}^{-1} = \left( \frac{1}{R_1} + \frac{1}{R_2} + ... + \frac{1}{R_n} \right)^{-1} 
+$$
+
+\end{document}
