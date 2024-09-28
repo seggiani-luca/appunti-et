@@ -187,8 +187,133 @@
 \makeatother
 
 \begin{document}
-\maketitle
-\input{../09-25/main.tex}
-\input{../09-26/main.tex}
-\input{../09-27/main.tex}
+% sezione (data)
+\section{Lezione del 27-09-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsubsection{Resistenza e cortocircuito in parallelo}
+Poniamo di avere la configurazione:
+
+\begin{center}
+\begin{circuitikz}
+    \draw (2,0) 
+				to[short] (0,0) node[left] {$A$};
+    
+    \draw (2,-2) 
+				to[short] (0,-2) node[left] {$B$};
+		
+		\draw (2,0 )to[R, l=$R$] (2,-2);
+		\draw (4,0 )to[short] (4,-2);
+		
+		    
+    % Draw horizontal lines at the top and bottom
+    \draw (0,0) -- (4,0);
+    \draw (0,-2) -- (4,-2);
+\end{circuitikz}
+\end{center}
+
+Dove un resistore è in parallelo ad un corto circuito.
+Intuitivamente, tutta la corrente passerà dal cortocircuito, e non dalla resistenza.
+Possiamo modellizzare questo fatto in due modi:
+\begin{itemize}
+	\item Attraverso la formula per le resistenze in parallelo, avremo che:
+		$$
+		R_{eq} = \left( \frac{1}{R_1} + \frac{1}{R_2} \right)^{-1} = \frac{R_1R_2}{R_1 + R_2}, \quad R_1 = 0 \Rightarrow R_{eq} = \frac{0}{R_2} = 0
+		$$	
+		ergo resistenza nulla.
+		
+		La prima trasformazione è necessaria in quanto rimuove i vincoli sul dominio di $R_1$ e $R_2$ (che altrimenti non potrebbero essere 0).
+	\item Notiamo che A e B sono effettivamente allo stesso potenziale, ergo abbiamo differenza di potenziale $V_{AB} = 0$ ai capi della resistenza.
+		Applicando quindi la prima legge di Ohm $V_{AB} = i(t)R$ si ha $i(t) = 0$, cioè corrente costante nulla sulla resistenza.
+\end{itemize}
+
+\subsection{Altre configurazioni di resistenze}
+Esistono altri modi di configurare le resistenze, che permettono di studiare circuiti su cui i metodi studiati finora non funzionano.
+
+\subsubsection{Resistenze a triangolo}
+Nelle resistenze a triangolo, una singola maglia di 3 nodi forma un triangolo con i lati 3 resistenze:
+
+\begin{center}
+\begin{circuitikz}
+    \draw (1.73,1) node[right] {$1$}
+				to[R, l=$R_{12}$] (-1.73,1) ;
+
+    \draw (0,-2) 
+				to[R, l=$R_{23}$] (-1.73,1) node[left] {$2$};
+
+    \draw (1.73,1) 
+				to[R, l=$R_{13}$] (0,-2) node[below] {$3$};
+
+\end{circuitikz}
+\end{center}
+
+\subsubsection{Resistenze a stella}
+Nelle resistenze a stella, più resistenze vengono collegate, da un'estremo, ad un singolo nodo centrale:
+
+\begin{center}
+\begin{circuitikz}
+    \draw (0,0) 
+				to[R, l=$R_1$] (1.73,1) node[right] {$1$};
+
+    \draw (-1.73,1) node[left] {$2$}
+				to[R, l=$R_2$] (0,0);
+
+    \draw (0,-2) node[below] {$3$}
+				to[R, l=$R_3$] (0,0);
+
+\end{circuitikz}
+\end{center}
+
+\par\smallskip
+Si possono trasformare resistenze a triangolo in resistenze a stella aggiungendo un nodo centrale $O$ e collegandovi i 3 nodi già esistenti attraverso le resistenze interne:
+
+\begin{theorem}{Resistenze da stella a triangolo}	
+$$
+R_1 = \frac{R_{12}R_{13}}{R_{12} + R_{13} + R_{23}}
+$$
+$$
+R_2 = \frac{R_{12}R_{23}}{R_{12} + R_{13} + R_{23}}
+$$
+$$
+R_3 = \frac{R_{22}R_{13}}{R_{12} + R_{13} + R_{23}}
+$$
+\end{theorem}
+
+Allo stesso modo, si possono trasformare resistenze a stella in resistenze a triangolo unendo i nodi fra di loro attraverso le resistenze esterne:
+
+\begin{theorem}{Resistenze da triangolo a stella}	
+$$
+R_{12} = \frac{R_1R_2 + R_1R_3 + R_2R_3}{R_3}
+$$
+$$
+R_{13} = \frac{R_1R_2 + R_1R_3 + R_2R_3}{R_2}
+$$
+$$
+R_{22} = \frac{R_1R_2 + R_1R_3 + R_2R_3}{R_1}
+$$
+\end{theorem}
+
+\subsection{Algoritmo per la resistenza equivalente}
+A questo punto, si possono semplificare circuiti di resistori arbitrari applicando l'algoritmo:
+\begin{algorithm}
+\caption{Calcolo della resistenza equivalente}
+\begin{algorithmic}
+	\WHILE{ci sono $>1$ resistenze}
+
+	\STATE Semplificare le resistenze in serie
+	\STATE Semplificare le resistenze in parallelo
+	
+	\STATE Se non hai semplificato niente, trasforma un triangolo in stella o viceversa.
+
+	\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+La resistenza equivalente è a volte detta anche \textit{resistenza vista}. 
+Questo perchè l'intero circuito si comporterà, per una qualsiasi rete esterna, come un singolo resistore di resistenza $R_{eq}$, ovvero avrà la stessa \textbf{risposta} di un singolo resistore di resistenza $R_{eq}$.
+Analiticamente, questo significa che la funzione $f$ in $v(t) = f(i(t))$ (o la sua inversa) sono uguali per i due circuiti.
 \end{document}

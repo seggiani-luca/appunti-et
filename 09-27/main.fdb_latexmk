@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1727524375.27453 "main.tex" "main.pdf" "main" 1727524376.72243 0
+["pdflatex"] 1727524509.86902 "main.tex" "main.pdf" "main" 1727524511.27922 0
   "/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc" 1716849630 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1716849630 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1716849630 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -33,7 +33,6 @@
   "/usr/share/texmf-dist/fonts/tfm/public/lm/rm-lmr6.tfm" 1716849630 11836 e3b6ce3e601aec94f64a536e7f4224d5 ""
   "/usr/share/texmf-dist/fonts/tfm/public/lm/rm-lmr8.tfm" 1716849630 11864 309fd7f43e4a0ba39f6f7644d76e8edf ""
   "/usr/share/texmf-dist/fonts/tfm/public/mathpazo/fplmr.tfm" 1716849630 1032 7fa31d93ecd4cbdfac02c7a1ebc6facc ""
-  "/usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1716849630 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/share/texmf-dist/fonts/type1/public/lm/lmex10.pfb" 1716849630 23055 2e5b42921de910eaa97b85df04ca4891 ""
   "/usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb" 1716849630 30388 702fae6a5f0e6e9c48a1d872b442ffcf ""
   "/usr/share/texmf-dist/fonts/type1/public/lm/lmmi8.pfb" 1716849630 30635 833ec815d446ec453a4913fc26d24cbc ""
@@ -315,9 +314,9 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1716849630 41588 b43d3e860a4f94167ee1e725ff526a72 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1727020429.35486 325557 c718939b0b67641d1164f4eb93828f7e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1727020418 7121162 91464dadd77baad0107d1e28eea21a9c ""
-  "main.aux" 1727524376.60777 1439 ed95d935aff20c9f78b260eba82a9b59 "pdflatex"
-  "main.out" 1727524376.60777 1334 e723bc3502ea60797cb14d96d51d81da "pdflatex"
-  "main.tex" 1727524374.30109 11988 0becdd96647930bcd8b33fb79f2f51cb ""
+  "main.aux" 1727524511.17497 1369 381cae30bd61bfcb53c27e4cfa973e03 "pdflatex"
+  "main.out" 1727524511.17497 1269 ceb9bf2eae51c9ddf88290c3da589805 "pdflatex"
+  "main.tex" 1727524508.81163 8682 0024cbd9e1775522abb5d8ad00fdfc35 ""
   (generated)
   "main.aux"
   "main.log"
