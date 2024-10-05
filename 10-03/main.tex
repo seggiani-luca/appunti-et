@@ -17,9 +17,9 @@
 \usepackage{standalone}
 
 % imposta il titolo
-\title{Appunti title-tag}
-\author{author-tag}
-\date{year-tag}
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
 
 % imposta lo stile
 % usa helvetica
@@ -187,9 +187,80 @@
 \makeatother
 
 \begin{document}
+% sezione (data)
+\section{Lezione del 03-10-24}
 
-\pagestyle{fancy}
+% stili pagina
 \thispagestyle{empty}
-\renewcommand{\thispagestyle}[1]{}
+\pagestyle{fancy}
 
-\maketitle
+% testo
+\subsection{Principio di sovrapposizione degli effetti}
+Possiamo sfruttare la linearità delle equazioni che descrivono i circuiti visti finora per dimostrare il seguente risultato:
+\begin{theorem}{Principio di sovrapposizione}
+	La risposta di una rete alla sollecitazione di più generatori indipendenti può essere ottenuta considerando ciascun generatore \textit{separatamente attivo} e sommando algebricamente le risposte.
+\end{theorem}
+
+Nel dettaglio, in un circuito con generatori di voltaggio e tensione, questo significa prendere ogni generatore, uno per volta, e considerarlo come l'unico attivo, disattivando gli altri.
+Disattivare un generatore significa impostare il voltaggio (o la corrente) emessa a 0. Quindi:
+\begin{itemize}
+	\item \textbf{Generatori di tensione:} disattivare significa trasformare in cortocircuiti ($e(t) = 0$);
+	\item \textbf{Generatori di corrente:} disattivare significa trasformare in circuiti aperti ($I(t) = 0$).
+\end{itemize}
+
+Algebricamente, se vogliamo ricavare la corrente o il voltaggio su una maglia di un circuito con $n$ generatori, possiamo porla come la somma delle $I'_x + I''_x + ... + I_x^n$ correnti ($V'_x + V''_x + ... + V_x^n$ voltaggi) ricavati da ogni generatore preso singolarmente.
+
+\par\smallskip
+
+Facciamo un'esempio:
+
+\begin{center}
+\begin{circuitikz}
+    \draw (2,-2) 
+				-- (0,-2) 
+				to[ european voltage source, v=$e(t)$] (0, 0)
+				to[R, l=$R$] (0,2);	
+		
+		\draw (2,2 )to[ european current source, i=$J(t)$] (2,-2);
+		\draw (4,2 )to[R, l=$R$] (4,-2);
+		
+    % Draw horizontal lines at the top and bottom
+    \draw (0,2) -- (4,2);
+    \draw (0,-2) -- (4,-2);
+
+\end{circuitikz}
+\end{center}
+
+Poniamo di voler calcolare la potenza dissipata dal resistore destro.
+Potremo applicare quanto ricavato da Ohm, ergo:
+$$
+P_R = R I_x^2
+$$
+con $I_x$ la corrente che passa sul resistore destro.
+
+Questa corrente si calcola agilmente attraverso il principio di sovrapposizione.
+Poniamo quindi $I_x = I_x' + I_x''$, con $I_x'$ data dal generatore di tensione $e(t)$, e $I_x''$ data dal generatore di corrente $J(t)$.
+
+Calcoliamo quindi le correnti trovate in entrambi i casi:
+\begin{itemize}
+	\item $I_x'$, \textbf{generatore di tensione attivo.} 
+		Si ha che il generatore di corrente, disattivato, equivale al circuito aperto, ergo l'unica maglia è quella che collega in serie le due resistenze.
+		Da qui si calcola velocemente che:
+		$$ I_x' = \frac{e(t)}{2R} $$
+		oppure si applica la seconda legge di Kirchoff:
+		$$ e(t) - I_x' R - I_x'R = 0 $$
+		da cui si ricava lo stesso risultato.
+	\item $I_x''$, \textbf{generatore di corrente attivo.}
+		Si ha che il generatore di tensione, disattivato, equivale al circuito chiuso, ergo abbiamo quello che è effettivamente un partitore di corrente formato da due resistenze in parallelo.
+		Visto che le due resistenze sono uguali, possimo dire che la corrente è partizionata ugualmente, facendo attenzione ai segni (il generatore di corrente ha direzione opposta al generatore di tensione), cioè:
+		$$ I_x'' = -J(t) \frac{G_R}{G_{tot.}} = -J(t) \frac{R}{R + R} = -\frac{J(t)}{2}$$
+\end{itemize}
+
+A questo punto otteniamo la corrente totale come:
+$$ I_x = I_x' + I_x'' = \frac{e(t)}{2R} - \frac{J(t)}{2} $$
+e la potenza come:
+$$ P_R = R \left( \frac{e(t)}{2R} - \frac{J(t)}{2} \right)^2 $$
+
+
+
+\end{document}

@@ -621,6 +621,44 @@ V_J(t) = R_J i(t) = e(t)\frac{R_j}{\sum_{i=1}^n R_i}
 $$
 cioè il rapporto fra la resistenza interessata e la resistenza complessiva del circuito, moltiplicata per la tensione.
 
+\par\smallskip
+
+Vediamo l'esempio di un partitore di tensione con due resistenze, in due casi particolari:
+
+\begin{center}
+\begin{circuitikz} 
+	\draw
+  (0,8) to[V, v=$e(t)$] (0,12) % Voltage source
+  -- (2,12) 
+  to[R, l=$R_1$] (2,10) 
+  to[R, l=$R_2$] (2,8)
+	-- (0, 8);
+\end{circuitikz}
+\end{center}
+
+\begin{itemize}
+	\item \textbf{Caso 1:} $R_1 = R_2$ \\
+		Applicando la formula per $V_1$, si avrà:
+		$$
+		V_1 = \frac{R_1}{R_1 + R_2} e(t) = \frac{1}{2} e(t) = ... = V_2
+		$$
+		uguale per $V_2$, cioè a resistenze uguali partizioniamo il voltaggio in parti uguali.
+	\item \textbf{Caso 2:} $R_2 = 0$ \\ 
+		Prendiamo il caso dove una resistenza è nulla, ergo corrisponde ad un cortocircuito.
+		Avremo, dalla formula per $V_1$:
+		$$ 
+		V_1 = \frac{R_1}{R_1 + 0} e(t) = e(t) 
+		$$
+		cioè l'intero potenziale si distribuisce su $R_1$.
+		Su $R_2$ avremo invece:
+		$$
+		V_2 = \frac{0}{R_1 + 0} e(t) = 0
+		$$
+		cioè, non c'è caduta di potenziale su $V_2$.
+\end{itemize}
+
+Questi ultimi due calcoli, che potevamo chiaramente svolgere applicando semplicemente la legge di Ohm, dimostrano comunque che le leggi funzionano anche in questi casi semplici.
+
 \subsection{Partitore di corrente}
 Analizziamo quindi il seguente circuito:
 
@@ -628,8 +666,8 @@ Analizziamo quindi il seguente circuito:
 \begin{circuitikz}
     \draw (2,-2) 
 				-- (0,-2) 
-				to[V, v=$e(t)$] (0, 0); % Voltage source
-		
+				to[ european current source, i=$I(t)$] (0, 0);	
+
 		\draw (2,0 )to[R, l=$R_1$] (2,-2);
 		\draw (4,0 )to[R, l=$R_2$] (4,-2);
 		
@@ -672,8 +710,49 @@ I = \frac{V}{R} \Rightarrow I = GR, \quad I(t) = v(t) \sum_{i=1}^n G_i
 $$
 A questo punto, possiamo dire che la corrente nella J-esima resistenza vale:
 $$
-I_J(t) = v(t) G_n = I(t) \frac{G_J}{\sum_{i=1}^n} 
+I_J(t) = v(t) G_n = I(t) \frac{G_J}{\sum_{i=1}^n G_i} 
 $$
 cioè il rapporto fra la conduttanza (della resistenza) interessata e la conduttanza complessiva del circuito, moltiplicata per la corrente.
+
+Vediamo, come prima, l'esempio di un partitore di corrente con due resistenze, in due casi particolari:
+
+\begin{center}
+\begin{circuitikz}
+    \draw (2,-2) 
+				-- (0,-2) 
+				to[ european current source, i=$I(t)$] (0, 0);	
+		
+		\draw (2,0 )to[R, l=$R_1$] (2,-2);
+		\draw (4,0 )to[R, l=$R_2$] (4,-2);
+		
+    % Draw horizontal lines at the top and bottom
+    \draw (0,0) -- (4,0);
+    \draw (0,-2) -- (4,-2);
+
+\end{circuitikz}
+\end{center}
+
+\begin{itemize}
+	\item \textbf{Caso 1:} $R_1 = R_2$ \\
+		Applicando la formula per $I_1$, si avrà:
+		$$
+		I_1 = \frac{\frac{1}{R_1}}{\frac{1}{R_1} + \frac{1}{R_2}} I(t) = \frac{\frac{1}{R_1}}{\frac{R_2 + R_1}{R_1 R_2}} I(t) = \frac{R_1 + R_2}{R_1(R_1 + R_2)} I(t) = \frac{R_2}{R_1 + R_2} I(t) = \frac{1}{2} I(t) = ... = I_2
+		$$
+		uguale per $I_2$, cioè a resistenze uguali partizioniamo la corrente in parti uguali.
+	\item \textbf{Caso 2:} $R_2 = 0$ \\ 
+		Prendiamo il caso dove una resistenza è nulla, ergo corrisponde ad un cortocircuito.
+		Avremo, dalla formula per $I_1$:
+		$$
+		I_1 = \frac{\frac{1}{R_1}}{\frac{1}{R_1} + \frac{1}{R_2}} I(t) = ... = \frac{R_2}{R_1 + 0} I(t) = 0
+		$$
+		cioè, non c'è corrente su $R_1$.
+		Su $R_2$ avremo invece:
+		$$
+	I_2 = ... = \frac{R_1}{R_1 + 0} I(t) = I(t)
+		$$
+		cioè, l'intera corrente passa dal cortocircuito.
+\end{itemize}
+
+Come prima, questi calcoli dimostrano che le leggi funzionano anche su casi semplici.
 
 \end{document}

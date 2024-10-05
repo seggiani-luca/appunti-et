@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1728121296.2762 "main.tex" "main.pdf" "main" 1728121298.52931 0
+["pdflatex"] 1728124687.20335 "main.tex" "main.pdf" "main" 1728124688.46485 0
   "/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc" 1716849630 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1716849630 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1716849630 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -37,9 +37,9 @@
   "/usr/share/texmf-dist/fonts/type1/public/lm/lmmi10.pfb" 1716849630 30388 702fae6a5f0e6e9c48a1d872b442ffcf ""
   "/usr/share/texmf-dist/fonts/type1/public/lm/lmmi8.pfb" 1716849630 30635 833ec815d446ec453a4913fc26d24cbc ""
   "/usr/share/texmf-dist/fonts/type1/public/lm/lmr10.pfb" 1716849630 119235 f35b44530a1d90eb90fe15d9cba67ea0 ""
-  "/usr/share/texmf-dist/fonts/type1/public/lm/lmr6.pfb" 1716849630 123394 d390152bb30feeb496aaaa93299ee9ba ""
   "/usr/share/texmf-dist/fonts/type1/public/lm/lmr8.pfb" 1716849630 122174 a7a08406857c9530a0320a2517f60370 ""
   "/usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb" 1716849630 27863 09ce3735688ffde955e72da27c95b61a ""
+  "/usr/share/texmf-dist/fonts/type1/public/lm/lmsy8.pfb" 1716849630 27802 5c876bb2c4040caaf035d60bd74a86bd ""
   "/usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb" 1716849630 35941 f27169cc74234d5bd5e4cca5abafaabb ""
   "/usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb" 1716849630 44648 23115b2a545ebfe2c526c3ca99db8b95 ""
   "/usr/share/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb" 1716849630 52406 dad2f72863a03727d5f536c64a69c452 ""
@@ -314,9 +314,9 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1716849630 41588 b43d3e860a4f94167ee1e725ff526a72 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1727020429.35486 325557 c718939b0b67641d1164f4eb93828f7e ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1727020418 7121162 91464dadd77baad0107d1e28eea21a9c ""
-  "main.aux" 1728121298.42537 1422 f30fbd8e56b499982d0242362bf8c95e "pdflatex"
-  "main.out" 1728121298.42871 1293 ee0c0d7ae6c52e0133af22db2f76a7d2 "pdflatex"
-  "main.tex" 1728121295.03536 23081 e144dc0a01ce53955d6f247c5ba22ed2 ""
+  "main.aux" 1728124688.36676 647 adff3a478a1174a5150e0b63504d7a51 "pdflatex"
+  "main.out" 1728124688.36676 428 5afcd03c3bb2c8f45f2527ea3577c18f "pdflatex"
+  "main.tex" 1728124685.59004 7919 5d1d09ae2d5e097d62946c082bf9583a ""
   (generated)
   "main.aux"
   "main.log"
