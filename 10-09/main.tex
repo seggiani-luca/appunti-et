@@ -187,17 +187,71 @@
 \makeatother
 
 \begin{document}
+% sezione (data)
+\section{Lezione del 09-10-24}
 
-\pagestyle{fancy}
+% stili pagina
 \thispagestyle{empty}
-\renewcommand{\thispagestyle}[1]{}
+\pagestyle{fancy}
 
-\maketitle
-\input{../09-25/main.tex}
-\input{../09-26/main.tex}
-\input{../09-27/main.tex}
-\input{../10-02/main.tex}
-\input{../10-03/main.tex}
-\input{../10-04/main.tex}
-\input{../10-09/main.tex}
+% testo
+\subsection{Teorema di Thevenin}
+Poniamo di avere un certo dipolo, inteso come una sottorete con due morsetti.
+All'interno del dipolo avremo resistori, generatori di corrente e generatori di tensioni.
+Quello che vogliamo fare è rappresentare la sottorete con un circuito semplificato, come avevamo fatto con circuiti di solo resistori.
+
+Quello che potremmo pensare di fare è mettere un generatore di corrente fra i morsetti del dipolo, imporre una certa corrente, e calcolare la tensione risultante.
+Facendo misure diverse a correnti diverse, dovremmo essere in grado di trovare un legame fra tensione $v(t)$ e corrente $i(t)$ attraverso, ad esempio, la legge di Ohm.
+
+Potremo quindi sostituire l'intera rete con un singolo dispositivo che rappresenti la sua risposta interna a qualsiasi stimolo interno.
+
+Questo è quello che ci permette di fare il teorema di Thevenin:
+\begin{theorem}{Teorema di Thevenin}
+	Qualsiasi circuito lineare, visto da due morsetti, è equivalente a un generatore di tensione in serie a un resistore.
+
+\begin{itemize}
+	\item La \textbf{resistenza di Thevenin} equivale alla resistenza vista da dai morsetti calcolata dopo aver disattivato tutti i generatori indipendenti della sottorete;
+	\item La \textbf{tensione di Thevenin} è pari al valore della tensione a vuoto misurata fra i morsetti, dove per tensione a vuoto si intende la tensione della sottorete isolata da altri circuiti. Questo equivale a \textbf{tagliare} fuori i rami del circuito che vanno ai morsetti, compresi eventuali dipoli presenti su quei rami (non vi scorrerà alcuna corrente).
+\end{itemize}
+\end{theorem}
+
+\subsection{Teorema di Norton}
+Il teorema di Thevenin ammette un duale: come possiamo usare un generatore di tensione, possiamo infatti usare un generatore di corrente per rappresentare un'intera sottorete.
+
+\begin{theorem}{Teorema di Norton}
+	Qualsiasi circuito lineare, visto da due morsetti, è equivalente a un generatore di corrente in parallelo a un resistore.
+
+\begin{itemize}
+	\item La \textbf{resistenza di Norton} equivale alla resistenza di Thevenin, cioè alla resistenza vista da dai morsetti calcolata dopo aver disattivato tutti i generatori indipendenti della sottorete;
+	\item La \textbf{corrente di Norton} è pari al valore della corrente misurata su un ramo (posto da noi per effettuare la misura) che unisce i morsetti.\end{itemize}
+\end{theorem}
+
+\par\medskip 
+
+Possiamo stabilire una relazione fra la resistenza e la tensione di Thevenin, $R_{TH}$ e $V_{TH}$, e la resistenza e la corrente di Norton, $R_{NO}$ e $I_{NO}$:
+\[
+	\begin{cases}
+		R_{TH} = R_{NO} \\ 
+		V_{TH} = I_{NO} \cdot R_{NO}
+	\end{cases}
+\]
+
+Si può quindi ricavare il corollario:
+\begin{theorem}{Corollario da Thevenin e Norton}
+	Un generatore di corrente in parallelo a una resistenza equivale ad un generatore di tensione in serie alla stessa resistenza (salvo casi limite).
+\end{theorem}
+
+\par\medskip 
+
+\subsubsection{Generatori dipendenti}
+Nel caso si incontrino generatori di corrente o di tensione dipendenti, bisogna considerare che potrebbe essere impossibile applicare Thevenin o Norton su una parte di circuito, poiché la grandezza pilota del generatore potrebbe trovarsi nell'altra parte del circuito.
+
+Nel caso questo sia possibile, invece, si adotta un \textbf{generatore di prova} che può essere arbitrariamente di tensione o di corrente.
+Potremo infatti ricavare l'una dall'altra come:
+$$
+R_{eq} = \frac{V_p}{I_p}
+$$
+dalla legge di Ohm.
+
+
 \end{document}
