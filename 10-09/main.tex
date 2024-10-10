@@ -200,41 +200,62 @@ Poniamo di avere un certo dipolo, inteso come una sottorete con due morsetti.
 All'interno del dipolo avremo resistori, generatori di corrente e generatori di tensioni.
 Quello che vogliamo fare è rappresentare la sottorete con un circuito semplificato, come avevamo fatto con circuiti di solo resistori.
 
-Quello che potremmo pensare di fare è mettere un generatore di corrente fra i morsetti del dipolo, imporre una certa corrente, e calcolare la tensione risultante.
+Pensiamo di mettere un generatore di corrente fra i morsetti del dipolo, in modo da imporre una certa corrente, e calcolare la tensione risultante.
 Facendo misure diverse a correnti diverse, dovremmo essere in grado di trovare un legame fra tensione $v(t)$ e corrente $i(t)$ attraverso, ad esempio, la legge di Ohm.
-
-Potremo quindi sostituire l'intera rete con un singolo dispositivo che rappresenti la sua risposta interna a qualsiasi stimolo interno.
+A questo punto sapremmo sostituire l'intera rete con un singolo dispositivo che rappresenti la sua risposta interna a qualsiasi stimolo esterno.
 
 Questo è quello che ci permette di fare il teorema di Thevenin:
 \begin{theorem}{Teorema di Thevenin}
 	Qualsiasi circuito lineare, visto da due morsetti, è equivalente a un generatore di tensione in serie a un resistore.
 
 \begin{itemize}
-	\item La \textbf{resistenza di Thevenin} equivale alla resistenza vista da dai morsetti calcolata dopo aver disattivato tutti i generatori indipendenti della sottorete;
-	\item La \textbf{tensione di Thevenin} è pari al valore della tensione a vuoto misurata fra i morsetti, dove per tensione a vuoto si intende la tensione della sottorete isolata da altri circuiti. Questo equivale a \textbf{tagliare} fuori i rami del circuito che vanno ai morsetti, compresi eventuali dipoli presenti su quei rami (non vi scorrerà alcuna corrente).
+	\item La \textbf{resistenza di Thevenin} $R_{th}$, equivale alla resistenza vista da dai morsetti calcolata dopo aver disattivato tutti i generatori indipendenti della sottorete;
+	\item La \textbf{tensione di Thevenin} $V_{th}$, è pari al valore della tensione a vuoto misurata fra i morsetti, dove per tensione a vuoto si intende la tensione della sottorete isolata da altri circuiti. Questo equivale a \textbf{tagliare} fuori i rami del circuito che vanno ai morsetti, compresi eventuali dipoli presenti su quei rami (non vi scorrerà alcuna corrente).
 \end{itemize}
 \end{theorem}
 
+Poste $R_{th}$ e $V_{th}$, si può dire che la correlazione fra voltaggio e corrente del circuito è:
+$$
+v(t) = V_{th} - R_{th} i(t)
+$$
+dove il segno meno alla corrente è lì perchè, all'aumentare della corrente fatta passare attraverso i morsetti (considerando, per il principio di sovrapposizione, i generatori interni disattivati), aumenta la differenza di potenziale fra di loro ($v_{load} = R_{th} i(t)$), e quindi diminuisce quella sul generatore equivalente di Thevenin $v(t)$.
+Infatti, $V_{th}$ era stata definita come la differenza di potenziale a vuoto fra i morsetti, e quindi dovrà essere:
+$$
+v_{load} + v(t) = V_{th}
+$$
+
 \subsection{Teorema di Norton}
 Il teorema di Thevenin ammette un duale: come possiamo usare un generatore di tensione, possiamo infatti usare un generatore di corrente per rappresentare un'intera sottorete.
-
+Formuliamo quindi:
 \begin{theorem}{Teorema di Norton}
 	Qualsiasi circuito lineare, visto da due morsetti, è equivalente a un generatore di corrente in parallelo a un resistore.
 
 \begin{itemize}
-	\item La \textbf{resistenza di Norton} equivale alla resistenza di Thevenin, cioè alla resistenza vista da dai morsetti calcolata dopo aver disattivato tutti i generatori indipendenti della sottorete;
-	\item La \textbf{corrente di Norton} è pari al valore della corrente misurata su un ramo (posto da noi per effettuare la misura) che unisce i morsetti.\end{itemize}
+	\item La \textbf{resistenza di Norton} $R_{no}$, equivale alla resistenza di Thevenin, cioè alla resistenza vista da dai morsetti calcolata dopo aver disattivato tutti i generatori indipendenti della sottorete;
+	\item La \textbf{corrente di Norton} $I_{no}$, è pari al valore della corrente misurata su un ramo (posto da noi per effettuare la misura) che unisce i morsetti.\end{itemize}
 \end{theorem}
+
+Con Norton, anzichè la differenza di potenziale a vuoto $V_{th}$ ricavata per Thevenin, si considera la corrente che scorrerebbe fra i morsetti se fossero collegati fra di loro.
+Avremo quindi che la corrente al variaggio della differenza di potenziale fra le maglie è:
+$$
+i(t) = I_{no} - \frac{v(t)}{R_{no}}
+$$
+Questo perché, come prima, dovrà essere che la corrente fra i morsetti, disattivati i generatori interni, $i_load$ e la corrente sul circuito equivalente di Norton $i(t)$ sono legate da:
+$$
+i_{load} + i(t) = I_{no}
+$$
 
 \par\medskip 
 
-Possiamo stabilire una relazione fra la resistenza e la tensione di Thevenin, $R_{TH}$ e $V_{TH}$, e la resistenza e la corrente di Norton, $R_{NO}$ e $I_{NO}$:
+Possiamo stabilire una relazione fra la resistenza e la tensione di Thevenin, $R_{th}$ e $V_{th}$, e la resistenza e la corrente di Norton, $R_{no}$ e $I_{no}$:
 \[
 	\begin{cases}
-		R_{TH} = R_{NO} \\ 
-		V_{TH} = I_{NO} \cdot R_{NO}
+		R_{th} = R_{no} \\ 
+		V_{th} = I_{no} \cdot R_{no}
 	\end{cases}
 \]
+
+In ogni caso, vale $R_{th} = R_{no} = R_{eq}$ del circuito.
 
 Si può quindi ricavare il corollario:
 \begin{theorem}{Corollario da Thevenin e Norton}
