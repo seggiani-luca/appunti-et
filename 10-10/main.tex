@@ -211,12 +211,12 @@ Avremo che da questi morsetti passa una corrente $i(t)$ e che essi si trovano ad
     % Second rectangle (component)
     \draw (7,0) rectangle (10,3) node[midway] {};
 
-		\node at(5,2) {$+$}
-		\node at(5,1.5) {$v(t)$}
-		\node at(5,1) {$-$}
+		\node at(5,2) {$+$};
+		\node at(5,1.5) {$v(t)$};
+		\node at(5,1) {$-$};
 
-		\node at(3.2,2.8) {$1$}
-		\node at(3.2,0.8) {$2$}
+		\node at(3.2,2.8) {$1$};
+		\node at(3.2,0.8) {$2$};
 		
 		\draw (3,0.5) to[ short ] (7,0.5);
 		\draw (3,2.5) to[ short, i = $i(t)$ ] (7,2.5);
@@ -234,12 +234,12 @@ Se la tensione ai capi dei generatori resta $v(t)$, allora i circuiti non sono c
     % Second rectangle (component)
     \draw (7,0) rectangle (10,3) node[midway] {};
 
-		\node at(5,2) {$+$}
-		\node at(5,1.5) {$v(t)$}
-		\node at(5,1) {$-$}
+		\node at(5,2) {$+$};
+		\node at(5,1.5) {$v(t)$};
+		\node at(5,1) {$-$};
 
-		\node at(3.2,2.8) {$1$}
-		\node at(3.2,0.8) {$2$}
+		\node at(3.2,2.8) {$1$};
+		\node at(3.2,0.8) {$2$};
 		
 		\draw (7,0.5) to[ short ] (6,0.5)
 			to [ short, I = $i(t)$ ] (6, 2.5)
@@ -259,12 +259,12 @@ A questo punto possiamo dire che all'interno delle sottoreti troveremo dipoli at
     % First rectangle (component)
     \draw (0,0) rectangle (3,3) node[midway] {};
     
-		\node at(5,2) {$+$}
-		\node at(5,1.5) {$v(t)$}
-		\node at(5,1) {$-$}
+		\node at(5,2) {$+$};
+		\node at(5,1.5) {$v(t)$};
+		\node at(5,1) {$-$};
 
-		\node at(3.2,2.8) {$1$}
-		\node at(3.2,0.8) {$2$}
+		\node at(3.2,2.8) {$1$};
+		\node at(3.2,0.8) {$2$};
 		
 		\draw (3,2.5) to[ short ] (4,2.5)
 			to[ short, I = $i(t)$] (4,0.5)
@@ -336,12 +336,44 @@ Il problema di tale metodo era la grande quantità di variabili: una per ogni ra
 Applichiamo adesso il metodo delle correnti di maglia.
 Scegliamo ogni maglia a sé stante: in basso a sinistra, in basso a destra e in alto.
 Diamo un nome alla corrente su ognuna di queste maglie, rispettivamente $I_a$, $I_b$ e $I_c$.
+Le direzioni delle correnti sono come in figura (scelte ad arbitrio):
+
+\begin{center}
+\begin{circuitikz}
+	\draw (0,0)
+		-- (0,1.5)
+		to[R, l=$R_1$] (5,1.5)
+		-- (5, 0);
+	\draw (0,0)
+		to[R, l=$R_2$] (2.5, 0)
+		to[R, l=$R_3$] (5, 0);
+	\draw (0,0)
+		to[R, l=$R_4$] (0, -3);
+	\draw (2.5,0)
+		to[R, l=$R_5$] (2.5, -3);
+	\draw (5,-3)
+		to[ european voltage source, v_=$E_2$] (5, 0);
+	\draw (5, -3)
+		to[R, l=$R_6$] (2.5, -3) 
+		to[ european voltage source, v=$E_1$] (0, -3);
+
+	\draw[->, thick] (3,0.6) arc[start angle=0, end angle=-270, radius=0.4cm]; % Loop direction
+	\node at (3, 0.8) {$I_c$}; % Adjust the position (0.5, 0.5) to place the label where desired
+
+	\draw[->, thick] (1.8,-1.6) arc[start angle=0, end angle=-270, radius=0.4cm]; % Loop direction
+	\node at (1.8, -1.2) {$I_a$}; % Adjust the position (0.5, 0.5) to place the label where desired
+
+	\draw[->, thick] (4.2,-1.6) arc[start angle=0, end angle=270, radius=0.4cm]; % Loop direction
+	\node at (4.2, -1.9) {$I_b$}; % Adjust the position (0.5, 0.5) to place the label where desired
+\end{circuitikz}
+\end{center}
+
 Iniziamo con la maglia in basso a sinistra: percorsa in senso orario, avremo che la seconda legge di Kirchoff dà:
 $$
 E_1 - R_4 I_a + R_2 ( I_c - I_a ) + R_5 ( -I_a - I_b) = 0
 $$
 dove si nota che per dipoli percorsi da più correnti di maglia, si prende come corrente la somma algebrica delle correnti sulla base del loro segno.
-Applichiamo quindi lo stesso metodo alle altre due maglie:
+Applichiamo quindi lo stesso metodo alle altre due maglie, percorrendo quella in basso a destra in senso antiorario e quella in alto in senso orario:
 $$
 E_2 + R_3(-I_b - I_c) + R_5 (-I_b - I_a) - R_6 I_b = 0
 $$

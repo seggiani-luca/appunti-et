@@ -1,0 +1,381 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=~\thetcbcounter: #2,
+	#1
+}
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+% sezione (data)
+\section{Lezione del 11-10-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Metodo delle tensioni di nodo}
+Vediamo ora un metodo per la risoluzione dei circuiti dove le incognite non sono le correnti (come nel tableau o nelle correnti di maglia), ma le tensioni.
+Calcoleremo quindi le \textbf{tensioni di nodo}, che sappiamo essere relative a qualche zero del potenziale, attraverso la conduttanza anziché la resistenza.
+
+Prendiamo in esempio il circuito:
+
+\begin{center}
+\begin{circuitikz}
+	\draw (0,0)
+		-- (0,1.5)
+		to[R, l=$R_1$] (5,1.5)
+		-- (5, 0);
+	\draw (0,0)
+		to[R, l=$R_2$] (2.5, 0)
+		to[R, l=$R_3$] (5, 0);
+	\draw (0,0)
+		to[R, l=$R_4$] (0, -3);
+	\draw (2.5,-3)
+		to[ european current source, I=$J$ ] (2.5, 0);
+	\draw (5,-3)
+		to[ R, l_=$R_5$] (5, 0);
+	\draw (5, -3)
+		to[ short ] (2.5, -3)
+		to[ short ] (0, -3);
+
+		\draw (0,0) node[circ] {};
+		\draw (0,0) node[left] {A};
+
+		\draw (2.5,0) node[circ] {};
+		\draw (2.5,0) node[above] {B};
+
+		\draw (5,0) node[circ] {};
+		\draw (5,0) node[right] {C};
+
+		\draw (2.5,-3) node[circ] {};
+		\draw (2.5,-3) node[below] {D};
+\end{circuitikz}
+\end{center}
+dove abbiamo già evidenziato i nodi.
+Da qui possiamo proseguire in due modi:
+\begin{itemize}
+	\item \textbf{Col nodo di riferimento:} prendiamo D come nodo di riferimento, e impostiamo il suo potenziale $V_D$ a $0$. 
+Le incognite saranno quindi $V_A$, $V_B$ e $V_C$.
+Scriviamo un equazione per il potenziale $V_A$:
+$$ V_A\left( \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_4} \right) - \frac{V_B}{R_2} - \frac{V_C}{R_1} = 0 $$
+Il primo termine è detto \textbf{termine di auto ammettenza}, ed è dato dal prodotto del potenziale sul nodo $V_i$ e la somma delle conduttanze su tutti i rami connessi al nodo.
+Il termini sucessivi sono detti \textbf{termini di mutua ammettenza}, e sono dati dalla legge di Ohm applicata ai rami connessi al nodo.
+
+Nel caso uno dei rami contenga un generatore di corrente, si esclude dall'auto e mutua ammettenza e si mette come termine noto sul lato destro dell'equazione. \\
+Ad esempio, sul nodo B avremo:
+$$ V_B \left( \frac{1}{R_2} + \frac{1}{R_3} \right) - \frac{V_A}{R_2} - \frac{V_C}{R_3} = J $$
+dove la $J$ è la corrente erogata dall generatore di corrente sul ramo BD, che abbiamo detto non compare nei termini di auto o mutua ammettenza. 
+Si noti che il segno positivo significa corrente \textit{entrante} sul nodo, altrimenti si avrebbe segno negativo. \\
+Infine, sul nodo C avremo:
+$$ V_C \left( \frac{1}{R_1} + \frac{1}{R_3} + \frac{1}{R-5} \right) - \frac{V_A}{R_1} - \frac{V_B}{R_3} = 0 $$
+
+Abbiamo quindi un sistema sulle 3 tensioni (abbiamo detto che la tensione $D$ vale 0):
+\[
+	\begin{cases}
+ V_A\left( \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_4} \right) - \frac{V_B}{R_2} - \frac{V_C}{R_1} = 0 \\ 
+ V_B \left( \frac{1}{R_2} + \frac{1}{R_3} \right) - \frac{V_A}{R_2} - \frac{V_C}{R_3} = J \\
+ V_C \left( \frac{1}{R_1} + \frac{1}{R_3} + \frac{1}{R-5} \right) - \frac{V_A}{R_1} - \frac{V_B}{R_3} = 0 
+	\end{cases}
+\]
+
+che possiamo portare in forma matriciale:
+$$
+\begin{pmatrix}
+	\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_4} & -\frac{1}{R_2} & -\frac{1}{R_1} \\
+	-\frac{1}{R_2} & \frac{1}{R_2} + \frac{1}{R_3} & -\frac{1}{R_3} \\
+	-\frac{1}{R_1} & -\frac{1}{R3} & \frac{1}{R_1} + \frac{1}{R_3} + \frac{1}{R_5}
+\end{pmatrix}
+\begin{pmatrix}
+V_A \\ V_B \\ V_C
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\ J \\ 0
+\end{pmatrix}
+$$
+e che possiamo risolvere.
+
+\item \textbf{Senza nodo di riferimento:} possiamo decidere di continuare senza alcun riferimento del potenziale.
+	Abbiamo già trovato le equazioni del potenziale sui primi 3 nodi, quindi impostiamo l'equazione per $V_D$:
+	$$ V_D \left( \frac{1}{R_4} + \frac{1}{R_5} \right) - \frac{V_A}{R_4} - \frac{V_C}{R_5} = J $$
+	e insieriamola nel sistema precedente:
+	\[
+		\begin{cases}
+		 V_A\left( \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_4} \right) - \frac{V_B}{R_2} - \frac{V_C}{R_1} = 0 \\ 
+		 V_B \left( \frac{1}{R_2} + \frac{1}{R_3} \right) - \frac{V_A}{R_2} - \frac{V_C}{R_3} = J \\
+		 V_C \left( \frac{1}{R_1} + \frac{1}{R_3} + \frac{1}{R-5} \right) - \frac{V_A}{R_1} - \frac{V_B}{R_3} = 0 \\
+			V_D \left( \frac{1}{R_4} + \frac{1}{R_5} \right) - \frac{V_A}{R_4} - \frac{V_C}{R_5} = -J
+		\end{cases}
+	\]
+	in forma matriciale, abbiamo un sistema in 4 variabili con 3 equazioni:
+$$
+\begin{pmatrix}
+	\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_4} & -\frac{1}{R_2} & -\frac{1}{R_1} & -\frac{1}{R_4} \\
+	-\frac{1}{R_2} & \frac{1}{R_2} + \frac{1}{R_3} & -\frac{1}{R_3} & 0 \\
+	-\frac{1}{R_1} & -\frac{1}{R3} & \frac{1}{R_1} + \frac{1}{R_3} + \frac{1}{R_5} & -\frac{1}{R_5} \\ 
+\end{pmatrix}
+\begin{pmatrix}
+V_A \\ V_B \\ V_C
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\ J \\ 0 \\ -J 
+\end{pmatrix}
+$$
+
+Sappiamo dal teorema di Rouché-Capelli che questo sistema è indeterminato, o almeno ammette soluzioni su una retta, quindi per un certo fattore di scala $\lambda$.
+Questo rappresenta semplicemente il fatto che non abbiamo scelto uno zero del potenziale: il potenziale dei nodi non esiste se non in riferimento agli altri, quindi qualsiasi valore $\lambda$ aggiunto non cambia i risultati.
+Scegliamo il valore $\lambda = 0$ per convenienza, che equivale a impostare $V_D$ a zero.
+\end{itemize}
+
+A questo punto, vogliamo risolvere effettivamente il circuito, e quindi trovare le tensioni e le correnti di ramo.
+Per le tensioni, prendiamo semplicemente le differenze di potenziale sui nodi:
+$$ V_{AB} = V_A - V_B, \quad \text{ecc...} $$
+mentre per le correnti applichiamo la legge di Ohm sul ramo scelto. Ad esempio, sul ramo AB avremo:
+$$ 
+V = IR, \quad I_{AB} = \frac{V_{AB}}{R_2}  
+$$
+
+Un caso particolare è rappresentato dalla tensione su BD.
+In questo caso si ha un generatore di corrente, e nessuna resistenza, quindi $I_{BD}$ è ben definito, ma non $V_{BD}$.
+Quello che vogliamo fare è calcolare la caduta di potenziale $V_J = V_{BD}$ sul generatore di corrente.
+Per fare ciò applichiamo la seconda legge di Kirchoff, magari applicata in senso orario sulla maglia in basso a sinistra, con le direzioni di corrente:
+
+\begin{center}
+\begin{circuitikz}
+	\draw (0,0)
+		-- (0,1.5)
+		to[R, l=$R_1$, i=$i_1$] (5,1.5)
+		-- (5, 0);
+	\draw (0,0)
+		to[R, l=$R_2$, i=$i_2$] (2.5, 0)
+		to[R, l=$R_3$, i=$i_3$] (5, 0);
+	\draw (0,0)
+		to[R, l=$R_4$, i=$i_4$] (0, -3);
+	\draw (2.5,-3)
+		to[ european current source, I=$J$ ] (2.5, 0);
+	\draw (5,-3)
+		to[ R, l_=$R_5$, i=$i_5$] (5, 0);
+	\draw (5, -3)
+		to[ short ] (2.5, -3)
+		to[ short ] (0, -3);
+
+		\draw (0,0) node[circ] {};
+		\draw (0,0) node[left] {A};
+
+		\draw (2.5,0) node[circ] {};
+		\draw (2.5,0) node[above] {B};
+
+		\draw (5,0) node[circ] {};
+		\draw (5,0) node[right] {C};
+
+		\draw (2.5,-3) node[circ] {};
+		\draw (2.5,-3) node[below] {D};
+\end{circuitikz}
+\end{center}
+
+Si ha quindi:
+$$
+V_j + R_2 i_2 - R_4 i_4 = 0 \quad V_j = R_4 i_4 - R_2 i_2
+$$
+
+Abbiamo così determinato tutte le tensioni e tutte le correnti.
+
+\subsubsection{Circuiti con generatori di tensione}
+Il dipolo particolare quando si applica il metodo delle tensioni di nodo è il generatore ideale di tensione.
+In questo caso, possiamo semplificare il sistema: se il generatore collega un nodo al nodo di riferimento, allora il voltaggio del nodo è uguale al voltaggio erogato dal generatore, tenendo conto dei segni.
+
+In caso contrario, si può sempre impostare un'equazione del tipo:
+$$ E = V_A - V_B $$
+dove $E$ è la tensione erogata dal generatore, e $V_A$ e $V_B$ le tensioni sui nodi che collega.
+
+Un caso particolare è determinato dai generatori reali di tensione, cioè i generatori ideali in serie a resistenze.
+In questi casi conviene trasformare i generatori nei loro equivalenti di Norton, e risolvere.
+
+%\subsubsection{Teoria dei grafi e reti elettriche}
+%# anche questo magari scrivilo 
+\TODO
+
+\end{document}
