@@ -294,10 +294,11 @@ $$
 \begin{pmatrix}
 	\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_4} & -\frac{1}{R_2} & -\frac{1}{R_1} & -\frac{1}{R_4} \\
 	-\frac{1}{R_2} & \frac{1}{R_2} + \frac{1}{R_3} & -\frac{1}{R_3} & 0 \\
-	-\frac{1}{R_1} & -\frac{1}{R3} & \frac{1}{R_1} + \frac{1}{R_3} + \frac{1}{R_5} & -\frac{1}{R_5} \\ 
+	-\frac{1}{R_1} & -\frac{1}{R3} & \frac{1}{R_1} + \frac{1}{R_3} + \frac{1}{R_5} & -\frac{1}{R_5} \\
+	-\frac{1}{R_4} & 0 & - \frac{1}{R_5} & \frac{1}{R_4} + \frac{1}{R_5}
 \end{pmatrix}
 \begin{pmatrix}
-V_A \\ V_B \\ V_C
+V_A \\ V_B \\ V_C \\ V_D
 \end{pmatrix}
 =
 \begin{pmatrix}
@@ -305,7 +306,7 @@ V_A \\ V_B \\ V_C
 \end{pmatrix}
 $$
 
-Sappiamo dal teorema di Rouché-Capelli che questo sistema è indeterminato, o almeno ammette soluzioni su una retta, quindi per un certo fattore di scala $\lambda$.
+Sappiamo dal teorema di Rouché-Capelli che questo sistema è indeterminato, o almeno ammette soluzioni su una retta, quindi per un certo fattore di spostameno $\lambda$.
 Questo rappresenta semplicemente il fatto che non abbiamo scelto uno zero del potenziale: il potenziale dei nodi non esiste se non in riferimento agli altri, quindi qualsiasi valore $\lambda$ aggiunto non cambia i risultati.
 Scegliamo il valore $\lambda = 0$ per convenienza, che equivale a impostare $V_D$ a zero.
 \end{itemize}
@@ -364,15 +365,21 @@ $$
 Abbiamo così determinato tutte le tensioni e tutte le correnti.
 
 \subsubsection{Circuiti con generatori di tensione}
+\begin{itemize}
+	\item \textbf{\textsf{Generatori ideali di tensione}} \\
 Il dipolo particolare quando si applica il metodo delle tensioni di nodo è il generatore ideale di tensione.
-In questo caso, possiamo semplificare il sistema: se il generatore collega un nodo al nodo di riferimento, allora il voltaggio del nodo è uguale al voltaggio erogato dal generatore, tenendo conto dei segni.
+In questo caso, possiamo semplificare il sistema: se il generatore collega un nodo al nodo di riferimento, allora il voltaggio del nodo è uguale al voltaggio erogato dal generatore, tenendo conto dei segni in base alle direzioni delle tensioni erogate.
 
-In caso contrario, si può sempre impostare un'equazione del tipo:
+Se si hanno serie di generatori di tensione, si può applicare ripetutamente questa regola sui nodi coinvolti nella serie.
+
+Nel caso non si possano scegliere agevolmente nodi di riferimento che prendono serie di generatori di tensione, si può impostare:
 $$ E = V_A - V_B $$
-dove $E$ è la tensione erogata dal generatore, e $V_A$ e $V_B$ le tensioni sui nodi che collega.
-
+dove $E$ è la tensione erogata dal generatore, e $V_A$ e $V_B$ le tensioni sui nodi che collega, ancora una volta opportunamente segnate in base alle direzioni delle tensioni erogate.
+	\item \textbf{\textsf{Generatori reali di tensione}} \\
 Un caso particolare è determinato dai generatori reali di tensione, cioè i generatori ideali in serie a resistenze.
 In questi casi conviene trasformare i generatori nei loro equivalenti di Norton, e risolvere.
+Si ha che per un generatore reale di voltaggio $V$ e resistenza $R$, l'equivalente di Norton è un generatore di corrente $\frac{V}{R}$ in parallelo ad una resistenza $R$.
+\end{itemize}
 
 %\subsubsection{Teoria dei grafi e reti elettriche}
 %# anche questo magari scrivilo 

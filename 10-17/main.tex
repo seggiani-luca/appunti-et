@@ -1,0 +1,370 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=~\thetcbcounter: #2,
+	#1
+}
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+% sezione (data)
+\section{Lezione del 17-10-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Condensatori}
+Introduciamo un nuovo dipolo: il \textbf{condensatore} o \textit{capacitore}. 
+Si indica come:
+
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to [ C ] (2, 0); 
+	\end{circuitikz}
+\end{center}
+ed è costituito da due armature di materiale conduttore, inframezzate da un \textbf{dielettrico}.
+
+Il verso di percorrenza nei capacitori, come nei resistori, è irrilevante.
+La loro funzione è quella di accumulare energia, secondo la legge:
+$$
+q(t) = C \cdot v(t)
+$$
+dove $C$ è la \textbf{capacità}, misurata in Farad ($\mathrm{F}$).
+
+Nota la superficie delle armature e la distanza fra di esse, si può calcolare la capacità come:
+$$
+C = \varepsilon \cdot \frac{s}{d}
+$$
+Nel caso di dielettrici, si indica con $\varepsilon_0$ la costante dielettrica introdotta e si scrive:
+$$
+C = \varepsilon \cdot \varepsilon_0 \cdot \frac{s}{d}
+$$
+
+Si ricorda che il Farad è un'unita di misura molto grande, e solitamente si usano i sottomultipli:
+\begin{table}[h!]
+	\center \rowcolors{2}{white}{black!10}
+	\begin{tabular} { c | c }
+		\bfseries Simbolo & \bfseries Ordine \\
+		\hline 
+		$ \mathrm{mF} $ & $10^{-3}$ \\
+		$ \mathrm{\mu F} $ & $10^{-6}$ \\
+		$ \mathrm{nF} $ & $10^{-9}$ \\
+		$ \mathrm{pF} $ & $10^{-12}$ \\
+	\end{tabular}
+\end{table}
+
+Diciamo che il condensatore ideale è:
+\begin{itemize}
+	\item \textbf{Lineare:} dalla legge $ q(t) = C \cdot v(t)$;
+	\item \textbf{Tempo-invariante:} trascurando cambi di temperatura, si comportano come i resistori;
+	\item \textbf{Con memoria:} visto che legano tensione a carica, dobbiamo prendere la corrente come derivata della carica:
+		$$
+		i(t) = \frac{dq(t)}{dt} = \frac{d}{dt}(C \cdot v(t)) = C \frac{dv(t)}{dt}
+		$$
+		Possiamo quindi integrare:
+		$$
+		v(t) = \int_{-\infty}^{t} \frac{1}{C} \cdot i(\tau) \, d\tau = \frac{1}{C} \int_{-\infty}^{t} i(\tau) \, d\tau = \frac{1}{C} \left[ \int_{-\infty}^{t_0} i(\tau) + \int_{t_0}^{t} i(\tau) \right] = v(t_0) + \frac{1}{C} \int_{t_0}^{t} i(\tau) \, d\tau
+		$$
+
+		Abbiamo quindi che la tensione sul condensatore dipende dalle tensioni precedenti $v(t_0)$, ergo è un componente con memoria.
+	\item \textbf{Passivo:} anche qui possiamo definire $p(t)$ e derivare:
+		$$
+		p(t) = v_C(t)i_C(t) = v_C(t) \cdot C\frac{dv_C(t)}{dt}
+		$$
+		da cui si ottiene che $p(t)$ ha qualsiasi segno.
+		Vediamo quindi l'energia:
+		$$
+		w(t) = \int_{-\infty}^t p(\tau) \, d\tau = \int_{-\infty}^t C v_C(\tau) \frac{dv_C(\tau)}{d\tau} \, d\tau = C \int_{-\infty}^t v_C(\tau) dv_C(\tau) = C \left[ \frac{1}{2} v_C^2 (\tau) \right]_{-\infty}^{t} 
+		$$
+		da cui si ha, risolvendo:
+		$$
+		w(t) = \frac{1}{2} C v_C^2(t) - \frac{1}{2} C v_C^2 (-\infty)
+		$$
+		
+		Assumendo $v_C^2 (-\infty) = 0$, cioè condensatore inizialmente scarico, si ha $w(t) \geq 0$, ergo è un componente passivo.
+		Solo nel caso in cui parte da carico il condensatore può (temporaneamente) erogare energia.
+\end{itemize}
+
+Notiamo un caso particolare: se siamo in continua, $i_C(t) = \frac{C d v_C (t)}{dt} = 0$ e il condensatore si comporta come un \textbf{aperto}.
+
+\subsection{Induttori}
+Introduciamo un nuovo dipolo: l'\textbf{induttore} o \textit{induttanza}. 
+Si indica come:
+
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to [ inductor ] (2, 0); 
+	\end{circuitikz}
+\end{center}
+ed è costituito da spire di materiale ferromagnetico avvolte attorno a un dielettrico.
+
+La loro funzione è ancora quella di accumulare energia, secondo la legge:
+$$
+\phi(t) = L \cdot i_L (t)
+$$
+dove $L$ è l'\textbf{induttanza}, misurata in Henry ($\mathrm{H}$), e $\phi$ è il \textbf{flusso magnetico}, misurata in Weber ($\mathrm{Wb}$).
+L'induttanza dipende dalla geometria dell'induttore, e ad esempio in un solenoide di $N$ spire di superficie $s$ su una lunghezza $l$ è:
+$$ 
+L = \mu \cdot \frac{S}{l} \cdot N^2 = \mu_0 \cdot \mu_r \frac{S}{l} N^2
+$$
+
+Vediamo quindi le proprietà:
+\begin{itemize}
+	\item \textbf{Lineare:} sempre per la legge $\phi(t) = L \cdot i_L (t)$;
+	\item \textbf{Tempo-invariante:} il flusso interno dipende solo dalla corrente;
+	\item \textbf{Con memoria:} possiammo derivare la legge:
+		$$ 
+			v_L (t) = \frac{d \phi(t)}{dt} = \frac{d (L i_L(t))}{dt} = L\frac{d i_L(t)}{dt} = v_L(t)
+		$$
+		e ricavare e derivare la corrente $i_L(t)$:
+		$$
+		i_L(t) = \frac{1}{L} \int_{-\infty}^t v_L (\tau) \, d\tau = i_L(t_0) + \frac{1}{L} \int_{t_0}^{t} v_L(\tau) \, d\tau
+		$$
+		da dove si ricava che, come il capacitore, l'induttore ha memoria di uno stato iniziale a $t_0$.
+	\item \textbf{Passivo:} ritroviamo la potenza:
+		$$
+			p(t) = v_C(t) i_C(t) = L \frac{d i_C(t)}{dt} \cdot i_L(t)
+		$$
+		da cui si ottiene che $p(t)$ ha qualsiasi segno. Vediamo quindi l'energia:
+		$$
+		w(t) = \int_{-\infty}^{t} p(\tau) \, d \tau = \int_{-\infty}^{t} L \frac{d i_L(\tau)}{d\tau} \cdot i_L(\tau) d\tau = L \int_{-\infty}^t i_L(\tau) d i_L(\tau)
+		$$
+		da cui si ha:
+		$$
+		w(t) = \frac{1}{2} L i_L^2(t) - \frac{1}{2} L i_L^2 (-\infty)
+		$$
+		Come prima, assumendo $i_L^2(\infty) = 0$, cioè induttore inizialmente scarico, si ha $w(t) \geq 0$, e che l'induttore è un componente passivo (salvo parta da carico).
+\end{itemize}
+
+Vediamo qui un caso particolare: se siamo in continua, $v_L (t) = L \frac{d i_L(t)}{dt} = 0$, ergo l'induttore si comporta come un cortocircuito.
+
+\subsubsection{Induttori mutuamente accoppiati}
+Si possono avere due induttanze accoppiate fra di loro attraverso l'effeto del magnetico generato da entrambe sulle reciproche spire, cioè:
+\[
+	\begin{cases}
+			
+  \phi_1(t) = \phi_{1.1} \pm \phi_{1.2} = L_1 \cdot i_1 (t) \pm M i_2 (t) \\
+  \phi_2(t) = ...  = L_2 \cdot i_2 (t) \pm M i_1 (t) 
+	\end{cases}
+\]
+dove $M$ prende il nome di \textbf{coefficiente di mutua induzione}.
+Si ha quindi, derivando:
+\[
+	\begin{cases}
+		v_1(t) = L_1 \frac{d i_1(t)}{dt} \pm M \frac{d i_2(t)}{dt} \\ 
+		v_2(t) = L_2 \frac{d i_2(t)}{dt} \pm M \frac{d i_1(t)}{dt}
+	\end{cases}
+\]
+
+Gli induttori mutuamente accoppiati vengono detti \textbf{quadripoli} o \textbf{doppi dipoli}, in quanto hanno effettivamente 4 poli.
+
+Si calcola la potenza semplicemente sommando le potenze sulle singole induttanze:
+$$
+p(t) = v_1(t)i_1(t) + v_2(t)i_2(t)  
+$$
+$$
+= \left( L_1 \frac{d i_1(t)}{dt} \pm M \frac{d i_2 (t)}{dt} \right) \cdot i_2(t) +  \left( L_2 \frac{d i_2(t)}{dt} \pm M \frac{d i_1 (t)}{dt} \right) \cdot i_1(t)
+$$
+$$
+= L_1 i_1(t) \frac{d i_1(t)}{dt} + L_2 i_2 \frac{d i_2(t)}{dt} \pm M \left( i_1(t) \frac{d i_2(t)}{dt} + \frac{i_2 d i_1(t)}{dt} \right)
+$$
+E l'energia integrando la potenza:
+$$
+w(t) = \int_{-\infty}^t p(\tau) d\tau 
+$$
+$$
+= L_1 \int_{-\infty}^t i_1(\tau) \frac{d i_1 (\tau)}{d\tau}d\tau + L_2 \int_{-\infty}^t i_2(\tau) \frac{d i_2 (\tau)}{d\tau}d\tau \pm M \int_{-\infty}^t \left[ i_1(\tau) \frac{d i_2(\tau)}{d \tau} + i_2(\tau) \frac{d i_1(\tau)}{d \tau} \right] d\tau
+$$
+$$
+= L_1 \cdot \frac{1}{2} i_1^2(t) + L_2 \cdot \frac{1}{2} i_2^2(t) \pm M \int_{-\infty}^t \frac{d(i_1(\tau) \cdot i_2(\tau))}{d\tau}d\tau = L_1 \cdot \frac{1}{2} i_1^2(t) + L_2 \cdot \frac{1}{2} i_2^2(t) \pm M i_1(t)i_2(t) 
+$$
+
+Si può dimostrare che $ M \leq \sqrt{L_1 L_2}$, e nel caso $M = \sqrt{L_1 L_2}$ si parla di \textbf{accoppiamento ideale}. Nel caso peggiore si ha quindi:
+$$
+w = \frac{1}{2} L_1 i_1^2(t) + \frac{1}{2} L_2 i_2^2(t) - \sqrt{L_1 L_2} i_1(t) i_2(t) = \frac{1}{2}\left( \sqrt{L_1} i_1(t) - \sqrt{L_2} i_2(t) \right)^2 \geq 0
+$$
+ergo, salvo caricamenti iniziali, le induttanze mutuamente accoppiate sono componenti \textbf{passivi}.
+
+\end{document}
