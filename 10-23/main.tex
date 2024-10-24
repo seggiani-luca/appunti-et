@@ -195,9 +195,6 @@
 \pagestyle{fancy}
 
 % testo
-\subsection{Condensatori e induttori a regime costante}
-# scrivici qualcosa
-
 \subsection{Circuiti RC a regime sinusoidale}
 Veniamo quindi a studiare circuiti dove i generatori non sono in regime costante, ma \textbf{sinusoidali}.
 Un circuito si dice in \textbf{regime periodico sinusoidale} se tutte le correnti $i(t)$ e tutte le tensioni $v(t)$ possono essere espresse come funzioni sinusoidali con la stessa pulsazione.
@@ -259,13 +256,36 @@ dove $j$ rappresenta la \textbf{costante immaginaria}.
 Chiamiamo $x(t)$ \textbf{vettore rotante}.
 Si ha che il vettore rotante ha distanza dall'origine pari all'ampiezza dell'oscillazione, e si muove di moto rotante sul piano di Gauss con velocità angolare pari alla pulsazione dell'oscillazione, con relativa fase.
 
-Chiamiamo il valore assunto da $x(t)$ in un dato momento $t_0 = 0$ \textbf{fasore}, e lo indichiamo come $\dot{X}$.
-Chiaramente, il vettore rotante assume valori complesso e il fasore stesso è un numero complesso.
+Chiamiamo il valore assunto da $x(t)$ in un dato momento $t_0 = 0$ \textbf{fasore} (da \textit{phase vector}), e lo indichiamo come $\dot{X}$.
+Chiaramente, il vettore rotante assume valori complesso e il fasore stesso è un numero complesso:
 
-Ad esempio, posto $i(t) = 5 \cdot \sin (1000 t + \frac{\pi}{4})A$, avremo il fasore a $t_0 = 0$:
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = center,
+    xlabel={$Re$},
+    ylabel={$Im$},
+    xmin=-5.4, xmax=5.4,
+    ymin=-5.4, ymax=5.4,
+    grid=minor,
+  ]
+    % Draw the phasor (example: magnitude=1, angle=45 degrees)
+    \addplot[thick,->,red] coordinates {(0,0) (0.707*5,0.707*5)};
+    
+    % Optional: Add a label for the phasor
+		\node at (axis cs: 0.707*5, 0.707*5) [anchor=west] {$\dot{I}$};
+
+		\node at(axis cs: 0.5,0.3) [anchor=west] {$\phi$};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Nell'esempio, posto $i(t) = 5 \cdot \sin (1000 t + \frac{\pi}{4})A$, avremo il fasore a $t_0 = 0$:
 $$
 \dot{I} = 5 \cdot e^{j \frac{\pi}{4}}
 $$
+
+Dal grafico vediamo poi che il modulo del vettore coincide col valore della corrente o della tensione che rappresenta, e che l'angolo che forma con l'asse delle ascisse rappresenta la fase $\phi$.
 
 Visto che le pulsazioni sono comuni fra fasori diversi (circuiti a regime sinusoidale), abbiamo che le uniche informazioni che conserviamo nel diagramma dei fasori sono l'ampiezza e la fase.
 
@@ -319,7 +339,29 @@ $$
 $$
 
 Ergo non cambia niente rispetto a quanto avevamo in regime costante.
-Sul diagramma dei fasori, avremmo che i fasori tensione e corrente saranno fra di loro paralleli.
+Sul diagramma dei fasori, avremmo che i fasori tensione e corrente saranno fra di loro paralleli:
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = center,
+    xlabel={$Re$},
+    ylabel={$Im$},
+    xmin=-5.4, xmax=5.4,
+    ymin=-5.4, ymax=5.4,
+		xtick={0},
+		ytick={0},
+		grid=minor,
+  ]
+    % Draw the phasor (example: magnitude=1, angle=45 degrees)
+    \addplot[thick,->,blue] coordinates {(0,0) (0.707*5,0.707*5)};
+    \addplot[thick,->,red] coordinates {(0,0) (0.707*3,0.707*3)};
+    
+    % Optional: Add a label for the phasor
+		\node at (axis cs: 0.707*5, 0.707*5) [anchor=south] {$\dot{V}$};
+		\node at (axis cs: 0.707*3, 0.707*3) [anchor=south] {$\dot{I}$};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
 
 \subsubsection{Induttori}
 Un induttore è governato dalla legge:
@@ -332,7 +374,29 @@ $$
 $$
 
 Notiamo come il legame differenziale della prima legge diventa algebrico nella seconda, e anzi si riconduce ad una forma che ricorda la legge di Ohm.
-Sul diagramma dei fasori, avremo che i fasori tensione e corrente avranno fra di loro un angolo di $\frac{\pi}{2}$.
+Sul diagramma dei fasori, avremo che i fasori tensione e corrente formano fra di loro un angolo di $\frac{\pi}{2}$:
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = center,
+    xlabel={$Re$},
+    ylabel={$Im$},
+    xmin=-5.4, xmax=5.4,
+    ymin=-5.4, ymax=5.4,
+		xtick={0},
+		ytick={0},
+		grid=minor,
+  ]
+    % Draw the phasor (example: magnitude=1, angle=45 degrees)
+    \addplot[thick,->,blue] coordinates {(0,0) (0.707*5,0.707*5)};
+    \addplot[thick,->,red] coordinates {(0,0) (-0.707*3,0.707*3)};
+    
+    % Optional: Add a label for the phasor
+		\node at (axis cs: 0.707*5, 0.707*5) [anchor=west] {$\dot{V}$};
+		\node at (axis cs: -0.707*3, 0.707*3) [anchor=east] {$\dot{I}$};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
 
 \subsubsection{Condensatori}
 Un condensatore è governato dalla legge:
@@ -345,12 +409,33 @@ $$
 $$
 
 Come prima, ci riportiamo in una forma lineare.
-Sul diagramma dei fasori, avremo che i fasori tensione e corrente avranno fra di loro un angolo di $-\frac{\pi}{2}$.
+Sul diagramma dei fasori, avremo che i fasori tensione e corrente formano fra di loro un angolo di $-\frac{\pi}{2}$:
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = center,
+    xlabel={$Re$},
+    ylabel={$Im$},
+    xmin=-5.4, xmax=5.4,
+    ymin=-5.4, ymax=5.4,
+		xtick={0},
+		ytick={0},
+		grid=minor,
+  ]
+    % Draw the phasor (example: magnitude=1, angle=45 degrees)
+    \addplot[thick,->,blue] coordinates {(0,0) (0.707*5,0.707*5)};
+    \addplot[thick,->,red] coordinates {(0,0) (0.707*3,-0.707*3)};
+    
+    % Optional: Add a label for the phasor
+		\node at (axis cs: 0.707*5, 0.707*5) [anchor=west] {$\dot{V}$};
+		\node at (axis cs: 0.707*3, -0.707*3) [anchor=west] {$\dot{I}$};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
 
 \subsection{Analisi circuitale coi fasori}
 La definizione dei fasori ci permette di studiare circuiti in regime sinusoidali attraverso gli stessi strumenti che abbiamo studiato finora, a patto di dover risolvere un sistema di equazioni complesse (che possiamo sempre dividere in parte reale e immaginaria).
-Prendiamo ad esempio.
 
-# ci fai i grafici, un circuitino con correnti di maglia e vai a letto
+\TODO % esempio appena puoi
 
-\end{documenti}
+\end{document}

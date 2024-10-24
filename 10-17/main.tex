@@ -206,7 +206,7 @@ Si indica come:
 \end{center}
 ed è costituito da due armature di materiale conduttore, inframezzate da un \textbf{dielettrico}.
 
-Il verso di percorrenza nei capacitori, come nei resistori, è irrilevante.
+Il verso di percorrenza nei condensatori, come nei resistori, è irrilevante.
 La loro funzione è quella di accumulare energia, secondo la legge:
 $$
 q(t) = C \cdot v(t)
@@ -248,7 +248,7 @@ Diciamo che il condensatore ideale è:
 		v(t) = \int_{-\infty}^{t} \frac{1}{C} \cdot i(\tau) \, d\tau = \frac{1}{C} \int_{-\infty}^{t} i(\tau) \, d\tau = \frac{1}{C} \left[ \int_{-\infty}^{t_0} i(\tau) + \int_{t_0}^{t} i(\tau) \right] = v(t_0) + \frac{1}{C} \int_{t_0}^{t} i(\tau) \, d\tau
 		$$
 
-		Abbiamo quindi che la tensione sul condensatore dipende dalle tensioni precedenti $v(t_0)$, ergo è un componente con memoria.
+		Abbiamo quindi che la tensione sul condensatore dipende dalla tensione iniziale $v(t_0)$ e dalle correnti precedeneti $i(t')$ a $t' < t$, ergo è un componente con memoria.
 	\item \textbf{Passivo:} anche qui possiamo definire $p(t)$ e derivare:
 		$$
 		p(t) = v_C(t)i_C(t) = v_C(t) \cdot C\frac{dv_C(t)}{dt}
@@ -266,8 +266,6 @@ Diciamo che il condensatore ideale è:
 		Assumendo $v_C^2 (-\infty) = 0$, cioè condensatore inizialmente scarico, si ha $w(t) \geq 0$, ergo è un componente passivo.
 		Solo nel caso in cui parte da carico il condensatore può (temporaneamente) erogare energia.
 \end{itemize}
-
-Notiamo un caso particolare: se siamo in continua, $i_C(t) = \frac{C d v_C (t)}{dt} = 0$ e il condensatore si comporta come un \textbf{aperto}.
 
 \subsection{Induttori}
 Introduciamo un nuovo dipolo: l'\textbf{induttore} o \textit{induttanza}. 
@@ -294,15 +292,15 @@ Vediamo quindi le proprietà:
 \begin{itemize}
 	\item \textbf{Lineare:} sempre per la legge $\phi(t) = L \cdot i_L (t)$;
 	\item \textbf{Tempo-invariante:} il flusso interno dipende solo dalla corrente;
-	\item \textbf{Con memoria:} possiammo derivare la legge:
+	\item \textbf{Con memoria:} possamo derivare la legge:
 		$$ 
-			v_L (t) = \frac{d \phi(t)}{dt} = \frac{d (L i_L(t))}{dt} = L\frac{d i_L(t)}{dt} = v_L(t)
+			v_L (t) = \frac{d \phi(t)}{dt} = \frac{d (L i_L(t))}{dt} = L\frac{d i_L(t)}{dt}
 		$$
 		e ricavare e derivare la corrente $i_L(t)$:
 		$$
 		i_L(t) = \frac{1}{L} \int_{-\infty}^t v_L (\tau) \, d\tau = i_L(t_0) + \frac{1}{L} \int_{t_0}^{t} v_L(\tau) \, d\tau
 		$$
-		da dove si ricava che, come il capacitore, l'induttore ha memoria di uno stato iniziale a $t_0$.
+		da dove si ricava che, come il condensatore, l'induttore ha memoria di uno stato iniziale a $t_0$.
 	\item \textbf{Passivo:} ritroviamo la potenza:
 		$$
 			p(t) = v_C(t) i_C(t) = L \frac{d i_C(t)}{dt} \cdot i_L(t)
@@ -318,18 +316,64 @@ Vediamo quindi le proprietà:
 		Come prima, assumendo $i_L^2(\infty) = 0$, cioè induttore inizialmente scarico, si ha $w(t) \geq 0$, e che l'induttore è un componente passivo (salvo parta da carico).
 \end{itemize}
 
-Vediamo qui un caso particolare: se siamo in continua, $v_L (t) = L \frac{d i_L(t)}{dt} = 0$, ergo l'induttore si comporta come un cortocircuito.
-
 \subsubsection{Induttori mutuamente accoppiati}
-Si possono avere due induttanze accoppiate fra di loro attraverso l'effeto del magnetico generato da entrambe sulle reciproche spire, cioè:
+Si possono avere più induttanze (prendiamo 2 per semplicità) accoppiate fra di loro attraverso l'effetto del magnetico generato da entrambe sulle reciproche spire, cioè:
+
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[ short, i=$i_1$] (1,0)
+			to[ inductor , l=$L_1$] (1,-2)
+			-- (0, -2);
+
+		\draw (4,0) to[ short, i_=$i_2$] (3,0)
+			to[ inductor , l_=$L_2$] (3,-2)
+			-- (4, -2);
+
+			\draw (0.9,-0.6) node {$\scriptscriptstyle\bullet$};
+			\draw (2.9,-0.6) node {$\scriptscriptstyle\bullet$};
+
+			\draw (0,0) node[anchor=east] {$A$};
+			\draw (0,-2) node[anchor=east] {$B$};
+
+			\draw (0,-0.5) node[anchor=east] {$+$};
+			\draw (0,-1.5) node[anchor=east] {$-$};
+
+			\draw (4,0) node[anchor=west] {$C$};
+			\draw (4,-2) node[anchor=west] {$D$};
+
+			\draw (4,-0.5) node[anchor=west] {$+$};
+			\draw (4,-1.5) node[anchor=west] {$-$};
+
+			\draw (0,-1) node[anchor=east] {$v_1$};
+			\draw (4,-1) node[anchor=west] {$v_2$};
+	\end{circuitikz}
+\end{center}
+
+Dove il flusso su una e l'altra induttanza è espresso come:
 \[
 	\begin{cases}
 			
   \phi_1(t) = \phi_{1.1} \pm \phi_{1.2} = L_1 \cdot i_1 (t) \pm M i_2 (t) \\
-  \phi_2(t) = ...  = L_2 \cdot i_2 (t) \pm M i_1 (t) 
+  \phi_2(t) = \phi_{1.2} \pm \phi_{1.1} = L_2 \cdot i_2 (t) \pm M i_1 (t) 
 	\end{cases}
 \]
-dove $M$ prende il nome di \textbf{coefficiente di mutua induzione}.
+
+Qui $M$ prende il nome di \textbf{coefficiente di mutua induzione}.
+Anche questo coefficiente dipende dalla geometria della configurazione degli induttori.
+
+Chiamiamo quindi la componente $L_i \cdot i_i$ \textbf{caduta di auto}, per \textit{caduta di auto induttanza}, e la componente $M \cdot i_i$ \textbf{caduta di mutua}, per \textit{caduta di mutua induttanza}.
+Conviene fare una riflessione sui segni delle cadute di auto e di mutua: 
+\begin{itemize}
+	\item Prendendo riferimenti associati, cioè percorrendo le induttanze nella direzione della corrente propria, si ha che le cadute di auto sono positive. In caso contrario, si prendono come negative;
+	\item Per i segni delle cadute di mutua si usa la regola dei \textbf{contrassegni}:
+		\begin{itemize}
+			\item Se la corrente entra al terminale contrassegnato di un induttore e induce una forza elettromotrice $\mathcal{E}$ positiva al terminale contrassegnato dell'altro induttore, si ha che $M>0$;
+			\item Altrimenti, se la corrente entra al terminale contrassegnato di un induttore e induce una forza elettromotrice $\mathcal{E}$ negativa al terminale contrassegnato dell'altro induttore, si ha che $M<0$;
+		\end{itemize}
+	ergo, scelti riferimenti associati per le cadute di auto, si ha che se le correnti raggiungono il contrassegno della propria induttanza entrambe entrando o uscendo dall'induttore, le cadute di mutua sono positive.
+	Altrimenti, se le correnti raggiungono il contrassegno della propria induttanza una entrando e una uscendo dall'induttore, o viceversa, le cadute di mutua sono negative.
+\end{itemize}
+
 Si ha quindi, derivando:
 \[
 	\begin{cases}
@@ -367,4 +411,12 @@ w = \frac{1}{2} L_1 i_1^2(t) + \frac{1}{2} L_2 i_2^2(t) - \sqrt{L_1 L_2} i_1(t) 
 $$
 ergo, salvo caricamenti iniziali, le induttanze mutuamente accoppiate sono componenti \textbf{passivi}.
 
+\subsection{Analisi allo stato stazionario}
+Vediamo il comportamento dei condensatori e degli induttori in circuiti a regime costante, cioè come quelli che abbiamo studiato finora.
+\begin{itemize}
+	\item \textbf{Condensatori:} il condensatore ha legge $q(t) = C \cdot v_C(t) \Rightarrow i_C(t) = C \frac{dv_C(t)}{dt}$, ergo se siamo in continua, $i_C(t) = C \cdot 0 = 0$ e il condensatore si comporta come un \textbf{aperto};
+	\item \textbf{Induttori:} l'induttore ha legge $\phi(t) = L \cdot i_L(t) \Rightarrow V_L(t) = L \frac{di_L(t)}{dt}$. ergo se siamo in continua, $v_L (t) = L \cdot 0 = 0$, e l'induttore si comporta come un \textbf{cortocircuito}.
+\end{itemize}
+Abbiamo quindi che non si possono apprezzare gli effetti di questi nuovi dipoli finché si studiano circuiti a regime stazionario.
+Infatti vedremo più nel dettaglio quali sono le loro caratteristiche quando parleremo di circuiti in regime sinusoidale.
 \end{document}

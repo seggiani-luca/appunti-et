@@ -214,7 +214,12 @@ Portandoci nel dominio fasoriale, abbiamo:
 
 \subsection{Circuito RLC}
 Poniamo di avere un circuito con un resistore, un induttore e un capacitore.
-# disegnino del circuito con un resistore, un induttore, e un capacitore
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to [ resistor, l=$R$] (2,0) to [ inductor, l=$L$] (4,0) to [ capacitor, l=$C$ ] (6,0);
+	\end{circuitikz}
+\end{center}
+
 Avremo le cadute di potenziale $\dot{V}_R$, $\dot{V}_L$ e $\dot{V}_C$ sui singoli componenti, da cui:
 $$
 \dot{V} = \dot{V}_R + \dot{V}_L + \dot{V}_C = R \dot{I} + j\omega L \dot{I} + \frac{1}{j \omega c} \dot{I} = \left( R + j\omega l+ \frac{1}{j\omega C} \right) \dot{I}
@@ -320,8 +325,6 @@ da cui:
 \subsubsection{Unità di misura}
 Abbiamo che, essendo quantità omegenee (le abbiamo sommate fra di loro senza problemi), l'impedenza $Z$, la reattanza $X$ e la resistenza $R$ si misurano in Ohm, mentre l'ammettanza $Y$, la suscettanza $B$ e la conduttanza $G$ si misurano in Siemens.
 
-# discorso sul quadrante
-
 \subsubsection{Rappresentazione grafica dell'impedenza}
 Abbiamo che il vettore di $Z$ rappresentato sul piano di Argand-Gauss rappresenta in componenti $R$ e $X$ (com'è ovvio), e che l'angolo che forma con l'asse delle x rappresenta $\phi$.
 
@@ -329,5 +332,37 @@ Inoltre, si  ha che l'ammettenza corrispondente è un vettore con modulo $\frac{
 $$
 \bar{Y} = \frac{1}{\bar{Z}} = \frac{1}{Ze^{j\phi}} = \frac{1}{Z} e^{-j\phi}
 $$
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = center,
+    xlabel={$R$},
+    ylabel={$X$},
+    xmin=-5.4, xmax=5.4,
+    ymin=-5.4, ymax=5.4,
+    grid=minor,
+  ]
+    % Draw the phasor (example: magnitude=1, angle=45 degrees)
+    \addplot[thick,->,black] coordinates {(0,0) (0.707*5,0.707*5)};
+    
+    % Optional: Add a label for the phasor
+		\node at (axis cs: 0.707*5, 0.707*5) [anchor=west] {$Z$};
+
+		\node at(axis cs: 0.5,0.3) [anchor=west] {$\phi$};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Notiamo il significato dei quadranti: 
+\begin{itemize}
+	\item \textbf{Primo quadrante:} $R > 0$, $X > 0$ abbiamo che sia la resistenza che la reattanza sono positive, quindi si parla di impedenza ohmico-induttiva.
+	\item \textbf{Secondo quadrante:} $R < 0$, $X > 0$ abbiamo che la resistenza è negativa e la reattanza è positiva, quindi si parla di impedenza ohmico-induttiva negativa.
+	\item \textbf{Terzo quadrante:} $R < 0$, $X < 0$ abbiamo che sia la resistenza che la reattanza sono negative, quindi si parla di impedenza ohmico-capacitiva negativa.
+	\item \textbf{Quarto quadrante:} $R < 0$, $X > 0$ abbiamo che la resistenza è positivae la reattanza è negativa, quindi si parla di impedenza ohmico-capacitiva.
+\end{itemize}
+
+In parallelo a quanto detto prima sull'angolo $\phi$.
+Ai vettori paralleli agli assi corrispondono, come ci si aspetterebbe, abbiamo l'impedenza puramente induttiva, puramente resistiva e puramente capacitiva.
 
 \end{document}
