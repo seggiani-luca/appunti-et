@@ -1,0 +1,333 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=~\thetcbcounter: #2,
+	#1
+}
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+% sezione (data)
+\section{Lezione del 24-10-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsubsection{Mutua induttanza nel dominio fasoriale}
+Avevamo le formule per la mutua induttanza:
+\[
+	\begin{cases}
+		v_1(t) = L_1 \frac{d i_1(t)}{dt} \pm M \frac{d i_2(t)}{dt} \\
+		v_2(t) = L_2 \frac{d i_2(t)}{dt} \pm M \frac{d i_1(t)}{dt}	
+	\end{cases}
+\]
+nel dominio tempo.
+Portandoci nel dominio fasoriale, abbiamo:
+\[
+	\begin{cases}
+		\dot{V}_1 = j\omega L_1 \dot{I}_1	\pm j\omega M \dot{I}_2 \\
+		\dot{V}_2 = j\omega L_2 \dot{I}_2	\pm j\omega M \dot{I}_1
+	\end{cases}
+\]
+
+\subsection{Circuito RLC}
+Poniamo di avere un circuito con un resistore, un induttore e un capacitore.
+# disegnino del circuito con un resistore, un induttore, e un capacitore
+Avremo le cadute di potenziale $\dot{V}_R$, $\dot{V}_L$ e $\dot{V}_C$ sui singoli componenti, da cui:
+$$
+\dot{V} = \dot{V}_R + \dot{V}_L + \dot{V}_C = R \dot{I} + j\omega L \dot{I} + \frac{1}{j \omega c} \dot{I} = \left( R + j\omega l+ \frac{1}{j\omega C} \right) \dot{I}
+$$
+Portando in forma cartesiana, si ha:
+$$
+= (R + j\omega L - \frac{j}{\omega C}) \dot{I} = \left( R + j \left( \omega L - \frac{1}{\omega C} \right) \right) \dot{I}
+$$
+che possiamo riscrivere come:
+$$
+\dot{V} = \bar{z} \dot{I}, \quad z = R + j \left( \omega L - \frac{1}{\omega C} \right)
+$$
+
+\subsection{Impedenza}
+Il numero $z$, un complesso, è chiamato \textbf{impedenza} del circuito.
+Abbiamo che l'equazione $\dot{V} = \bar{z} \dot{I}$ è un'equazione complessa, ergo che vorremo riscrivere come:
+$$
+\Rightarrow v_M \cdot e^{j \phi_v} = z \cdot e^{j \phi_z} I_M e^{j \phi_i}
+$$
+e quindi ridurre al sistema:
+\[
+	\begin{cases}
+		V_M = z I_M \\ 
+		\phi_v = \phi_z + \phi_i
+	\end{cases}
+\]
+
+Spesso si indica $\phi_z$ come semplicemente $\phi$, cioè la \textbf{fase dell'impedenza}, definita quindi come:
+$$
+\phi = \phi_v - \phi_i
+$$
+
+Possiamo scrivere l'impedenza come:
+$$
+\bar{Z} = Z \cdot e^{j \phi} = R + j X, \quad z = |\bar{z}|
+$$
+dove $R$ corrisponde alla \textbf{resistenza} che già conosciamo, mentre $X$ viene detta \textbf{reattanza}.
+
+Vediamo le reattanze dei dipoli studiati finora:
+\begin{itemize}
+	\item \textbf{Resistenza:} da $\dot{V} = R \dot{I}$ abbiamo $X_R = 0$, cioè reattanza nulla (e chiaramente $R_R = R$);
+	\item \textbf{Induttore:} da $\dot{V} = j \omega L \dot{I}$, ricaviamo:
+		\[
+			\begin{cases}
+				R_L = 0	\\ 
+				X_L = \omega L
+			\end{cases}
+		\]
+	\item \textbf{Condensatore:} da $\dot{V} = \frac{1}{j \omega C}$, ricaviamo:
+		\[
+			\begin{cases}
+				R_C = 0	\\ 
+				X_C = -\frac{1}{\omega C}
+			\end{cases}
+		\]
+		dove l'ultima $X_C$ si è ricavata da $-\frac{j}{\omega C}$, già usato sopra nella forma cartesiana dell'RLC in serie.
+\end{itemize}
+
+Avremo che, riguardo all impededenza, avremo solitamente i valori di fase:
+$$
+\bar{Z} = R \cdot j X = z e^{j \phi}:
+	\begin{cases}
+		\phi = \frac{\pi}{2} \\ 
+		\phi = 0 \\ 
+		\phi = -\frac{pi}{2}
+	\end{cases}
+$$
+
+Classifichiamo questi valori.
+\begin{itemize}
+	\item $\phi = \frac{\pi}{2}$, si dice che l'impedenza è \textbf{induttiva};
+	\item $0 < \phi < \frac{\pi}{2}$, si dice che l'impedenza è \textbf{ohmico-induttiva};
+	\item $\phi = 0$, si dice che l'impedenza è \textbf{resistiva};
+	\item $-\frac{\pi}{2} < \phi < 0$, si dice che l'impedenza è \textbf{ohmico-capacitiva}; 
+	\item $\phi = -\frac{\pi}{2}$, si dice che l'impedenza è \textbf{capacitiva};
+\end{itemize}
+
+\subsubsection{Ammettenza}
+Possiamo definire l'opposto dell'impedenza:
+$$
+\bar{Y} = \frac{1}{\hat{Z}}
+$$
+
+Chiamiamo $Y$ \textbf{ammettenza}.
+Possiamo dividere anche l'ammettenza in componenti cartesiane, cioè:
+$$
+\bar{Y} = G + j B
+$$
+dove $G$ è la \textbf{conduttanza}, e $B$ viene detta \textbf{suscettanza}.
+
+Possiamo eliminare il complesso al denominatore come:
+$$
+\bar{Y} = \frac{1}{\hat{Z}} = \frac{1}{R + jX} = \frac{R - jX}{R^2 + X^2} = \frac{R}{R^2 + X^2} + j \left(-\frac{X}{R^2 + X^2}\right)
+$$
+da cui:
+\[
+	\begin{cases}
+		G = \frac{R}{R^2 + X^2} \\ 	
+		B = -\frac{X}{R^2 + X^2} \\ 	
+	\end{cases}
+\]
+
+\subsubsection{Unità di misura}
+Abbiamo che, essendo quantità omegenee (le abbiamo sommate fra di loro senza problemi), l'impedenza $Z$, la reattanza $X$ e la resistenza $R$ si misurano in Ohm, mentre l'ammettanza $Y$, la suscettanza $B$ e la conduttanza $G$ si misurano in Siemens.
+
+# discorso sul quadrante
+
+\subsubsection{Rappresentazione grafica dell'impedenza}
+Abbiamo che il vettore di $Z$ rappresentato sul piano di Argand-Gauss rappresenta in componenti $R$ e $X$ (com'è ovvio), e che l'angolo che forma con l'asse delle x rappresenta $\phi$.
+
+Inoltre, si  ha che l'ammettenza corrispondente è un vettore con modulo $\frac{1}{Z}$ e angolo $-\phi$, da:
+$$
+\bar{Y} = \frac{1}{\bar{Z}} = \frac{1}{Ze^{j\phi}} = \frac{1}{Z} e^{-j\phi}
+$$
+
+\end{document}
