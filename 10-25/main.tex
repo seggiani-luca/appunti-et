@@ -344,7 +344,7 @@ $$
 \subsubsection{Potenza apparente}
 Definiamo infine la potenza \textbf{apparente}:
 \begin{definition}{Potenza apparente}
-	Definiamo la potena reattiva $S$ come il valore massimo raggiungibile della potenza, cioè:
+	Definiamo la potenza reattiva $S$ come il valore massimo raggiungibile della potenza, cioè:
 	$$
 	S = \frac{V_M I_M}{2}
 	$$
@@ -356,4 +356,71 @@ S = \frac{V_M I_M}{2} = \frac{V_{eff} \sqrt{2} \cdot I_{eff} \sqrt{2}}{2} = VI =
 $$
 
 L'unita della misura della potenza apparente è il $[\mathrm{VA}]$, cioè \textit{Volt Ampere}.
+
+\par\medskip
+
+Prendiamo in esempio il circuito:
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to [ voltage source, v=$V_2(t)$] (4, 0);
+		\draw (4,-3) to [ voltage source, v=$V_1(t)$] (4, 0);
+		\draw (4,-3) to [ inductor, l=$L$] (8,-3)
+			to [ resistor, l=$R$] (8, 0)
+			to [ voltage source, v=$V_3$, i =$i(t)$] (4, 0);
+		\draw (0,0) to [ capacitor, l=$C$] (0,-3)
+			to [ inductor, l=$L$] (4,-3);
+	\end{circuitikz}
+\end{center}
+
+con i generatori guidati dalla legge:
+\[
+	\begin{cases}	
+		V_1(t) = 10 \sqrt{2} \sin\left(1000 t\right)V \\ 
+		V_2(t) = 20 \sqrt{2} \sin\left(1000t + \frac{\pi}{2}\right)V \\ 
+		V_3(t) = 30 \sqrt{2} \sin\left(1000t + \pi\right)V
+	\end{cases}
+\]
+
+Ci chiediamo quanto valga la corrente $i(t)$ sul generatore di tensione $V_3$, in direzione opposta al contrassegno.
+
+Prima di tutto, portiamo le equazioni dei generatori in forma fasoriale, usando il valore efficace del voltaggio.
+Usare il valore efficace o il valore proprio del voltaggio è indifferente, ma abbiamo che i calcoli si semplificano se si usa il primo.
+Abbiamo quindi:
+\[
+	\begin{cases}
+		\dot{V}_1	= 10 e^{j\cdot0} = 10 V\\ 
+		\dot{V}_2 = 20 e^{j\frac{\pi}{2}} = 20j V \\ 
+		\dot{V}_3 = 30 e^{j \pi} = -30 V
+	\end{cases}
+\]
+
+Possiamo quindi usare il metodo delle correnti di nodo. Poniamo il nodo:
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to [ voltage source, v=$V_2(t)$] (4, 0);
+		\draw (4,-3) to [ voltage source, v=$V_1(t)$] (4, 0);
+		\draw (4,-3) to [ inductor, l=$L$] (8,-3)
+			to [ resistor, l=$R$] (8, 0)
+			to [ voltage source, v=$V_3$, i =$i(t)$] (4, 0);
+		\draw (0,0) to [ capacitor, l=$C$] (0,-3)
+			to [ inductor, l=$L$] (4,-3);
+		
+		\node at(4,0) {$\bullet$};
+		\node at(4,0)[anchor=south] {A};
+		\node at(4,-3)[ground] {}
+	\end{circuitikz}
+\end{center}
+
+A questo punto, $V_A = V_1 = 10V$, e si puà applicare Kirchoff alla maglia a destra:
+$$
+-\dot{V}_1 + \dot{V}_3 + R\dot{I} + \dot{I} \cdot j \omega L = 0 \Rightarrow i(t) = \frac{\dot{V}_1 - \dot{V}_3}{R + j\omega L}
+$$
+
+Poniamo che, risolvendo con qualche valore di $R$ e $C$, si ha $\dot{I} = 2 - 2j$.
+A questo punto, possiamo ritrovare il valore di $i(t)$ effettivo attraverso il modulo di $\dot{I}$ e l'angolo:
+$$
+i(t) = \sqrt{2^2 + 2^2} \sqrt2 \cdot \sin\left(1000t - \frac{\pi}{4}\right) = 4 \sin\left(1000t - \frac{\pi}{t}\right)
+$$
+dove si è reintrodotto $\sqrt{2}$ per ritornare al valore di picco. 
+
 \end{document}
