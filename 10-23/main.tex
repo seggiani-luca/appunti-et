@@ -198,14 +198,13 @@
 \subsection{Circuiti RC a regime sinusoidale}
 Veniamo quindi a studiare circuiti dove i generatori non sono in regime costante, ma \textbf{sinusoidali}.
 Un circuito si dice in \textbf{regime periodico sinusoidale} se tutte le correnti $i(t)$ e tutte le tensioni $v(t)$ possono essere espresse come funzioni sinusoidali con la stessa pulsazione.
-Abbiamo quindi 3 proprietà:
-Le grandezze devono essere descritte da funzioni \textbf{periodiche}, ergo:
+Le grandezze devono quindi essere descritte da funzioni \textbf{periodiche}, ergo:
 		$$ 
 		f(t + T) = f(t) \quad \forall t
 		$$
 		dove $T$ si dice \textbf{periodo}.
 		Notiamo che periodico non significa sinusoidale, in quanto altri tipi di onde (quadre, a dente di sega, ecc...) sono ugualmente periodiche.
-	In particolare noi tratteremo funzioni in forma:
+	In particolare, noi tratteremo funzioni in forma:
 	$$ 
 		f(t) = F \cdot \sin(\omega t + \phi)	
 	$$
@@ -245,19 +244,72 @@ Si ha che per lo studio delle equazioni differenziali date da sistemi a regime s
 
 Prendiamo una funzione sinusoidale in forma:
 $$
-x(t) = X_M \cdot \sin (\omega t + \phi)
+x(t) = x_M \cdot \sin (\omega t + \phi)
 $$
-e trasformiamolo nella forma esponenziale:
+e trasformiamola in un numero complesso, nella sua forma esponenziale:
 $$
 x(t) = x_m \cdot e^{j(\omega t + \phi)}
 $$
 dove $j$ rappresenta la \textbf{costante immaginaria}.
 
+Lo stesso complesso (più propriamente, una \textbf{funzione complessa}) potrà essere espresso in forma cartesiana, come:
+$$
+x(t) = a(t) \cdot j b(t)
+$$
+
+Potremo allora ricavare, dalla \textbf{formula di Eulero}:
+$$
+e^{j\phi} = \cos(\phi) + j \sin(\phi)
+$$
+le seguenti trasformazioni:
+
+\par\medskip
+
+\noindent
+\begin{minipage}{0.45\textwidth}
+	\begin{center}
+			\begin{cases}
+				x_M = \sqrt{a^2 + b^2} \\ 
+				\phi = 
+					\mathrm{atan2}\left(\frac{b}{a}\right)	
+			\end{cases}
+	\end{center}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+	\begin{center}
+			\begin{cases}
+				a = x_M \cos(\phi) \\ 
+				b = x_M \sin(\phi) \\ 
+			\end{cases}
+	\end{center}
+\end{minipage}
+
+dove si è definito $\mathrm{atan2}$ come:
+$$
+\mathrm{atan2}(\phi) =
+	\begin{cases}
+		\arctan{\frac{b}{a}}, \quad \quad a > 0, b \in \mathbb{R} \\ 
+					\pi + \arctan{\frac{b}{a}}, \quad \quad a < 0, b > 0 \\ 
+					- \pi + \arctan{\frac{b}{a}}, \quad \quad a < 0, b < 0 \\ 
+					\frac{\pi}{2}, \quad \quad \quaad a = 0, b > 0 \\
+					-\frac{\pi}{2}, \quad \quad \quaad a = 0, b < 0 \\
+					0 \quad \quad \quad a > 0, b > 0 \\ 
+					\pi / -\pi \quad \quad \quad a < 0, b > 0 \\
+					\emptyset \quad \quad \quad a = 0, b = 0	
+	\end{cases}
+$$
+
+\par\medskip
+
 Chiamiamo $x(t)$ \textbf{vettore rotante}.
 Si ha che il vettore rotante ha distanza dall'origine pari all'ampiezza dell'oscillazione, e si muove di moto rotante sul piano di Gauss con velocità angolare pari alla pulsazione dell'oscillazione, con relativa fase.
 
-Chiamiamo il valore assunto da $x(t)$ in un dato momento $t_0 = 0$ \textbf{fasore} (da \textit{phase vector}), e lo indichiamo come $\dot{X}$.
-Chiaramente, il vettore rotante assume valori complesso e il fasore stesso è un numero complesso:
+Infine, definiamo quando ci interessa:
+\begin{definition}{Fasore}
+Chiamiamo il valore assunto da un vettore rotante $x(t)$ in un dato momento $t_0 = 0$ \textbf{fasore} (da \textit{phase vector}), e lo indichiamo come $\dot{X}$.
+\end{definition}
+Chiaramente, il vettore rotante assume valori complessi e il fasore stesso è un numero complesso:
 
 \begin{center}
 \begin{tikzpicture}
@@ -435,7 +487,95 @@ Sul diagramma dei fasori, avremo che i fasori tensione e corrente formano fra di
 
 \subsection{Analisi circuitale coi fasori}
 La definizione dei fasori ci permette di studiare circuiti in regime sinusoidali attraverso gli stessi strumenti che abbiamo studiato finora, a patto di dover risolvere un sistema di equazioni complesse (che possiamo sempre dividere in parte reale e immaginaria).
+Prendiamo ad esempio il circuito:
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[ voltage source, v=$e(t)$ ] (0,2)
+			to[ resistor, l=$R_1$ ] (2,2) to[ inductor, l=$L$ ] (4,2)
+			to[ resistor, l_=$R_2$, i=$I_R$ ] (4,0)
+			to[ short, i=$I_L$] (0,0);
+		\draw (4,2) to [ short, i=$I_C$ ] (6,2)
+			to[ capacitor, l=$C$] (6,0)
+			-- (4,0);
+	\end{circuitikz}
+\end{center}
 
-\TODO % esempio appena puoi
+La legge che governa il generatore di tensione è:
+$$
+e(t) = A\sin\left(\omega t + \phi \right), \quad \dot{E} = A e^{j \phi
+$$
+
+Vediamo come risolvere il circuito usando il \textbf{tableau} e le \textbf{correnti di maglia}.
+
+\begin{itemize}
+	\item \textbf{Metodo del tableau:} prendendo il nodo in basso, si ha dalla prima legge di Kirchoff:
+$$
+I_R + I_C - I_L = 0
+$$
+
+Ricordando che, nel campo complesso, un'equazione di questo tipo significa:
+\[
+	\begin{cases}			
+		\mathrm{Re}\{I_R\} + \mathrm{Re}\{I_C\} - \mathrm{Re}\{I_L\} = 0 \\ 
+		\mathrm{Im}\{I_R\} + \mathrm{Im}\{I_C\} - \mathrm{Im}\{I_L\} = 0  
+	\end{cases}
+\]
+
+In ogni caso, ossiamo poi applicare la seconda legge di Kirchoff sulle due maglie, in modo da ottenere il sistema completo:
+\[
+	\begin{cases}
+		I_R + I_C - I_L = 0 \\
+		\dot{E} + R_1 \dot{I}_L + j \omega L \dot{I}_L + R_2 \dot{I}_R = 0 \\ 
+		-R_2 \dot{I}_R + \frac{1}{j\omega C} \dot{I}_C = 0
+	\end{cases}
+\]
+
+	Questo si riconduce ad un sistema lineare:
+$$
+\begin{pmatrix}
+	1 & -1 & 1 \\ R_2 & R_1 + j\omega L & 0 \\ -R_2 & 0 & \frac{1}{j\omega L}
+\end{pmatrix}
+\begin{pmatrix}
+	\dot{I}_R \\ \dot{I}_L \\ \dot{I}_C
+\end{pmatrix} = 
+\begin{pmatrix}
+	0 \\ \dot{E} \\ 0
+\end{pmatrix}
+$$
+che possiamo risolvere con qualsiasi risolutore di sistemi lineari.
+
+Assumiamo $\phi = \frac{\pi}{2}$, così che $\dot{E} = Aj$.
+In modalità simbolica, allora, MATLAB restituisce:
+$$
+\begin{cases}
+     I_{L} = -\frac{A\,\left(C\,R_{2}\,\omega -\mathrm{i}\right)}{R_{1}+R_{2}+L\,w\,1{}\mathrm{i}-C\,L\,R_{2}\,w^2+C\,R_{1}\,R_{2}\,w\,1{}\mathrm{i}} \\ 
+     I_{R} = \frac{A\,1{}\mathrm{i}}{R_{1}+R_{2}+L\,\omega \,1{}\mathrm{i}-C\,L\,R_{2}\,w^2+C\,R_{1}\,R_{2}\,w\,1{}\mathrm{i}} \\
+     I_{C} = -\frac{A\,C\,R_{2}\,\omega }{R_{1}+R_{2}+L\,w\,1{}\mathrm{i}-C\,L\,R_{2}\,w^2+C\,R_{1}\,R_{2}\,w\,1{}\mathrm{i}}
+\end{cases}
+$$
+
+\item \textbf{Metodo delle correnti di maglia:} prendiamo la maglia a sinistra in senso orario e quella destra in senso antiorario, con le correnti rispettivamente $I_1$ e $I_2$:
+\[
+	\begin{cases}
+		\dot{E} = R_1 \dot{I}_1 + j \omega L \dot{I}_1 + R_2\left(\dot{I}_1 - \dot{I}_2 \right) \\ 
+		0 = \frac{\dot{I}_2}{j \omega C} + R_2\left(\dot{I_2} - \dot{I_1}\right)
+	\end{cases}
+\]
+da cui il sistema:
+$$
+\begin{pmatrix}
+	R_1 + R_2 + j \omega L & -R_2 \\ 
+	-R_2 & \frac{1}{j \omega C} + R_2
+\end{pmatrix}
+\begin{pmatrix}
+	\dot{I_1} \\ \dot{I_2}
+\end{pmatrix}
+=
+\begin{pmatrix}
+	\dot{E} \\ 0
+\end{pmatrix}
+$$
+che dà lo stesso risultato.
+\end{itemize}
 
 \end{document}
