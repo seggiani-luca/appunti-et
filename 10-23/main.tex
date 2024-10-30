@@ -268,20 +268,24 @@ le seguenti trasformazioni:
 \noindent
 \begin{minipage}{0.45\textwidth}
 	\begin{center}
+		$$
 			\begin{cases}
 				x_M = \sqrt{a^2 + b^2} \\ 
 				\phi = 
 					\mathrm{atan2}\left(\frac{b}{a}\right)	
 			\end{cases}
+	$$
 	\end{center}
 \end{minipage}
 \hfill
 \begin{minipage}{0.45\textwidth}
 	\begin{center}
-			\begin{cases}
+		$$	
+		\begin{cases}
 				a = x_M \cos(\phi) \\ 
 				b = x_M \sin(\phi) \\ 
 			\end{cases}
+			$$
 	\end{center}
 \end{minipage}
 
@@ -292,8 +296,8 @@ $$
 		\arctan{\frac{b}{a}}, \quad \quad a > 0, b \in \mathbb{R} \\ 
 					\pi + \arctan{\frac{b}{a}}, \quad \quad a < 0, b > 0 \\ 
 					- \pi + \arctan{\frac{b}{a}}, \quad \quad a < 0, b < 0 \\ 
-					\frac{\pi}{2}, \quad \quad \quaad a = 0, b > 0 \\
-					-\frac{\pi}{2}, \quad \quad \quaad a = 0, b < 0 \\
+					\frac{\pi}{2}, \quad \quad \quad a = 0, b > 0 \\
+					-\frac{\pi}{2}, \quad \quad \quad a = 0, b < 0 \\
 					0 \quad \quad \quad a > 0, b > 0 \\ 
 					\pi / -\pi \quad \quad \quad a < 0, b > 0 \\
 					\emptyset \quad \quad \quad a = 0, b = 0	
@@ -502,7 +506,7 @@ Prendiamo ad esempio il circuito:
 
 La legge che governa il generatore di tensione è:
 $$
-e(t) = A\sin\left(\omega t + \phi \right), \quad \dot{E} = A e^{j \phi
+e(t) = A\sin\left(\omega t + \phi \right), \quad \dot{E} = A e^{j \phi}
 $$
 
 Vediamo come risolvere il circuito usando il \textbf{tableau} e le \textbf{correnti di maglia}.

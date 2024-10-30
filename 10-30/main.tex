@@ -1,0 +1,365 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=~\thetcbcounter: #2,
+	#1
+}
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+% sezione (data)
+\section{Lezione del 30-10-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Potenza complessa}
+Introduciamo un'ulteriore misura della potenza, comoda perché non necessita (a differenza di quelle studiate finora) di lavorare coi valori efficaci.
+\begin{definition}{Potenza complessa}
+Definiamo la \textbf{potenza complessa} $\overline{S}$ come il prodotto dei fasori di tensione e corrente, cioè come:
+$$
+\overline{S} = \dot{V} \dot{I}^*
+$$
+\end{definition}
+
+Notiamo che si prende il \textbf{coniugato complesso} di $\dot{I}$.
+Il suo significato si può mostrare svolgendo il calcolo:
+$$
+\overline{S} = \dot{V} \dot{I}^* = V \cdot e^{j \phi_v} \cdot I \cdot e^{-j \phi_i} = VI e^{j(\phi_v - \phi_i)} = VI e^{j\phi}
+$$
+cioè possiamo sfruttare la formula sulle fasi $\phi_v - \phi_i = \phi$.
+
+In forma cartesiana, abbiamo che $\overline{S}$ vale:
+$$
+\overline{S} = VI e^{j\phi} = VI \cos(\phi) + j VI \sin{\phi} = P + jQ
+$$
+e quindi la potenza complessa è uguale al complesso dato da potenza attiva e reattiva.
+Notiamo che finora nei calcoli si è inteso, con $V$ e $I$, i \textbf{valori efficaci} di queste grandezze: da qui in poi infatti prenderemo qualsiasi versore privo di pedice con valore efficace a modulo.
+
+Possiamo rappresentare questa relazione nel cosiddetto \textbf{triangolo delle potenze}: la base è la potenza attiva, l'altezza la potenza resistiva, e inoltre notiamo che l'ipotenusa è la potenza apparente:
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    axis lines = center,
+    xmin=-1, xmax=5.4,
+    ymin=-1, ymax=5.4,
+		xtick={0.707*5},
+		ytick={0.707*5},
+		xticklabel={$P$},
+		yticklabel={$Q$},
+		grid=minor,
+  ]
+    % Draw the phasor (example: magnitude=1, angle=45 degrees)
+    \addplot[thick,->,black] coordinates {(0,0) (0.707*5,0.707*5)};
+    
+    % Optional: Add a label for the phasor
+		\node at (axis cs: 0.707*5, 0.707*5) [anchor=west] {$\overline{S}$};
+
+		\node at(axis cs: 0.5,0.3) [anchor=west] {$\phi$};
+		\node at(axis cs: 1.5,1.7) [anchor=south] {$S$};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Possiamo poi sfruttare: 
+$$
+\dot{V} = \overline{Z}\dot{I} \Leftrightarrow
+	\begin{cases}
+		V = ZI \\ 	
+		\phi_v = \phi_z + \phi_i
+	\end{cases}, \quad 
+\dot{I} = \frac{\dot{V}}{\overline{Z}} = \overline{Y} \dot{V} \Leftrightarrow 
+	\begin{cases}
+		I = Y V \\ 
+		\phi_i = \phi_y + \phi_v
+	\end{cases}
+$$
+e quindi possiamo esprimere $\overline{S}$ come funzione:
+\begin{itemize}
+	\item In funzione dell'impedenza: 
+$$
+\overline{S} = \dot{V}\dot{I}^* = \overline{Z} I^2 
+$$
+	\item In funzione dell'ammettenza:
+$$
+\overline{S} = \dot{V}\dot{I}^* = \overline{Y} V^2
+$$
+\end{itemize}
+
+\subsection{Teorema di Tellegen}
+Dimostriamo il seguente risultato:
+\begin{theorem}{Teorema di Tellegen}
+	La somma algebrica delle potenze istantanee impiegate su tutti i rami di una rete elettrica è uguale a 0, ovvero:
+$$
+\sum_{jk = 1}^n v_{jk} (t) \cdot i_{jk}(t) = 0
+$$
+\end{theorem}
+
+Notiamo che $j$ e $k$ sono indici che scorrono lungo $n$, dove $n$ è il numero di nodi della rete presa in considerazione, ergo $x_{jk}$ è quella grandezza considerata su ogni arco (ad archi inesistenti sarà evidentemente 0).
+
+Possiamo riformulare la formula precedente come segue:
+$$
+\sum_{jk = 1}^n  \left( v_{j, 0}(t) - v_{k, 0}(t) \right) \cdot i_{j.k}(t) = 0
+$$
+
+Dove si è usato $v_{jk} = v_{j, 0} - v_{k, 0}$ dal secondo principio di Kirchoff.
+Abbiamo quindi:
+$$
+= \sum_{jk = 1}^n  v_{j, 0}(t) \cdot i_{j.k}(t) - \sum_{jk = 1}^n v_{k, 0}(t) \cdot i_{j.k}(t) = \sum_{j=1}^n v_{j,0}(t) \left( \sum_{k=1}^n i_{jk}(t) \right) - v_{k,0}(t) \left( \sum_{j=1}^n i_{jk}(t) \right)
+$$
+
+Abbiamo che il secondo termine sommatoria è la somma delle correnti che escono dal nodo $j$, che quindi è 0 dal primo di Kirchoff, e il quarto termine, allo stesso modo, è la somma delle correnti che escono dal nodo $k$, e quindi l'intera espressione è nulla, da cui il teorema.
+
+\subsubsection{Teorema di Boucherot}
+Dal teorema di Tellegen sul caso sinusoidale deriva il \textbf{teorema di Boucherot}.
+Prendiamo come ipotesi: 
+$$
+\sum_{jk = 1}^n \dot{V}_{jk} \dot{I}_{jk}^* = 0
+$$
+
+Questo deriva dal teorema di Tellegen considerato in regime sinusoidale.
+Prendiamo quindi un qualunque ramo $jk$: su questo ramo avremo chiaramente impedenze e generatori, a cui diamo il nome $\overline{Z}_{jk}$ e $\dot{E}_{jk}$, e corrente e voltaggio, a cui diamo il nome di $\dot{I}_{jk}$ e $\dot{V}_{jk}$:
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to [ european resistor, l=$\overline{Z}_{jk}$] (2, 0)
+			to [ european voltage source, v=$E_{jk}$] (4, 0);
+
+		\node at (0,0) [anchor=east] {$j$};
+		\node at (4,0) [anchor=west] {$k$};
+	\end{circuitikz}
+\end{center}
+
+Sostituiamo quindi la caduta di potenziale $\dot{V}_{jk}$ nell'ipotesi con:
+$$
+\sum_{jk = 1}^n \left( \overline{Z}_{jk} \dot{I}_{jk} - \dot{E}_{jk} \right) \cdot \dot{I}_{jk}^* = 0
+$$
+notando che i due termini coinvolti nella sommatoria sono:
+$$
+\sum_{jk = 1}^n \overline{Z}_{jk} \cdot I_{jk}^2 = \sum_{jk = 1}^n \dot{E}_{jk} \dot{I}_{jk}^* = \sum_{jk = 1}^n \overline{S}_{jk}^{(G)}
+$$
+cioè le potenze dissipate sulle impedenze e le potenze erogate dai generatori del ramo.
+Da questo si deriva il teorema:
+\begin{theorem}{Teorema di Boucherot}
+	La somma delle potenze complesse dissipate sulle impedenze di un circuito è uguale alla somma delle potenze complesse erogate dai generatori, cioè:
+$$
+\sum_{jk = 1}^n \overline{Z}_{jk} \cdot I_{jk}^2 = \sum_{jk = 1}^n \dot{E}_{jk} \dot{I}_{jk}^*
+$$
+\end{theorem}
+
+Possiamo rendere questo risultato anche come:
+$$
+\sum_{jk = 1}^n \left( R_{jk} + j X_{jk} \right) I_{jk}^2 = \sum_{jk = 1}^n \left( P_{jk}^{(G)} + j Q_{jk}^{(G)} \right)
+$$
+
+Da cui in poi si possono equagliare separatamente parte reale e parte immaginaria:
+\[
+	\begin{cases}
+		\sum\limits_{jk =1}^n R_{jk} I_{jk}^2 = \sum\limits_{jk}^n P_{jk}^{(G)} \\ 
+		\sum\limits_{jk =1}^n X_{jk} I_{jk}^2 = \sum\limits_{jk}^n Q_{jk}^{(G)} \\ 
+	\end{cases}
+\]
+ergo, non solo la somma delle potenze potenze complesse dissipate sulle impedenze di un circuito è uguale alla somma delle potenze complesse erogate dai generatori, ma sia la potenza attiva che la potenza reattiva dissipata sulle impedenze sono uguali a le corrispondenti erogate dai generatori.
+
+Sulla potenza attiva, che sappiamo non poter avere segno negativo, si ha che i generatori devono compensare le potenze dissipate sulle impedenze.
+
+\subsubsection{Potenza apparente e Boucherot}
+Preso un ramo con due generatori $P_1$ e $P_2$, abbiamo che la potenza attiva e reattive associate valgono quanto le somme delle potenze attive e reattive sui singoli generatori:
+$$
+P^{(G)} = P_1 + P_2, \quad Q^{(G)} = Q_1 + Q_2 
+$$
+e quindi, da Boucherot, o semplicemente applicando la definizione di potenza complessa $\overline{S}$:
+$$
+\overline{S}^{(G)} = P^{(G)} + j Q^{(G)} = (P_1 + P_2) + j (Q_1 + Q_2)
+$$
+
+Cioè la potenza complessa si conserva.
+
+Dobbiamo notare che questo non vale per la potenza apparente: si ha che $S^{(G)} = \sqrt{P_{(G)}^2 + Q_{(G)}^2}$, ergo la dipendenza non è lineare, e non possiamo assumere che si conservi, cioè vale:
+$$
+S^{(G)} = \sqrt{P_{(G)}^2 + Q_{(G)}^2} \neq \sqrt{P_1^2 + Q_1^2} + \sqrt{P_2^2 + Q_2^2} 
+$$
+
+\end{document}
