@@ -1,0 +1,385 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=~\thetcbcounter: #2,
+	#1
+}
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+% sezione (data)
+\section{Lezione del 06-11-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Potenza su induttori mutuamente accoppiati}
+Abbiamo visto che i componenti come i resistori, hanno potenza \textbf{attiva}, cioè contribuiscono alla parte reale della potenza complessa, mentre componenti come condensatori e induttori hanno potenza \textbf{reattiva}, cioè contribuiscono alla parte complessa della potenza complessa.
+Vediamo adesso se la potenza su due induttori mutuamente accoppiati è attiva o reattiva.
+
+Iniziamo col dire che la formula che conoscevamo per la mutua induttanza, assunte correnti concordi sui contrassegni, cioè:
+$$
+\dot(V) = j \omega L_1 \dot{I_1} + j \omega M \dot{I_2}
+$$
+può anche esprimersi attraverso l'ammettenza $\overline{Z}$, con $\dot{V} = \overline{Z} \dot{I}$, cioè:
+$$
+\dot{V} = \overline{Z} \dot{I_1} + \overline{Z} \dot{I_2}
+$$
+
+Prendiamo quindi una coppia di induttori \textbf{reali} (quindi in serie ad una resistenza) mutuamente accoppiati:
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[ R, l=$R_1$, i=$i_1$] (2,0)
+			to[ inductor , l=$L_1$] (2,-2)
+			-- (0, -2);
+
+		\draw (6,0) to[ R, l_=$R_2$, i_=$i_2$] (4,0)
+			to[ inductor , l_=$L_2$] (4,-2)
+			-- (6, -2);
+
+			\draw (1.9,-0.6) node {$\scriptscriptstyle\bullet$};
+			\draw (3.9,-0.6) node {$\scriptscriptstyle\bullet$};
+
+			\draw (0,0) node[anchor=east] {$A$};
+			\draw (0,-2) node[anchor=east] {$B$};
+
+			\draw (0,-0.5) node[anchor=east] {$+$};
+			\draw (0,-1.5) node[anchor=east] {$-$};
+
+			\draw (6,0) node[anchor=west] {$C$};
+			\draw (6,-2) node[anchor=west] {$D$};
+
+			\draw (6,-0.5) node[anchor=west] {$+$};
+			\draw (6,-1.5) node[anchor=west] {$-$};
+
+			\draw (0,-1) node[anchor=east] {$v_1$};
+			\draw (6,-1) node[anchor=west] {$v_2$};
+
+			\draw (3,-0.5) node[anchor=south] {$M$};
+	\end{circuitikz}
+\end{center}
+
+Potremo esprimere la potenza complessa come:
+$$
+\overline{S} = V_1 \dot{I_1}^* + V_2 \dot{I_2}^* = \left( R_1 \dot{I_1} + j \omega L_1 \dot{I_1} + j \omega M \dot{I_2} \right) \cdot \dot{I_1}^* + \left( R_2 \dot{I_2} + j \omega L_2 \dot{I_2} + j \omega M \dot{I_1} \right) \cdot \dot{I_2}^*
+$$
+$$
+= R_1 I_1^2 + j \omega L_1 I_1^2 + j \omega M \dot{I_2} \cdot \dot{I_1}^* + R_2 I_2^2 + j \omega L_2 I_2^2 + j \omega M \dot{I_1} \cdot \dot{I_2}^*
+$$
+$$
+= R_1 I_1^2 + R_2 I_2^2 + j \omega L_1 I_1^2 + j \omega L_2 I_2^2 + j \omega M ( \dot{I_2} \cdot \dot{I_1}^* + \dot{I_2} \cdot \dot{I_1}^* )
+$$
+
+Da cui notiamo i primi quattro termini essere reali, ergo l'unico termine con possibile componente complessa è $j \omega M ( \dot{I_2} \cdot \dot{I_1}^* + \dot{I_2} \cdot \dot{I_1}^* )$.
+Possiamo dire che:
+$$
+\dot{I_1} = I_1 e^{j \phi_1}, \quad \dot{I_2} = I_2 e^{j \phi_2}
+$$
+da cui:
+$$
+\overline{S} = ... + j \omega M \left( I_2 e^{j \phi_2} \cdot I_1 e^{-j \phi_1} + I_1 e^{j \phi_1} \cdot I_2 e^{-j \phi_2} \right) = ... + j \omega M I_1 I_2 \left( e^{j(\phi_2 - \phi_1)} + e^{j(\phi_1 - \phi_2)} \right)
+$$
+$$
+= ... + j \omega M I_1 I_2 \left( \cos(\phi_2 - \phi_1) + j \sin (\phi_2 - \phi_1) + \cos(\phi_1 - \phi_2) + j \sin(\phi_1 - \phi_2) \right)
+$$
+
+E quindi dalle proprietà di seni e coseni di argomento negato:
+$$
+\overline{S} = R_1 I_1^2 + R_2 I_2 ^2 + j \omega L_1 I_1^2 + j \omega L_2 I_2^2 + 2 j \omega M I_1 I_2 \cos(\phi_2 - \phi_2)
+$$
+
+Da cui si ha che potenza attiva e reattiva sono rispettivamente:
+$$
+P = R_1 I_1^2 R_2 I_2^2, \quad jQ = j \omega L_1 I_1^2 + j \omega L_2 I_2^2 + 2 j \omega M I_1 I_2 \cos(\phi_1 - \phi_2)
+$$
+e quindi la potenza sulle mutue induttanze reali non ha solo componente reattiva (come nelle comuni induttanze), ma anche attiva. 
+
+\subsection{Circuiti equivalenti a induttori mutuamente accoppiati}
+Possiamo creare circuiti equivalenti, usando undattori non mutuamente accoppiati, quando si hanno induttori mutuamente accoppiati con nodi in comune:
+
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[ short, i=$i_1$] (1,0)
+			to[ inductor , l=$L_1$] (1,-2)
+			-- (0, -2);
+
+		\draw (4,0) to[ short, i_=$i_2$] (3,0)
+			to[ inductor , l_=$L_2$] (3,-2)
+			-- (4, -2);
+
+		\draw  (1, -2) to[short] (3, -2);
+
+			\draw (0.9,-0.6) node {$\scriptscriptstyle\bullet$};
+			\draw (2.9,-0.6) node {$\scriptscriptstyle\bullet$};
+
+			\draw (0,0) node[anchor=east] {$A$};
+			\draw (0,-2) node[anchor=east] {$B$};
+
+			\draw (0,-0.5) node[anchor=east] {$+$};
+			\draw (0,-1.5) node[anchor=east] {$-$};
+
+			\draw (4,0) node[anchor=west] {$C$};
+			\draw (4,-2) node[anchor=west] {$D$};
+
+			\draw (4,-0.5) node[anchor=west] {$+$};
+			\draw (4,-1.5) node[anchor=west] {$-$};
+
+			\draw (0,-1) node[anchor=east] {$v_1$};
+			\draw (4,-1) node[anchor=west] {$v_2$};
+			
+			\draw (2,-0.5) node[anchor=south] {$M$};
+	\end{circuitikz}
+\end{center}
+
+In questo caso si può usare l'equivalente a stella, selto un nuovo nodo centrale $O$:
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[ short, i=$i_1$] (1,0)
+			to[ inductor , l_=$\scriptstyle L_1 \mp M$] (2,-1)
+			to[ inductor, l=$\scriptstyle \pm M$ ] (2,-2);
+
+		\draw (4,0) to[ short, i_=$i_2$] (3,0)
+			to[ inductor , l=$\scriptstyle L_1 \mp M$] (2,-1);
+
+		\draw  (0, -2) to[short] (4, -2);
+
+			\draw (0,0) node[anchor=east] {$A$};
+			\draw (0,-2) node[anchor=east] {$B$};
+
+			\draw (0,-0.5) node[anchor=east] {$+$};
+			\draw (0,-1.5) node[anchor=east] {$-$};
+
+			\draw (4,0) node[anchor=west] {$C$};
+			\draw (4,-2) node[anchor=west] {$D$};
+
+			\draw (4,-0.5) node[anchor=west] {$+$};
+			\draw (4,-1.5) node[anchor=west] {$-$};
+
+			\draw (0,-1) node[anchor=east] {$v_1$};
+			\draw (4,-1) node[anchor=west] {$v_2$};
+	\end{circuitikz}
+\end{center}
+
+dove i segni superiori si usano nel caso di contrassegni coincidenti rispetto al nodo centrale, e i segni inferiori si usano nel caso di contrassegni opposti.
+
+Possiamo verificare che il circuito è effettivamente equivalente calcolando le cadute di potenziale, ad esempio sul lato sinistro del circuito:
+$$
+\dot{V_1} = j \omega (L_1 - M) \dot{I_1} + j \omega M (\dot{I_1} + \dot{I_2}) = j \omega L_1 \dot{I_1} - j \omega M \dot{I_1} + j \omega M \dot{I_1} + j \omega M \dot{I_2} = j \omega L \dot{I_1} + j \omega M \dot{I_2} 
+$$
+
+Un montaggio alternativo, ma comunque equivalente, è quello a $\pi$:
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[ short, i=$i_1$] (1,0)
+		to[ inductor , l_=$\frac{\Delta}{L_2 \mp M}$] (1,-2)
+			-- (0, -2);
+
+		\draw (4,0) to[ short, i_=$i_2$] (3,0)
+		to[ inductor , l=$\frac{\Delta}{L_1 \mp M}$] (3,-2)
+			-- (4, -2);
+
+		\draw  (1, -2) to[short] (3, -2);
+
+		\draw (1,0) to [ inductor , l=$\frac{\Delta}{\pm M}$] (3, 0);
+
+			\draw (0,0) node[anchor=east] {$A$};
+			\draw (0,-2) node[anchor=east] {$B$};
+
+			\draw (0,-0.5) node[anchor=east] {$+$};
+			\draw (0,-1.5) node[anchor=east] {$-$};
+
+			\draw (4,0) node[anchor=west] {$C$};
+			\draw (4,-2) node[anchor=west] {$D$};
+
+			\draw (4,-0.5) node[anchor=west] {$+$};
+			\draw (4,-1.5) node[anchor=west] {$-$};
+
+	\end{circuitikz}
+\end{center}
+
+Dove $\Delta = L_1L_2 - M^2$, assunto $L_1L_2 \neq M^2$ (con $M = \sqrt{L_1 L_2}$, siamo in condizioni di mutua induttanza \textit{ideale}).
+Come prima, i segni superiori significano induttanze con contrassegni concordi in direzione del polo comune, e i segni inferiori significano induttanze con contrassegni discordi.
+
+\end{document}
