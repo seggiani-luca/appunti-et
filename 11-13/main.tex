@@ -274,8 +274,42 @@ Possiamo immaginare che un segnale \textit{entra} da una porta, viene \textit{el
 
 Per convenzione, scegliamo le due correnti $I_1(t)$e $I_2(t)$ come rivolte nello stesso senso, e le due tensioni $V_1(t)$ e $V_2(t)$ come con la stessa polarità:
 
-\subsubsection{Rappresentazione in impedenza di circuiti a due porte}
+\subsection{Circuiti equivalenti di circuiti a due porte}
+Ciò che può interessarci quando studiamo circuiti a due porte è ricavare \textbf{circuiti equivalenti}, cioè che si comportano in maniera equivalente agli effetti esterni.
+L'idea è, come sempre, quella di prendere circuiti arbitrariamente complessi e ridurli a circuiti equivalenti relativamente semplici.
+
+\subsubsection{Rappresentazione a parametri Z}
 Una coppia di \textbf{induttori mutuamente accoppiati} rappresenta effettivamente un circuito a due porte, in quanto la stessa corrente entra e esce da ogni induttore (cioè si formano due porte).
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[ short, i=$i_1$] (1,0)
+			to[ inductor , l=$L_1$] (1,-2)
+			-- (0, -2);
+
+		\draw (4,0) to[ short, i_=$i_2$] (3,0)
+			to[ inductor , l_=$L_2$] (3,-2)
+			-- (4, -2);
+
+			\draw (0.9,-0.6) node {$\scriptscriptstyle\bullet$};
+			\draw (2.9,-0.6) node {$\scriptscriptstyle\bullet$};
+
+			\draw (0,0) node[anchor=east] {$A$};
+			\draw (0,-2) node[anchor=east] {$B$};
+
+			\draw (0,-0.5) node[anchor=east] {$+$};
+			\draw (0,-1.5) node[anchor=east] {$-$};
+
+			\draw (4,0) node[anchor=west] {$C$};
+			\draw (4,-2) node[anchor=west] {$D$};
+
+			\draw (4,-0.5) node[anchor=west] {$+$};
+			\draw (4,-1.5) node[anchor=west] {$-$};
+
+			\draw (0,-1) node[anchor=east] {$v_1$};
+			\draw (4,-1) node[anchor=west] {$v_2$};
+	\end{circuitikz}
+\end{center}
+
 Avevamo rappresentato questi circuiti come:
 \[
 	\begin{cases}
@@ -316,70 +350,18 @@ $$
 $$
 
 Date le equazioni riportate sopra che legano voltaggio a corrente, possiamo ricavare il valore di ogni componente di $\overline{Z}$ come:
-\[
-	\begin{cases}
-		\overline{z_{11}} = \frac{\dot{V}_1}{\dot{I}_1} \Big|_{\dot{I}_2 = 0} \\
-		\overline{z_{12}} = \frac{\dot{V}_1}{\dot{I}_2} \Big|_{\dot{I}_1 = 0} \\
-		\overline{z_{21}} = \frac{\dot{V}_2}{\dot{I}_1} \Big|_{\dot{I}_2 = 0} \\
-		\overline{z_{22}} = \frac{\dot{V}_2}{\dot{I}_2} \Big|_{\dot{I}_1 = 0}
-	\end{cases}
-\]
+$$
+\overline{Z} =
+\begin{pmatrix}
+	\overline{z_{11}} = \frac{\dot{V}_1}{\dot{I}_1} \Big|_{\dot{I}_2 = 0} & 
+	\overline{z_{12}} = \frac{\dot{V}_1}{\dot{I}_2} \Big|_{\dot{I}_1 = 0} \\
+	\overline{z_{21}} = \frac{\dot{V}_2}{\dot{I}_1} \Big|_{\dot{I}_2 = 0} &
+	\overline{z_{22}} = \frac{\dot{V}_2}{\dot{I}_2} \Big|_{\dot{I}_1 = 0}
+\end{pmatrix}
+$$
 dove la notazione $a \Big|_b$ significa "$a$ quando $b$".
 
-Si ha, attraverso queste relazioni, che basta misurare la tensione sulle porte in due stati ($\dot{I}_1 = 0$ e $\dot{I}_2 = 0$) per ricavare completamente le variabili $\overline{Z}$ del circuito.
-
-\subsubsection{Rappresentazione in ammettenza di circuiti a due porte}
-Possiamo usare, anzichè l'impedenza $\overline{Z}$, l'ammettenza $\overline{Y}$: se avevamo espresso il comportamento del circuito come $
-\begin{pmatrix}
-	\dot{V}_1 \\ \dot{V}_2
-\end{pmatrix}
-= \overline{Z}
-\begin{pmatrix}
-	\dot{I}_1 \\ \dot{I}_2
-\end{pmatrix}
-$, infatti, possiamo trovare l'inverso:
-$$
-\begin{pmatrix}
-	\dot{I}_1 \\ \dot{I}_2
-\end{pmatrix}
-= \overline{Z}^{-1}
-\begin{pmatrix}
-	\dot{V}_1 \\ \dot{V}_2
-\end{pmatrix}
-$$
-dove la matrice $\overline{Z}^{-1} = \overline{Y}$ è effettivamente l'\textbf{ammettenza} in forma matriciale del circuito:
-$$
-\overline{Y} =
-\begin{pmatrix}
-	\overline{y_{11}} & \overline{y_{12}} \\ 
-	\overline{y_{21}} & \overline{y_{22}}
-\end{pmatrix}
-$$
-
-Questo, in forma sistema, ha l'aspetto:
-\[
-	\begin{cases}
-		\dot{I}_1 = \overline{y_{11}} \dot{V}_1 + \overline{y_{12}} \dot{V}_2 \\ 	
-		\dot{I}_2 = \overline{y_{21}} \dot{V}_1 + \overline{y_{22}} \dot{V}_2 	
-	\end{cases}
-\]
-
-Date le equazioni riportate sopra, possiamo ricavare il valore di ogni componente di $\overline{Y}$ come:
-\[
-	\begin{cases}
-		\overline{y_{11}} = \frac{\dot{I}_1}{\dot{V}_1} \Big|_{\dot{V}_2 = 0} \\
-		\overline{y_{12}} = \frac{\dot{I}_1}{\dot{V}_2} \Big|_{\dot{V}_1 = 0} \\
-		\overline{y_{21}} = \frac{\dot{I}_2}{\dot{V}_1} \Big|_{\dot{V}_2 = 0} \\
-		\overline{y_{22}} = \frac{\dot{I}_2}{\dot{V}_2} \Big|_{\dot{V}_1 = 0}
-	\end{cases}
-\]
-
-\subsection{Circuiti equivalenti di circuiti a due porte}
-Ciò che può interessarci quando studiamo circuiti a due porte è ricavare \textbf{circuiti equivalenti}, cioè che si comportano in maniera equivalente agli effetti esterni.
-L'idea è, come sempre, quella di prendere circuiti arbitrariamente complessi e ridurli a circuiti equivalenti relativamente semplici.
-
-\subsubsection{Sintesi a parametri Z}
-Sfruttando la rappresentazione in impedenza dei circuiti a due porte, un circuito equivalente potrebbe essere il seguente:
+Si ha, attraverso queste relazioni, che basta misurare la tensione sulle porte in due stati ($\dot{I}_1 = 0$ e $\dot{I}_2 = 0$) per ricavare completamente i parametri $\overline{Z}$ del circuito, e ricavare quindi un circuito equivalente del tipo:
 
 \begin{center}
 	\begin{circuitikz}
@@ -408,8 +390,7 @@ Sfruttando la rappresentazione in impedenza dei circuiti a due porte, un circuit
 \end{center}
 dove si inseriscono i termini di impedenza $\overline{z_{11}}$ e $\overline{z_{22}}$ semplicemente come impedenze in serie alle porte 1 e 2, e i termini "associati" $\overline{z_{12}}$ e $\overline{z_{21}}$ come generatori di tensione pilotati (che generano, appunto, cadute di tensione pilotate, rispettivamente in $\dot{I}_2$ per la porta 1 e in $\dot{I}_1$ per la porta 2).
 
-Il metodo naturale di analisi per questo circuito è correnti di maglia, che possiamo applicare alle due porte per poi eguagliare con la matrice delle impedenze.
-Si ha, quindi, rispetto alle due porte:
+Il metodo naturale di analisi per questo circuito è correnti di maglia, che possiamo applicare alle due porte per poi eguagliare con la matrice delle impedenze:
 \[
 	\begin{cases}
 		\dot{V}_1	= \overline{z_{11}} \dot{I}_1 + \overline{Z_{12}} \dot{I}_2 \\  	
@@ -455,28 +436,75 @@ Anche qui, applicando correnti di maglia, si ha:
 \]
 che rappresenta la rete reciproca, ponendo:
 \[
-	\begin{cases}
-		\overline{z_{11}} = \overline{z_a} + \overline{z_b} \\ 
-		\overline{z_{12}} = \overline{z_{21}} = \overline{z_b} \\ 
-		\overline{z_{22}} = \overline{z_c} + \overline{z_b} 
-	\end{cases}
+	\overline{Z} =
+	\begin{pmatrix}
+		\overline{z_a} + \overline{z_b} & \overline{z_b} \\ 
+		\overline{z_b} & \overline{z_b + z_c}
+	\end{pmatrix}
 	\Leftrightarrow
 	\begin{cases}
-		\overline{z_a} = \overline{z_{11}} - \overline{z_{12}} \\ 
+		\overline{z_a} = \overline{z_{11}} - \overline{z_{12}} = \overline{z_{11}} - \overline{z_{21}} \\ 
 		\overline{z_b} = \overline{z_{12}} = \overline{z_{21}} \\
-		\overline{z_c} = \overline{z_{22}} - \overline{z_{12}}
+		\overline{z_c} = \overline{z_{22}} - \overline{z_{12}} = \overline{z_{22}} - \overline{z_{21}}
 	\end{cases}
 \]
 
 Notiamo che, per circuiti a due porte generici, non è detto che i potenziali dei morsetti di uscita di entrambe le porte siano allo stesso potenziale: per modellizzare questo comportamento si usa una \textit{mutua induttanza ideale}, cioè un \textbf{trasformatore ideale}.
 
-\subsubsection{Sintesi a parametri Y}
-Come si è fatta la sintesi a parametri Z, si può fare la sintesi a parametri Y, cioè secondo le ammettenze:
+
+\subsubsection{Rappresentazione a parametri Y}
+Nella rappresentazione di un circuito a due porte possiamo parametrizzare, anzichè l'impedenza $\overline{Z}$, l'ammettenza $\overline{Y}$: se avevamo espresso il comportamento del circuito come $
+\begin{pmatrix}
+	\dot{V}_1 \\ \dot{V}_2
+\end{pmatrix}
+= \overline{Z}
+\begin{pmatrix}
+	\dot{I}_1 \\ \dot{I}_2
+\end{pmatrix}
+$, infatti, possiamo trovare l'inverso:
+$$
+\begin{pmatrix}
+	\dot{I}_1 \\ \dot{I}_2
+\end{pmatrix}
+= \overline{Z}^{-1}
+\begin{pmatrix}
+	\dot{V}_1 \\ \dot{V}_2
+\end{pmatrix}
+$$
+dove la matrice $\overline{Z}^{-1} = \overline{Y}$ è effettivamente l'\textbf{ammettenza} in forma matriciale del circuito:
+$$
+\overline{Y} =
+\begin{pmatrix}
+	\overline{y_{11}} & \overline{y_{12}} \\ 
+	\overline{y_{21}} & \overline{y_{22}}
+\end{pmatrix}
+$$
+
+Da cui il sistema lineare:
+\[
+	\begin{cases}
+		\dot{I}_1 = \overline{y_{11}} \dot{V}_1 + \overline{y_{12}} \dot{V}_2 \\ 	
+		\dot{I}_2 = \overline{y_{21}} \dot{V}_1 + \overline{y_{22}} \dot{V}_2 	
+	\end{cases}
+\]
+
+Date le equazioni riportate sopra, possiamo ricavare il valore di ogni componente di $\overline{Y}$ come:
+$$
+\overline{Y} =
+\begin{pmatrix}
+	\overline{y_{11}} = \frac{\dot{I}_1}{\dot{V}_1} \Big|_{\dot{V}_2 = 0} &
+	\overline{y_{12}} = \frac{\dot{I}_1}{\dot{V}_2} \Big|_{\dot{V}_1 = 0} \\
+	\overline{y_{21}} = \frac{\dot{I}_2}{\dot{V}_1} \Big|_{\dot{V}_2 = 0} &
+	\overline{y_{22}} = \frac{\dot{I}_2}{\dot{V}_2} \Big|_{\dot{V}_1 = 0}
+\end{pmatrix}
+$$
+
+Possiamo quindi disporre un circuito equivalente come segue:
 \begin{center}
 	\begin{circuitikz}
 		\draw (-4, 1) to [ short, i=$I_1$] (-3, 1) 
 			to [ short] (-1, 1);
-		\draw (-1, 1) to [ controlled current source, cI<=$\overline{y_{12}} \dot{V}_1$ ] (-1, -1);
+		\draw (-1, 1) to [ controlled current source, cI>=$\overline{y_{12}} \dot{V}_1$ ] (-1, -1);
 		\draw (-1, -1) to [ short] (-3, -1)
 		-- (-4, -1);
 			
@@ -486,7 +514,7 @@ Come si è fatta la sintesi a parametri Z, si può fare la sintesi a parametri Y
 
 		\draw (6,1) to [ short, i=$I_2$] (5, 1) 
 			to [ short] (3, 1)
-			to [ controlled current source, cI_<=$\overline{y_{21}} \dot{V}_2$ ] (3, -1) 
+			to [ controlled current source, cI_>=$\overline{y_{21}} \dot{V}_2$ ] (3, -1) 
 			to [ short] (5, -1)
 			-- (6, -1);
 	
@@ -500,10 +528,8 @@ Come si è fatta la sintesi a parametri Z, si può fare la sintesi a parametri Y
 		\node[rectangle, draw, minimum width = 8.5cm, minimum height = 4cm] (a) at (1,0) {};
 	\end{circuitikz}
 \end{center}
-dove stavolta si inseriscono i termini di ammettenza $\overline{y_{11}}$ e $\overline{y_{22}}$ semplicemente ammettenze in parallelo alle porte 1 e 2, e i termini "associati" $\overline{y_{12}}$ e $\overline{y_{21}}$ come generatori di corrente pilotati (che generano, appunto, cadute di tensione pilotate, rispettivamente in $\dot{I}_2$ per la porta 1 e in $\dot{I}_1$ per la porta 2).
-
-Il metodo naturale di analisi per questo circuito è tensioni di nodo, che possiamo applicare alle due porte per poi eguagliare con la matrice delle ammettenze.
-Si ha, quindi, rispetto alle due porte:
+dove stavolta si inseriscono i termini di ammettenza $\overline{y_{11}}$ e $\overline{y_{22}}$ semplicemente ammettenze in parallelo alle porte 1 e 2, e i termini "associati" $\overline{y_{12}}$ e $\overline{y_{21}}$ come generatori di corrente pilotati.
+Possiamo analizzare questo circuito considerando le corrente sui rami impedenza e generatore di entrambe le porte, da cui si ottiene:
 \[
 	\begin{cases}
 		\dot{I}_1	= \overline{y_{11}} \dot{V}_1 + \overline{y_{12}} \dot{V}_2 \\  	
@@ -513,7 +539,6 @@ Si ha, quindi, rispetto alle due porte:
 che combacia con quanto definito sulla rappresentazione in ammettenza.
 
 In particolare, vediamo il caso \textbf{reciproco} $\overline{y_{11}} = \overline{y_{21}}$: 
-
 \begin{center}
 	\begin{circuitikz}
 		\draw (-1, 1) to[ european resistor, l_=$\overline{y_a}$] (-1, -1);
@@ -532,12 +557,21 @@ In particolare, vediamo il caso \textbf{reciproco} $\overline{y_{11}} = \overlin
 		\draw (4.6, 1) node[anchor=east] {$+$};
 		\draw (4.6, 0) node[anchor=east] {$V_2$};
 		\draw (4.6, -1) node[anchor=east] {$-$};
+	
+		\node [ground] at (0, -1) {};
+		
+		\draw (-1,1) node[circ] {};
+		\draw (-1,1) node[above] {$V_1$};
+
+		\draw (1,1) node[circ] {};
+		\draw (1,1) node[above] {$V_2$};
 		
 		\node[rectangle, draw, minimum width = 6.5cm, minimum height = 4cm] (a) at (0,0) {};
 	\end{circuitikz}
 \end{center}
 
-Anche qui, applicando tensioni di nodo, si ha:
+Il metodo naturale di analisi per questo circuito è tensioni di nodo, che possiamo applicare alle due porte per poi eguagliare con la matrice delle ammettenze.
+Prendiamo i due nodi in alto come $\dot{V}_1$ e $\dot{V}_2$, il nodo in basso come terra, e scriviamo le equazioni:
 \[
 	\begin{cases}
 		\dot{I}_1 = (\overline{y_a} + \overline{y_b}) \dot{V}_1 - \overline{y_b} \dot{V}_2 \\	
@@ -546,11 +580,11 @@ Anche qui, applicando tensioni di nodo, si ha:
 \]
 che rappresenta la rete reciproca, ponendo:
 \[
-	\begin{cases}
-		\overline{y_{11}} = \overline{y_a} + \overline{y_b} \\ 
-		\overline{y_{12}} = \overline{y_{21}} = -\overline{y_b} \\ 
-		\overline{y_{22}} = \overline{y_c} + \overline{y_b} 
-	\end{cases}
+	\overline{Y} = 
+	\begin{pmatrix}
+		\overline{y_a} + \overline{y_b} & -\overline{y_b} \\ 
+		-\overline{y_b} & \overline{y_b} + \overline{y_c}
+	\end{pmatrix}
 	\Leftrightarrow
 	\begin{cases}
 		\overline{y_a} = \overline{y_{11}} + \overline{y_{12}} \\ 
@@ -560,6 +594,4 @@ che rappresenta la rete reciproca, ponendo:
 \]
 
 Notiamo che ancora che il circuito più generale si ottiene disaccoppiando i potenziali sul ramo in basso attraverso un trasformatore ideale.
-
-
 \end{document}

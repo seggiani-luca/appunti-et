@@ -205,12 +205,16 @@ Abbiamo visto come, su circuiti a due porte, \textit{tensione} e \textit{corrent
 \]
 con $\overline{Y} = \overline{Z}^{-1}$. 
 
+Inoltre, abbiamo visto la rappresentazioni in parametri Z e Y che si possono ricavare da queste due forme.
+Esistono altre rappresentazioni, che non si basano direttamente sulle equazioni della legge di Ohm rispetto all'impedenza o all'ammettenza, ma su altre caratteristiche del circuito.
+Vediamo infatti una rappresentazione utile a modellizzare parametri significativi di circuiti a due porte, la \textbf{rappresentazione a parametri h}.
+
 \subsection{Sintesi a parametri ibridi}
 Finora abbiamo scelto le variabili indipendenti come entrambe le tensioni o entrambe le correnti. 
 Nessuno ci nega però di scegliere come variabili indipendenti una tensione e una corrente.
 Chiamiamo la parametrizzazione che otteniamo da questa scelta \textbf{sintesi a parametri ibridi}, o \textbf{a parametri h}.
 
-La forma generale di una sintesi a parametri ibridi è:
+La forma generale di una sintesi a parametri h è:
 \[
 	\begin{cases}
 		\dot{V}_1 = \overline{h_{11}} \dot{I}_1 + \overline{h_{12}} \dot{V}_2 \\ 
@@ -229,21 +233,22 @@ $$
 $$
 
 Le componenti di $\overline{h}$ si ricavano quindi come:
-\[
-	\begin{cases}
-		\overline{h_{11}} = \frac{\dot{V}_1}{\dot{I}_1} \Big|_{\dot{V}_2 = 0} \\
+$$
+h:
+\begin{pmatrix}
+		\overline{h_{11}} = \frac{\dot{V}_1}{\dot{I}_1} \Big|_{\dot{V}_2 = 0} &
 		\overline{h_{12}} = \frac{\dot{V}_1}{\dot{V}_2} \Big|_{\dot{I}_1 = 0} \\
-		\overline{h_{21}} = \frac{\dot{I}_2}{\dot{I}_1} \Big|_{\dot{V}_2 = 0} \\
+		\overline{h_{21}} = \frac{\dot{I}_2}{\dot{I}_1} \Big|_{\dot{V}_2 = 0} &
 		\overline{h_{22}} = \frac{\dot{I}_2}{\dot{V}_2} \Big|_{\dot{I}_1 = 0}
-	\end{cases}
-\]
+\end{pmatrix}
+$$
 
 Questo tipo di sintesi ha un significato interessante sui vari parametri:
 \begin{itemize}
 	\item $\overline{h_{11}}$: impedenza in entrata;
 	\item $\overline{h_{12}}$: inverso dell'amplificazione di tensione;
 	\item $\overline{h_{21}}$: amplificazione di corrente;
-	\item $\overline{h_{22}}$: inverso dell impedenza in uscita.
+	\item $\overline{h_{22}}$: inverso dell impedenza in uscita (ammettenza in uscita).
 \end{itemize}
 
 Il circuito equivalente che possiamo formare da una sintesi a parametri ibridi è il seguente: 
@@ -275,8 +280,8 @@ Il circuito equivalente che possiamo formare da una sintesi a parametri ibridi �
 		\node[rectangle, draw, minimum width = 8.5cm, minimum height = 4cm] (a) at (1,0) {};
 	\end{circuitikz}
 \end{center}
-
-# riguarda tutti i circuiti sono sbagliati
+da cui l'impedenza $\overline{h_{11}}$ e l'ammettenza $\overline{h_{22}}$ vengono rese come impedenze rispetivamente in serie e in parallelo, l'inverso dell'amplificazione di tensione $\overline{h_{12}}$ come il coefficiente di un generatore di tensione pilotato, e l'amplificazione di corrente $\overline{h_{21}}$ come il coefficiente di un generatore di corrente pilotato.
+Si noti che sia $\overline{h_{12}}$ che $\overline{h_{21}}$ sono numeri puri, mentre $\overline{h_{11}}$ e $\overline{h_{22}}$
 
 \subsubsection{Condizioni di reciprocità}
 Vediamo quindi quando ci troviamo in condizioni di reciprocità.
@@ -292,15 +297,28 @@ Dalla seconda equazione possiamo scrivere:
 $$
 \overline{h_{22}} \dot{V}_2 = - \overline{h_{21}} \dot{I_1} + \dot{I_2} \Rightarrow \dot{V}_2 = -\frac{\overline{h_{21}}}{\overline{h_{22}}} \dot{I}_1 + \frac{1}{\overline{h_{22}}} \dot{I}_2 
 $$
-dove $\frac{\overline{h_{21}}}{\overline{h_{22}}} = \overline{z_{21}}$ e $\frac{1}{\overline{h_{22}}} = \overline{z_{22}}$ sono effettivamente i parametri Z del circuito.
+dove $-\frac{\overline{h_{21}}}{\overline{h_{22}}} = \overline{z_{21}}$ e $\frac{1}{\overline{h_{22}}} = \overline{z_{22}}$ sono effettivamente i parametri Z del circuito.
 Analogamente, dalla prima equazione possiamo scrivere:
 $$
 \dot{V}_1 = \overline{h_{11}} \dot{I_1} + \overline{h_{12}} \left(  -\frac{\overline{h_{21}}}{\overline{h_{22}}} \dot{I}_1 + \frac{1}{\overline{h_{22}}} \dot{I}_2  \right) \Rightarrow \dot{V}_1 = \left( \overline{h_{11}} - \frac{\overline{h_{12}}\overline{h_{21}}}{\overline{h_{22}}} \right) \dot{I_1} + \frac{\overline{h_{12}}}{\overline{h_{22}}} \dot{I}_2 
 $$
-dove ancora una volta $\overline{h_{11}} - \frac{\overline{h_{12}}\overline{h_{21}}}{\overline{h_{22}}} = z_{11}$ e $\frac{\overline{h_{12}}}{\overline{h_{22}}} = z_{12}$ sono i parametri Z del circuito. # risvolgi tutti sti calcoli
+dove ancora una volta $\overline{h_{11}} - \frac{\overline{h_{12}}\overline{h_{21}}}{\overline{h_{22}}} = \overline{z_{11}}$ e $\frac{\overline{h_{12}}}{\overline{h_{22}}} = \overline{z_{12}}$ sono i parametri Z del circuito. 
 
-Dalle equazioni si ha che il circuito è \textit{reciproco} quando la matrice dei parametri h è \textbf{antisimmetrica}, cioè negata attorno alla diagonale # rivedi la definizione di matrice antisimmetrica.
+Si ricavano quindi i parametri Z in funzione dei parametri h:
+$$
+\overline{Z} =
+\begin{pmatrix}
+	\overline{h_{11}} - \frac{\overline{z_{12}}\overline{z_{21}}}{\overline{h_{22}}} & \frac{\overline{h_{12}}}{\overline{h_{22}}} \\ 
+	- \frac{\overline{h_{21}}}{\overline{h_{22}}} & \frac{1}{\overline{h_{22}}}
+\end{pmatrix}
+$$
 
+Imponendo quindi la condizione di reciprocità $\overline{z_{12}} = \overline{z_{21}}$, si ha:
+$$
+\frac{\overline{z_{12}}}{\overline{z_{22}}} = -\frac{\overline{z_{21}}}{\overline{z_{22}}} \Rightarrow \overline{z_{12}} = - \overline{z_{21}}
+$$
+posto $\overline{z_{22}} \neq 0$, che è comunque assunto rispettato (l'impedenza non può essere nulla).
 
+Dalle equazioni si ha che quindi che il circuito è \textbf{reciproco} quando la matrice dei parametri h è "antisimmetrica", cioè ha valori negati lungo la diagonale (si noti che questa definizione non è assolutamente quella data in algebra lineare, cioè $A^T= -A$: questa implicherebbe digonale nulla). 
 
 \end{document}
