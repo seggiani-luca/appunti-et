@@ -386,7 +386,7 @@ Sfruttando la rappresentazione in impedenza dei circuiti a due porte, un circuit
 		\draw (-4, 1) -- (-3, 1) 
 			to [ european resistor, l=$\overline{z_{11}}$, i=$I_1$] (-1, 1)
 			to [ controlled voltage source, v<=$\overline{z_{12}} \dot{I}_2$ ] (-1, -1) 
-			to [ european resistor, i=$I_1$ ] (-3, -1)	
+			to [ short, i=$I_1$ ] (-3, -1)	
 			-- (-4, -1);
 			
 		\draw (-4.6, 1) node[anchor=west] {$+$};
@@ -396,7 +396,7 @@ Sfruttando la rappresentazione in impedenza dei circuiti a due porte, un circuit
 		\draw (6,1) -- (5, 1) 
 			to [ european resistor, l_=$\overline{z_{12}}$, i_=$I_2$] (3, 1)
 			to [ controlled voltage source, v_<=$\overline{z_{21}} \dot{I}_1$ ] (3, -1) 
-			to [ european resistor, i_=$I_2$ ] (5, -1)
+			to [ short, i_=$I_2$ ] (5, -1)
 			-- (6, -1);
 	
 		\draw (6.6, 1) node[anchor=east] {$+$};
