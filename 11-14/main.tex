@@ -209,7 +209,7 @@ Inoltre, abbiamo visto la rappresentazioni in parametri Z e Y che si possono ric
 Esistono altre rappresentazioni, che non si basano direttamente sulle equazioni della legge di Ohm rispetto all'impedenza o all'ammettenza, ma su altre caratteristiche del circuito.
 Vediamo infatti una rappresentazione utile a modellizzare parametri significativi di circuiti a due porte, la \textbf{rappresentazione a parametri h}.
 
-\subsection{Sintesi a parametri ibridi}
+\subsection{Rappresentazione parametri ibridi}
 Finora abbiamo scelto le variabili indipendenti come entrambe le tensioni o entrambe le correnti. 
 Nessuno ci nega però di scegliere come variabili indipendenti una tensione e una corrente.
 Chiamiamo la parametrizzazione che otteniamo da questa scelta \textbf{sintesi a parametri ibridi}, o \textbf{a parametri h}.
@@ -251,7 +251,8 @@ Questo tipo di sintesi ha un significato interessante sui vari parametri:
 	\item $\overline{h_{22}}$: inverso dell impedenza in uscita (ammettenza in uscita).
 \end{itemize}
 
-Il circuito equivalente che possiamo formare da una sintesi a parametri ibridi è il seguente: 
+\subsubsection{Circuito equivalente}
+Il circuito equivalente che possiamo formare da una rappresentazione a parametri ibridi è il seguente: 
 \begin{center}
 	\begin{circuitikz}
 		\draw (-4, 1) -- (-3, 1) 
@@ -312,7 +313,7 @@ $$
 \end{pmatrix}
 $$
 
-Imponendo quindi la condizione di reciprocità $\overline{z_{12}} = \overline{z_{21}}$, si ha:
+Imponendo la condizione di reciprocità $\overline{z_{12}} = \overline{z_{21}}$, si ha:
 $$
 \frac{\overline{z_{12}}}{\overline{z_{22}}} = -\frac{\overline{z_{21}}}{\overline{z_{22}}} \Rightarrow \overline{z_{12}} = - \overline{z_{21}}
 $$

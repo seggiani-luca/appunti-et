@@ -212,10 +212,11 @@ Potremmo pensare di calcolare i parametri T come segue:
 $$
 T:
 \begin{pmatrix}
-	\overline{A} = \frac{\dot{V_1}}{\dot{V_2}} \Big|_{-\dot{I}_2 = 0}	& ... \\
+	\overline{A} = \frac{\dot{V}_1}{\dot{V}_2} \Big|_{-\dot{I}_2 = 0}	& \overline{B} = -\frac{\dot{V}_1}{\dot{I}_2} \Big|_{\dot{V}_2 = 0} \\
+	\overline{C} = \frac{\dot{I}_1}{\dot{V}_2} \Big|_{-\dot{I}_2 = 0}	& \overline{D} = -\frac{\dot{I}_1}{\dot{I}_2} \Big|_{\dot{V}_2 = 0} \\
 \end{pmatrix}
 $$
-ma notiamo che è impossibile calcolare, ad esempio $\overline{A}$, in quanto si chiede di mettere sia un generatore che un aperto alla porta 2 # riporta tutti
+ma notiamo che risulta difficile calcolare, ad esempio $\overline{A}$, in quanto si chiede di mettere sia un generatore che un aperto alla porta 2 
 Scriviamo quindi una matrice del tipo:
 $$
 T:
@@ -225,6 +226,7 @@ T:
 \end{pmatrix}
 $$
 
+\subsubsection{Circuito equivalente}
 Riscriviamo la seconda equazione di rappresentazione come:
 $$
 \dot{I}_1 = \overline{C} \dot{V}_2 + \overline{D} (-\dot{I}_2) \Rightarrow -\dot{I}_2 = \frac{1}{\overline{D}} \dot{I}_1 - \frac{\overline{C}}{\overline{D}}\dot{V}_2
@@ -258,8 +260,6 @@ Un possibile circuito equivalente di una parametrizzazione T sarà quindi il seg
 	\end{circuitikz}
 \end{center}
 
-# ce sempre un errore sui circuiti in ammettenza
-
 \subsubsection{Condizioni di reciprocità}
 Troviamo quindi le condizioni di reciprocità.
 Come avevamo fatto per i parametri h, riportiamoci in parameri Z, ad esempio partendo dalla seconda equazione:
@@ -270,7 +270,21 @@ da cui $\frac{1}{\overline{C}} = \overline{z_{21}}$ e $\frac{\overline{D}}{\over
 $$
 \dot{V}_1 = \overline{A} \left( \frac{1}{\overline{C}} \dot{I}_1 + \frac{\overline{D}}{\overline{C}} \dot{I}_2 \right) + \overline{B} \left( - \dot{I}_2 \right) = \dot{I}_1 \frac{1}{\overline{C}} + \dot{I}_2 \left( \frac{\overline{D}}{\overline{C}} - \overline{B} \right)
 $$
-da cui # finisci
+da cui $\overline{z_{11}} = \frac{\overline{A}}{\overline{C}}$ e $\overline{z_{12}} = \frac{\overline{A} \overline{D}}{\overline{C}} - \overline{B}$.
+Si ricavano quindi i parametri Z in funzione dei parametri T:
+$$
+\overline{Z} =
+\begin{pmatrix}
+	\frac{\overline{A}}{\overline{C}} & \frac{\overline{A} \overline{D}}{\overline{C}} - \overline{B} \\
+	\frac{1}{\overline{C}} & \frac{\overline{D}}{\overline{C}}
+\end{pmatrix}
+$$
+
+Imponendo la condizione di reciprocità $\overline{z_{12}} = \overline{z_{21}}$, si ha:
+$$ 
+\frac{\overline{A} \overline{D}}{\overline{C}} - \overline{B} = \frac{1}{\overline{C}} \Rightarrow \overline{A}\overline{D} - \overline{B}\overline{C} = 1
+$$
+cioè, il circuito è \textbf{reciproco} quando la matrice dei parametri T ha determinante $\det(T) = 1$. 
 
 \subsection{Circuiti a due porte in serie}
 Poniamo di avere due circuiti a due porte $A$ e $B$, percorsi rispettivamente dalle correnti $I_{1a}$ e $I_{2a}$, e $I_{1b}$ e $I_{2b}$. collegati fra di loro in \textbf{serie}, cioè su cui scorre la \textit{stessa corrente}:

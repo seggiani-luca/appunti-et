@@ -278,7 +278,7 @@ Per convenzione, scegliamo le due correnti $I_1(t)$e $I_2(t)$ come rivolte nello
 Ciò che può interessarci quando studiamo circuiti a due porte è ricavare \textbf{circuiti equivalenti}, cioè che si comportano in maniera equivalente agli effetti esterni.
 L'idea è, come sempre, quella di prendere circuiti arbitrariamente complessi e ridurli a circuiti equivalenti relativamente semplici.
 
-\subsubsection{Rappresentazione a parametri Z}
+\subsection{Rappresentazione a parametri Z}
 Una coppia di \textbf{induttori mutuamente accoppiati} rappresenta effettivamente un circuito a due porte, in quanto la stessa corrente entra e esce da ogni induttore (cioè si formano due porte).
 \begin{center}
 	\begin{circuitikz}
@@ -361,8 +361,8 @@ $$
 $$
 dove la notazione $a \Big|_b$ significa "$a$ quando $b$".
 
+\subsubsection{Circuito equivalente}
 Si ha, attraverso queste relazioni, che basta misurare la tensione sulle porte in due stati ($\dot{I}_1 = 0$ e $\dot{I}_2 = 0$) per ricavare completamente i parametri $\overline{Z}$ del circuito, e ricavare quindi un circuito equivalente del tipo:
-
 \begin{center}
 	\begin{circuitikz}
 		\draw (-4, 1) -- (-3, 1) 
@@ -452,7 +452,7 @@ che rappresenta la rete reciproca, ponendo:
 Notiamo che, per circuiti a due porte generici, non è detto che i potenziali dei morsetti di uscita di entrambe le porte siano allo stesso potenziale: per modellizzare questo comportamento si usa una \textit{mutua induttanza ideale}, cioè un \textbf{trasformatore ideale}.
 
 
-\subsubsection{Rappresentazione a parametri Y}
+\subsection{Rappresentazione a parametri Y}
 Nella rappresentazione di un circuito a due porte possiamo parametrizzare, anzichè l'impedenza $\overline{Z}$, l'ammettenza $\overline{Y}$: se avevamo espresso il comportamento del circuito come $
 \begin{pmatrix}
 	\dot{V}_1 \\ \dot{V}_2
@@ -499,12 +499,13 @@ $$
 \end{pmatrix}
 $$
 
+\subsubsection{Circuito equivalente}
 Possiamo quindi disporre un circuito equivalente come segue:
 \begin{center}
 	\begin{circuitikz}
 		\draw (-4, 1) to [ short, i=$I_1$] (-3, 1) 
 			to [ short] (-1, 1);
-		\draw (-1, 1) to [ controlled current source, cI>=$\overline{y_{12}} \dot{V}_1$ ] (-1, -1);
+		\draw (-1, 1) to [ controlled current source, cI>=$\overline{y_{12}} \dot{V}_2$ ] (-1, -1);
 		\draw (-1, -1) to [ short] (-3, -1)
 		-- (-4, -1);
 			
@@ -514,7 +515,7 @@ Possiamo quindi disporre un circuito equivalente come segue:
 
 		\draw (6,1) to [ short, i=$I_2$] (5, 1) 
 			to [ short] (3, 1)
-			to [ controlled current source, cI_>=$\overline{y_{21}} \dot{V}_2$ ] (3, -1) 
+			to [ controlled current source, cI_>=$\overline{y_{21}} \dot{V}_1$ ] (3, -1) 
 			to [ short] (5, -1)
 			-- (6, -1);
 	
