@@ -1,0 +1,586 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=~\thetcbcounter: #2,
+	#1
+}
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+% sezione (data)
+\section{Lezione del 15-11-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Rappresentazione a parametri T}
+Vediamo un ultimo tipo di parametrizzazione, la \textbf{parametrizzazione T}.
+Le equazioni di rappresentazione sono:
+\[
+	\begin{cases}
+		\dot{V}_1	= \overline{A} \dot{V}_2 + \overline{B} ( - \dot{I}_2 ) \\ 
+		\dot{V}_2	= \overline{C} \dot{V}_2 + \overline{D} ( - \dot{I}_2 ) \\ 
+	\end{cases}
+\]
+
+Notiamo come le grandezze indipendenti qui sono sempre sia tensioni e correnti, ma non in alternanza come nella parametrizzazione h.
+Inoltre, notiamo che il termine $\dot{I}_2$ compare con segno negato.
+
+Potremmo pensare di calcolare i parametri T come segue:
+$$
+T:
+\begin{pmatrix}
+	\overline{A} = \frac{\dot{V_1}}{\dot{V_2}} \Big|_{-\dot{I}_2 = 0}	& ... \\
+\end{pmatrix}
+$$
+ma notiamo che è impossibile calcolare, ad esempio $\overline{A}$, in quanto si chiede di mettere sia un generatore che un aperto alla porta 2 # riporta tutti
+Scriviamo quindi una matrice del tipo:
+$$
+T:
+\begin{pmatrix}
+	\frac{1}{\overline{A}} = \frac{\dot{V}_2}{\dot{V}_1} \Big|_{- \dot{I}_2 = 0} & \frac{1}{\overline{B}} = -\frac{\dot{I}_2}{\dot{V}_1} \Big|_{- \dot{V}_2 = 0} \\
+	\frac{1}{\overline{C}} = \frac{\dot{V}_2}{\dot{I}_1} \Big|_{- \dot{I}_2 = 0} & \frac{1}{\overline{D}} = -\frac{\dot{I}_2}{\dot{I}_1} \Big|_{- \dot{V}_2 = 0} \\
+\end{pmatrix}
+$$
+
+Riscriviamo la seconda equazione di rappresentazione come:
+$$
+\dot{I}_1 = \overline{C} \dot{V}_2 + \overline{D} (-\dot{I}_2) \Rightarrow -\dot{I}_2 = \frac{1}{\overline{D}} \dot{I}_1 - \frac{\overline{C}}{\overline{D}}\dot{V}_2
+$$
+Un possibile circuito equivalente di una parametrizzazione T sarà quindi il seguente:
+\begin{center}
+	\begin{circuitikz}
+		\draw (-4, 1) -- (-3, 1) 
+		to [ controlled voltage source, v<=$\overline{A}\dot{V}_2$, i>=$I_1$] (-1, 1)
+		to [ controlled voltage source, v<=$-\overline{B} \dot{I}_2$ ] (-1, -1) 
+			to [ short, i=$I_1$ ] (-3, -1)	
+			-- (-4, -1);
+			
+		\draw (-4.6, 1) node[anchor=west] {$+$};
+		\draw (-4.6, 0) node[anchor=west] {$V_1$};
+		\draw (-4.6, -1) node[anchor=west] {$-$};
+
+		\draw (6,1) to [ short, i=$I_2$] (5, 1) 
+			to [ short] (3, 1)
+			to [ controlled current source, cI_<=$\frac{\dot{I}_1}{\overline{D}}$ ] (3, -1) 
+			to [ short] (5, -1)
+			-- (6, -1);
+	
+		\draw (6.6, 1) node[anchor=east] {$+$};
+		\draw (6.6, 0) node[anchor=east] {$V_2$};
+		\draw (6.6, -1) node[anchor=east] {$-$};
+		
+		\draw (4, 1) to [ european resistor, l=$\frac{\overline{D}}{\overline{C}}$] (4, -1);
+
+		\node[rectangle, draw, minimum width = 8.5cm, minimum height = 5cm] (a) at (1,0) {};
+	\end{circuitikz}
+\end{center}
+
+# ce sempre un errore sui circuiti in ammettenza
+
+\subsubsection{Condizioni di reciprocità}
+Troviamo quindi le condizioni di reciprocità.
+Come avevamo fatto per i parametri h, riportiamoci in parameri Z, ad esempio partendo dalla seconda equazione:
+$$
+\dot{V}_2 = \frac{1}{\overline{C}} \dot{I}_1 + \frac{\overline{D}}{\overline{C}} \dot{I}_2
+$$
+da cui $\frac{1}{\overline{C}} = \overline{z_{21}}$ e $\frac{\overline{D}}{\overline{C}} = \overline{z_{22}}$, e analogamente per la prima:
+$$
+\dot{V}_1 = \overline{A} \left( \frac{1}{\overline{C}} \dot{I}_1 + \frac{\overline{D}}{\overline{C}} \dot{I}_2 \right) + \overline{B} \left( - \dot{I}_2 \right) = \dot{I}_1 \frac{1}{\overline{C}} + \dot{I}_2 \left( \frac{\overline{D}}{\overline{C}} - \overline{B} \right)
+$$
+da cui # finisci
+
+\subsection{Circuiti a due porte in serie}
+Poniamo di avere due circuiti a due porte $A$ e $B$, percorsi rispettivamente dalle correnti $I_{1a}$ e $I_{2a}$, e $I_{1b}$ e $I_{2b}$. collegati fra di loro in \textbf{serie}, cioè su cui scorre la \textit{stessa corrente}:
+
+\begin{center}
+	\begin{circuitikz}
+		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,0) {};
+		\draw (-2, 0.6) to [ short, i=$I_{1a}$] (-1, 0.6);
+		\draw(-1, -0.6) to [ short, i=$I_{1a}$ ] (-2, -0.6);	
+	
+		\draw (-2.6, 0.6) node[anchor=west] {$+$};
+		\draw (-2.6, 0) node[anchor=west] {$V_{1a}$};
+		\draw (-2.6, -0.6) node[anchor=west] {$-$};
+		
+		\draw (2, 0.6) to [ short, i_=$I_{2a}$] (1, 0.6);
+		\draw(1, -0.6) to [ short, i_=$I_{2a}$ ] (2, -0.6);	
+	
+		\draw (2.6, 0.6) node[anchor=east] {$+$};
+		\draw (2.6, 0) node[anchor=east] {$V_{2b}$};
+		\draw (2.6, -0.6) node[anchor=east] {$-$};
+
+
+		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,-3) {};
+		\draw (-2, -2.4) to [ short, i=$I_{1b}$] (-1, -2.4);
+		\draw(-1, -3.6) to [ short, i=$I_{1b}$ ] (-2, -3.6);	
+	
+		\draw (-2.6, -2.4) node[anchor=west] {$+$};
+		\draw (-2.6, -3) node[anchor=west] {$V_{1b}$};
+		\draw (-2.6, -3.6) node[anchor=west] {$-$};
+		
+		\draw (2, -2.4) to [ short, i_=$I_{2b}$] (1, -2.4);
+		\draw(1, -3.6) to [ short, i_=$I_{2b}$ ] (2, -3.6);	
+	
+		\draw (2.6, -2.4) node[anchor=east] {$+$};
+		\draw (2.6, -3) node[anchor=east] {$V_{2b}$};
+		\draw (2.6, -3.6) node[anchor=east] {$-$};
+
+		\node at (0, 0) {$Z_A$};
+		\node at (0, -3) {$Z_B$};
+
+		\draw (2, -2.4) -- (2, -0.6);
+		\draw (-2, -2.4) -- (-2, -0.6);
+	\end{circuitikz}
+\end{center}
+
+# nota che questa è sempre una porta
+
+Calcoliamo la caduta di potenziale sulle due porte ($1$ e $2$):
+$$
+\begin{pmatrix}
+	\dot{V}_{1s} \\ \dot{V}_{2s}
+\end{pmatrix}
+=
+\begin{pmatrix}
+	\dot{V}_{1a} \\ \dot{V}_{2a}
+\end{pmatrix}
++
+\begin{pmatrix}
+	\dot{V}_{1b} \\ \dot{V}_{2b}
+\end{pmatrix}
+=
+\overline{Z_{a}} 
+\begin{pmatrix}
+	\dot{I}_{1a} \\ \dot{I}_{1b}
+\end{pmatrix}
++
+\overline{Z_{b}}
+\begin{pmatrix}
+	\dot{I}_{2a} \\ \dot{I}_{2b}
+\end{pmatrix}
+=
+\left( \overline{Z_a} + \overline{Z_b} \right) 
+\begin{pmatrix}
+	\dot{I_{1s}} \\ \dot{I_{2s}}
+\end{pmatrix}
+$$
+che è quello che ci aspettavamo: la matrice dei parametri Z di due circuiti a due porte in serie è data dalla \textit{somma} delle matrici dei parametri Z dei singoli circuiti.
+
+\subsubsection{Circuiti a due porte in parallelo}
+Poniamo adesso di avere due circuiti a due porte $A$ e $B$, percorsi sempre dalle correnti $I_{1a}$ e $I_{2a}$, e $I_{1b}$ e $I_{2b}$. collegati fra di loro in \textbf{parallelo}, cioè che si trovano allo \textit{stesso potenziale}:
+
+\begin{center}
+	\begin{circuitikz}
+		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,0) {};
+		\draw (-2, 0.6) to [ short, i=$I_{1a}$] (-1, 0.6);
+		\draw(-1, -0.6) to [ short, i=$I_{1a}$ ] (-2, -0.6);	
+	
+		\draw (-2.6, 0.6) node[anchor=west] {$+$};
+		\draw (-2.6, 0) node[anchor=west] {$V_{1a}$};
+		\draw (-2.6, -0.6) node[anchor=west] {$-$};
+		
+		\draw (2, 0.6) to [ short, i_=$I_{2a}$] (1, 0.6);
+		\draw(1, -0.6) to [ short, i_=$I_{2a}$ ] (2, -0.6);	
+	
+		\draw (2.6, 0.6) node[anchor=east] {$+$};
+		\draw (2.6, 0) node[anchor=east] {$V_{2b}$};
+		\draw (2.6, -0.6) node[anchor=east] {$-$};
+
+
+		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,-3) {};
+		\draw (-2, -2.4) to [ short, i=$I_{1b}$] (-1, -2.4);
+		\draw(-1, -3.6) to [ short, i=$I_{1b}$ ] (-2, -3.6);	
+	
+		\draw (-2.6, -2.4) node[anchor=west] {$+$};
+		\draw (-2.6, -3) node[anchor=west] {$V_{1b}$};
+		\draw (-2.6, -3.6) node[anchor=west] {$-$};
+		
+		\draw (2, -2.4) to [ short, i_=$I_{2b}$] (1, -2.4);
+		\draw(1, -3.6) to [ short, i_=$I_{2b}$ ] (2, -3.6);	
+	
+		\draw (2.6, -2.4) node[anchor=east] {$+$};
+		\draw (2.6, -3) node[anchor=east] {$V_{2b}$};
+		\draw (2.6, -3.6) node[anchor=east] {$-$};
+
+		\node at (0, 0) {$Y_A$}; \TODO % non so il perchè delle Y. poi finisci circuito parallelo
+		\node at (0, -3) {$Y_B$};
+
+	\end{circuitikz}
+\end{center}
+
+# come prima è sempre una porta
+
+Calcoliamo quindi la corrente che attraversa le porte:
+$$
+\begin{pmatrix}
+	\dot{I}_{1s} \\ \dot{I}_{2s} 
+\end{pmatrix}
+=
+\begin{pmatrix}
+	\dot{I}_{1a} \\ \dot{I}_{2a}
+\end{pmatrix}
++
+\begin{pmatrix}
+	\dot{I}_{1b} \\ \dot{I}_{2b}
+\end{pmatrix}
+=
+\overline{Y_a} 
+\begin{pmatrix}
+	\dot{V}_{1a} \\ \dot{V}_{2a}
+\end{pmatrix}
++
+\overline{Y_b}
+\begin{pmatrix}
+	\dot{V}_{1b} \\ \dot{V}_{2b}
+\end{pmatrix}
+=
+(\overline{Y_a} + \overline{Y_b})
+\begin{pmatrix}
+	\dot{I}_{1s} \\ \dot{I}_{2s}
+\end{pmatrix}
+$$
+
+# riguarda formule, poi ha preso un circuito in serie e l ha risolto coi parametri Y (Y_A^-1 + Y_B^_1)^_1
+
+\subsection{Circuiti a due porte in cascata}
+Nel collegamento \textbf{a cascata}, l'uscita di una porta và direttamente in ingresso a una seconda porta, cioè:
+\begin{center}
+	\begin{circuitikz}
+		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,0) {};
+		\draw (-2, 0.6) to [ short, i=$I_{1a}$] (-1, 0.6);
+		\draw(-1, -0.6) to [ short, i=$I_{1a}$ ] (-2, -0.6);	
+	
+		\draw (-2.6, 0.6) node[anchor=west] {$+$};
+		\draw (-2.6, 0) node[anchor=west] {$V_{1a}$};
+		\draw (-2.6, -0.6) node[anchor=west] {$-$};
+		
+		\draw (2, 0.6) to [ short, i_=$I_{2a}$] (1, 0.6);
+		\draw(1, -0.6) to [ short, i_=$I_{2a}$ ] (2, -0.6);	
+	
+		\draw (2.6, 0.6) node[anchor=east] {$+$};
+		\draw (2.6, 0) node[anchor=east] {$V_{2b}$};
+		\draw (2.6, -0.6) node[anchor=east] {$-$};
+
+
+		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,-3) {};
+		\draw (-2, -2.4) to [ short, i=$I_{1b}$] (-1, -2.4);
+		\draw(-1, -3.6) to [ short, i=$I_{1b}$ ] (-2, -3.6);	
+	
+		\draw (-2.6, -2.4) node[anchor=west] {$+$};
+		\draw (-2.6, -3) node[anchor=west] {$V_{1b}$};
+		\draw (-2.6, -3.6) node[anchor=west] {$-$};
+		
+		\draw (2, -2.4) to [ short, i_=$I_{2b}$] (1, -2.4);
+		\draw(1, -3.6) to [ short, i_=$I_{2b}$ ] (2, -3.6);	
+	
+		\draw (2.6, -2.4) node[anchor=east] {$+$};
+		\draw (2.6, -3) node[anchor=east] {$V_{2b}$};
+		\draw (2.6, -3.6) node[anchor=east] {$-$};
+
+		\node at (0, 0) {$T_A$}; \TODO % finisci circuito cascata 
+		\node at (0, -3) {$T_B$};
+
+	\end{circuitikz}
+\end{center}
+
+Non dobbiamo dimostrare che anche questo circuito è una porta, in quanto si prende come ingresso l'ingresso della porta $T_A$ ($I_{1c})$ , $V_{1c}$) e come uscita l'uscita della porta $T_B$ ($I_{2c})$ , $V_{2c}$).
+
+Possiamo quindi esprimere queste relazioni fra le i circuiti interni e le porte esterne come segue:
+$$
+\begin{pmatrix}
+	\dot{V}_{1c} \\ \dot{I}_{1c}
+\end{pmatrix}
+=
+\begin{pmatrix}
+	\dot{V}_{1a} \\ \dot{I}_{1a}
+\end{pmatrix}
+=
+\overline{T_a}
+\begin{pmatrix}
+	\dot{V}_{2a} \\ - \dot{I}_{2a}
+\end{pmatrix}
+=
+\overline{T_a}
+\begin{pmatrix}
+	\dot{V}_{1b} \\ \dot{I}_{1b}
+\end{pmatrix}
+=
+(\overline{T_a} \overline{T_b}) 
+\begin{pmatrix}
+	\dot{V}_{2b} \\ -\dot{I}_{2b}
+\end{pmatrix}
+(\overline{T_a} \overline{T_b})
+\begin{pmatrix}
+	\dot{V}_{2c} \\ -\dot{I}_{2c}
+\end{pmatrix}
+$$
+da cui:
+$$
+\begin{pmatrix}
+	\dot{V}_{1c} \\ \dot{I}_{1v} 
+\end{pmatrix}
+=
+(\overline{T_a} \overline{T_b})
+\begin{pmatrix}
+	\dot{V}_{2c} \\ -\dot{I}_{2c}
+\end{pmatrix}
+$$
+
+# questo sopra boh
+
+\subsection{Collegamento ibrido serie/parallelo}
+Attraverso le porte abbiamo a disposizione un ulteriore tipo di collegamento, il cosiddetto collegamento \textbf{ibrido}, cioè dove una coppia di porte viene connessa in serie e l'altra coppia in parallelo:
+\begin{center}
+	\begin{circuitikz}
+		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,0) {};
+		\draw (-2, 0.6) to [ short, i=$I_{1a}$] (-1, 0.6);
+		\draw(-1, -0.6) to [ short, i=$I_{1a}$ ] (-2, -0.6);	
+	
+		\draw (-2.6, 0.6) node[anchor=west] {$+$};
+		\draw (-2.6, 0) node[anchor=west] {$V_{1a}$};
+		\draw (-2.6, -0.6) node[anchor=west] {$-$};
+		
+		\draw (2, 0.6) to [ short, i_=$I_{2a}$] (1, 0.6);
+		\draw(1, -0.6) to [ short, i_=$I_{2a}$ ] (2, -0.6);	
+	
+		\draw (2.6, 0.6) node[anchor=east] {$+$};
+		\draw (2.6, 0) node[anchor=east] {$V_{2b}$};
+		\draw (2.6, -0.6) node[anchor=east] {$-$};
+
+
+		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,-3) {};
+		\draw (-2, -2.4) to [ short, i=$I_{1b}$] (-1, -2.4);
+		\draw(-1, -3.6) to [ short, i=$I_{1b}$ ] (-2, -3.6);	
+	
+		\draw (-2.6, -2.4) node[anchor=west] {$+$};
+		\draw (-2.6, -3) node[anchor=west] {$V_{1b}$};
+		\draw (-2.6, -3.6) node[anchor=west] {$-$};
+		
+		\draw (2, -2.4) to [ short, i_=$I_{2b}$] (1, -2.4);
+		\draw(1, -3.6) to [ short, i_=$I_{2b}$ ] (2, -3.6);	
+	
+		\draw (2.6, -2.4) node[anchor=east] {$+$};
+		\draw (2.6, -3) node[anchor=east] {$V_{2b}$};
+		\draw (2.6, -3.6) node[anchor=east] {$-$};
+
+		\node at (0, 0) {$h_A$}; \TODO % finisci circuito ibrido 
+		\node at (0, -3) {$h_B$};
+
+	\end{circuitikz}
+\end{center}
+
+Per questo tipo di circuiti potremmo dire:
+$$
+\begin{pmatrix}
+	\dot{V}_{1m} \\ \dot{I}_{2m}
+\end{pmatrix}
+=
+\begin{pmatrix}
+	\dot{V}_{1a} \\ \dot{I}_{2a}
+\end{pmatrix}
++
+\begin{pmatrix}
+	\dot{V}_{1b} \\ \dot{I}_{2b}
+\end{pmatrix}
+=
+\overline{h_a}
+\begin{pmatrix}
+	\dot{I}_{1a} \\ \dot{V}_{2a}
+\end{pmatrix}
++
+\overline{h_b}
+\begin{pmatrix}
+	\dot{I}_{1b} \\ \dot{V_{2b}}
+\end{pmatrix}
+=
+(\overline{h_a} + \overline{h_b})
+\begin{pmatrix}
+	\dot{I}_{1m} \\ \dot{V}_{2m}
+\end{pmatrix}
+$$
+
+\end{document}
+# chiudi tutto il discorso che parametrizzazioni diverse aiutano a risolvere circuiti diversi
