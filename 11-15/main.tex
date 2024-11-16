@@ -292,47 +292,64 @@ Poniamo di avere due circuiti a due porte $A$ e $B$, percorsi rispettivamente da
 \begin{center}
 	\begin{circuitikz}
 		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,0) {};
+		\draw (-4, 0.6) to [ short, i=$I_{1s}$] (-2, 0.6);
 		\draw (-2, 0.6) to [ short, i=$I_{1a}$] (-1, 0.6);
 		\draw(-1, -0.6) to [ short, i=$I_{1a}$ ] (-2, -0.6);	
 	
-		\draw (-2.6, 0.6) node[anchor=west] {$+$};
-		\draw (-2.6, 0) node[anchor=west] {$V_{1a}$};
-		\draw (-2.6, -0.6) node[anchor=west] {$-$};
+		\draw (-2, 0.4) node[anchor=west] {$\scriptstyle +$};
+		\draw (-2, 0) node[anchor=west] {$V_{1a}$};
+		\draw (-2, -0.3) node[anchor=west] {$\scriptstyle -$};
 		
+		\draw (4, 0.6) to [ short, i_=$I_{2s}$] (2, 0.6);
 		\draw (2, 0.6) to [ short, i_=$I_{2a}$] (1, 0.6);
 		\draw(1, -0.6) to [ short, i_=$I_{2a}$ ] (2, -0.6);	
 	
-		\draw (2.6, 0.6) node[anchor=east] {$+$};
-		\draw (2.6, 0) node[anchor=east] {$V_{2b}$};
-		\draw (2.6, -0.6) node[anchor=east] {$-$};
+		\draw (2, 0.4) node[anchor=east] {$\scriptstyle +$};
+		\draw (2, 0) node[anchor=east] {$V_{2a}$};
+		\draw (2, -0.3) node[anchor=east] {$\scriptstyle -$};
 
 
 		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,-3) {};
+		
 		\draw (-2, -2.4) to [ short, i=$I_{1b}$] (-1, -2.4);
-		\draw(-1, -3.6) to [ short, i=$I_{1b}$ ] (-2, -3.6);	
+		\draw(-1, -3.6) to [ short, i=$I_{1b}$ ] (-2, -3.6);
+		\draw (-2, -3.6) to [ short, i=$I_{1s}$] (-4, -3.6);
 	
-		\draw (-2.6, -2.4) node[anchor=west] {$+$};
-		\draw (-2.6, -3) node[anchor=west] {$V_{1b}$};
-		\draw (-2.6, -3.6) node[anchor=west] {$-$};
+		\draw (-2, -2.7) node[anchor=west] {$\scriptstyle +$};
+		\draw (-2, -3.1) node[anchor=west] {$V_{1b}$};
+		\draw (-2, -3.4) node[anchor=west] {$\scriptstyle -$};
 		
 		\draw (2, -2.4) to [ short, i_=$I_{2b}$] (1, -2.4);
 		\draw(1, -3.6) to [ short, i_=$I_{2b}$ ] (2, -3.6);	
+		\draw (2, -3.6) to [ short, i_=$I_{2s}$] (4, -3.6);
 	
-		\draw (2.6, -2.4) node[anchor=east] {$+$};
-		\draw (2.6, -3) node[anchor=east] {$V_{2b}$};
-		\draw (2.6, -3.6) node[anchor=east] {$-$};
+		\draw (2, -2.7) node[anchor=east] {$\scriptstyle +$};
+		\draw (2, -3.1) node[anchor=east] {$V_{2b}$};
+		\draw (2, -3.4) node[anchor=east] {$\scriptstyle -$};
 
 		\node at (0, 0) {$Z_A$};
 		\node at (0, -3) {$Z_B$};
 
 		\draw (2, -2.4) -- (2, -0.6);
 		\draw (-2, -2.4) -- (-2, -0.6);
+
+		\node[rectangle, draw, minimum width = 5.3cm, minimum height = 6cm] at (0, -1.5) {};
+
+		\draw (-4, 0) node[anchor=west] {$+$};
+		\draw (-4, -1.5) node[anchor=west] {$V_{1s}$};
+		\draw (-4, -3) node[anchor=west] {$-$};
+
+		\draw (4, 0) node[anchor=east] {$+$};
+		\draw (4, -1.5) node[anchor=east] {$V_{2s}$};
+		\draw (4, -3) node[anchor=east] {$-$};
 	\end{circuitikz}
 \end{center}
 
-# nota che questa è sempre una porta
+Dimostriamo che il circuito così formato è di nuovo un circuito a due porte.
+Guardando alla porta $1$, si ha che la corrente sulla porta a corrente $I_{1a}$ di $Z_A$ è la stessa che entra (e quindi esce) sulla porta $Z_B$, cioè $\dot{I}_{1a} = \dot{I}_{1b} = \dot{I}_{1s}$. 
+Lo stesso vale per la porta $2$, cioè $\dot{I}_{2a} = \dot{I}_{2b} = \dot{I}_{2s}$.
 
-Calcoliamo la caduta di potenziale sulle due porte ($1$ e $2$):
+Calcoliamo quindi la caduta di potenziale sulle due porte ($1$ e $2$) attraverso l'impedenza sui circuiti ($\overline{Z_a}$ e $\overline{Z_b}$):
 $$
 \begin{pmatrix}
 	\dot{V}_{1s} \\ \dot{V}_{2s}
@@ -358,10 +375,10 @@ $$
 =
 \left( \overline{Z_a} + \overline{Z_b} \right) 
 \begin{pmatrix}
-	\dot{I_{1s}} \\ \dot{I_{2s}}
+	\dot{I}_{1s} \\ \dot{I}_{2s}
 \end{pmatrix}
 $$
-che è quello che ci aspettavamo: la matrice dei parametri Z di due circuiti a due porte in serie è data dalla \textit{somma} delle matrici dei parametri Z dei singoli circuiti.
+che è quello che ci aspettavamo: la matrice dei parametri Z di due circuiti a due porte in serie è data dalla \textit{somma} delle matrici dei parametri Z dei singoli circuiti, ergo l'impedenza complessiva della circuito sulle due porte è data da $\overline{Z_a} + \overline{Z_b}$.
 
 \subsubsection{Circuiti a due porte in parallelo}
 Poniamo adesso di avere due circuiti a due porte $A$ e $B$, percorsi sempre dalle correnti $I_{1a}$ e $I_{2a}$, e $I_{1b}$ e $I_{2b}$. collegati fra di loro in \textbf{parallelo}, cioè che si trovano allo \textit{stesso potenziale}:
@@ -369,48 +386,69 @@ Poniamo adesso di avere due circuiti a due porte $A$ e $B$, percorsi sempre dall
 \begin{center}
 	\begin{circuitikz}
 		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,0) {};
+		\draw (-4, 0.6) to [ short, i=$I_{1p}$] (-2, 0.6);
 		\draw (-2, 0.6) to [ short, i=$I_{1a}$] (-1, 0.6);
-		\draw(-1, -0.6) to [ short, i=$I_{1a}$ ] (-2, -0.6);	
+		\draw(-1, -0.6) to [ short, i=$I_{1a}$ ] (-2, -0.6) -- (-2.2, -0.6);	
 	
-		\draw (-2.6, 0.6) node[anchor=west] {$+$};
+		\draw (-2.6, 0.4) node[anchor=west] {$\scriptstyle +$};
 		\draw (-2.6, 0) node[anchor=west] {$V_{1a}$};
-		\draw (-2.6, -0.6) node[anchor=west] {$-$};
+		\draw (-2.6, -0.3) node[anchor=west] {$\scriptstyle -$};
 		
+		\draw (4, 0.6) to [ short, i_=$I_{2p}$] (2, 0.6);
 		\draw (2, 0.6) to [ short, i_=$I_{2a}$] (1, 0.6);
-		\draw(1, -0.6) to [ short, i_=$I_{2a}$ ] (2, -0.6);	
+		\draw(1, -0.6) to [ short, i_=$I_{2a}$ ] (2, -0.6) -- (2.2, -0.6);	
 	
-		\draw (2.6, 0.6) node[anchor=east] {$+$};
-		\draw (2.6, 0) node[anchor=east] {$V_{2b}$};
-		\draw (2.6, -0.6) node[anchor=east] {$-$};
+		\draw (2.6, 0.4) node[anchor=east] {$\scriptstyle +$};
+		\draw (2.6, 0) node[anchor=east] {$V_{2a}$};
+		\draw (2.6, -0.3) node[anchor=east] {$\scriptstyle -$};
 
 
 		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,-3) {};
-		\draw (-2, -2.4) to [ short, i=$I_{1b}$] (-1, -2.4);
-		\draw(-1, -3.6) to [ short, i=$I_{1b}$ ] (-2, -3.6);	
-	
-		\draw (-2.6, -2.4) node[anchor=west] {$+$};
-		\draw (-2.6, -3) node[anchor=west] {$V_{1b}$};
-		\draw (-2.6, -3.6) node[anchor=west] {$-$};
 		
-		\draw (2, -2.4) to [ short, i_=$I_{2b}$] (1, -2.4);
-		\draw(1, -3.6) to [ short, i_=$I_{2b}$ ] (2, -3.6);	
+		\draw (-1.8, -2.4) to [ short, i=$I_{1b}$] (-1, -2.4);
+		\draw(-1, -3.6) to [ short, i=$I_{1b}$ ] (-2, -3.6);
+		\draw (-2, -3.6) to [ short, i=$I_{1p}$] (-4, -3.6);
 	
-		\draw (2.6, -2.4) node[anchor=east] {$+$};
-		\draw (2.6, -3) node[anchor=east] {$V_{2b}$};
-		\draw (2.6, -3.6) node[anchor=east] {$-$};
+		\draw (-2, -2.7) node[anchor=west] {$\scriptstyle +$};
+		\draw (-2, -3.1) node[anchor=west] {$V_{1b}$};
+		\draw (-2, -3.4) node[anchor=west] {$\scriptstyle -$};
+		
+		\draw (1.8, -2.4) to [ short, i_=$I_{2b}$] (1, -2.4);
+		\draw(1, -3.6) to [ short, i_=$I_{2b}$ ] (2, -3.6);	
+		\draw (2, -3.6) to [ short, i_=$I_{2p}$] (4, -3.6);
+	
+		\draw (2, -2.7) node[anchor=east] {$\scriptstyle +$};
+		\draw (2, -3.1) node[anchor=east] {$V_{2b}$};
+		\draw (2, -3.4) node[anchor=east] {$\scriptstyle -$};
 
-		\node at (0, 0) {$Y_A$}; \TODO % non so il perchè delle Y. poi finisci circuito parallelo
+		\node at (0, 0) {$Y_A$};
 		\node at (0, -3) {$Y_B$};
 
+		\draw (1.8, -2.4) -- (1.8, 0.6);
+		\draw (2.2, -3.6) -- (2.2, -0.6);
+
+		\draw (-1.8, -2.4) -- (-1.8, 0.6);
+		\draw (-2.2, -3.6) -- (-2.2, -0.6);
+
+		\node[rectangle, draw, minimum width = 5.3cm, minimum height = 6cm] at (0, -1.5) {};
+		
+		\draw (-4, 0) node[anchor=west] {$+$};
+		\draw (-4, -1.5) node[anchor=west] {$V_{1p}$};
+		\draw (-4, -3) node[anchor=west] {$-$};
+
+		\draw (4, 0) node[anchor=east] {$+$};
+		\draw (4, -1.5) node[anchor=east] {$V_{2p}$};
+		\draw (4, -3) node[anchor=east] {$-$};
 	\end{circuitikz}
 \end{center}
 
-# come prima è sempre una porta
+Dimostriamo che anche questo circuito è sempre un circuito a due porte.
+Si ha, ad esempio sulla porta $1$, che dalla prima legge di Kirchoff $\dot{I}_{1p} = \dot{I}_{1a} + \dot{I}_{1b}$, e visto che questo accade sia sulle correnti entranti che sulle correnti uscenti da $Z_A$ e $Z_B$, la $\dot{I}_{1p}$ entrante è uguale all'uscente (anche perché altrimenti non gli avremmo dato lo stesso nome...).
 
 Calcoliamo quindi la corrente che attraversa le porte:
 $$
 \begin{pmatrix}
-	\dot{I}_{1s} \\ \dot{I}_{2s} 
+	\dot{I}_{1p} \\ \dot{I}_{2p} 
 \end{pmatrix}
 =
 \begin{pmatrix}
@@ -433,54 +471,73 @@ $$
 =
 (\overline{Y_a} + \overline{Y_b})
 \begin{pmatrix}
-	\dot{I}_{1s} \\ \dot{I}_{2s}
+	\dot{V}_{1p} \\ \dot{V}_{2p}
 \end{pmatrix}
 $$
 
-# riguarda formule, poi ha preso un circuito in serie e l ha risolto coi parametri Y (Y_A^-1 + Y_B^_1)^_1
+Questa volta, avremo che l'\textit{ammettenza} complessiva del circuito sulle due porte è $\overline{Y_a} + \overline{Y_b}$.
+
+\par\medskip
+
+Notiamo come la \textbf{paramerizzazione Z} è tornata utile per circuiti a due porte \textit{in serie}, mentre la \textbf{parametrizzazione Y} è invece stata più adeguata per circuiti a due porte \textit{in parallelo}.
+
+A scapito della semplicità dei calcoli, potremmo aver bisogno di ricavare l'impedenza (parametri Z) su circuiti in parallelo, o viceversa l'ammettenza (parametri Y) su circuiti in serie.
+In questo caso possiamo notare, ad esempio sulla serie:
+$$
+\overline{Z_a} + \overline{Z_b} = \left( \frac{1}{\overline{Y_a}} + \frac{1}{\overline{Y_b}} \right) = \overline{Z_s}, \quad \overline{Y_s} = \frac{1}{\overline{Z_s}} = \left( \frac{1}{\overline{Y_a}} + \frac{1}{\overline{Y_b}} \right)^{-1} 
+$$
+
+In parallelo varrà analogamente:
+$$
+\overline{Z_p} = \left( \frac{1}{\overline{Z_a}} + \frac{1}{\overline{Z_b}} \right)^{-1}
+$$
+
+L'associazione fra parametrizzazioni e tipo di collegamento studiato rimane anche per i parametri h e T.
+In particolare, vedremo come i \textbf{parametri h} risultano utili per collegamenti \textit{ibridi serie/parallelo}, da cui la h di \textit{hybrid parameters}, e i \textbf{parametri T} risultano utili per collegamenti a porte in cascata, da cui la T di \textit{Transmission parameters}.
 
 \subsection{Circuiti a due porte in cascata}
 Nel collegamento \textbf{a cascata}, l'uscita di una porta và direttamente in ingresso a una seconda porta, cioè:
 \begin{center}
 	\begin{circuitikz}
 		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,0) {};
-		\draw (-2, 0.6) to [ short, i=$I_{1a}$] (-1, 0.6);
-		\draw(-1, -0.6) to [ short, i=$I_{1a}$ ] (-2, -0.6);	
+		\draw (-2, 0.6) to [ short, i=$I_{1c}$] (-1, 0.6);
+		\draw(-1, -0.6) to [ short, i=$I_{1c}$ ] (-2, -0.6);	
 	
 		\draw (-2.6, 0.6) node[anchor=west] {$+$};
-		\draw (-2.6, 0) node[anchor=west] {$V_{1a}$};
+		\draw (-2.6, 0) node[anchor=west] {$V_{1c}$};
 		\draw (-2.6, -0.6) node[anchor=west] {$-$};
 		
 		\draw (2, 0.6) to [ short, i_=$I_{2a}$] (1, 0.6);
 		\draw(1, -0.6) to [ short, i_=$I_{2a}$ ] (2, -0.6);	
 	
-		\draw (2.6, 0.6) node[anchor=east] {$+$};
-		\draw (2.6, 0) node[anchor=east] {$V_{2b}$};
-		\draw (2.6, -0.6) node[anchor=east] {$-$};
+		\draw (6, 0.6) node[anchor=west] {$+$};
+		\draw (6, 0) node[anchor=west] {$V_{2c}$};
+		\draw (6, -0.6) node[anchor=west] {$-$};
 
 
-		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,-3) {};
-		\draw (-2, -2.4) to [ short, i=$I_{1b}$] (-1, -2.4);
-		\draw(-1, -3.6) to [ short, i=$I_{1b}$ ] (-2, -3.6);	
-	
-		\draw (-2.6, -2.4) node[anchor=west] {$+$};
-		\draw (-2.6, -3) node[anchor=west] {$V_{1b}$};
-		\draw (-2.6, -3.6) node[anchor=west] {$-$};
+		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (4,0) {};
+		\draw (2, 0.6) to [ short, i=$I_{1b}$] (3, 0.6);
+		\draw(3, -0.6) to [ short, i=$I_{1b}$ ] (2, -0.6);	
 		
-		\draw (2, -2.4) to [ short, i_=$I_{2b}$] (1, -2.4);
-		\draw(1, -3.6) to [ short, i_=$I_{2b}$ ] (2, -3.6);	
-	
-		\draw (2.6, -2.4) node[anchor=east] {$+$};
-		\draw (2.6, -3) node[anchor=east] {$V_{2b}$};
-		\draw (2.6, -3.6) node[anchor=east] {$-$};
+		\draw (6, 0.6) to [ short, i_=$I_{2c}$] (5, 0.6);
+		\draw(5, -0.6) to [ short, i_=$I_{2c}$ ] (6, -0.6);	
 
-		\node at (0, 0) {$T_A$}; \TODO % finisci circuito cascata 
-		\node at (0, -3) {$T_B$};
+		\draw (1, 0.3) node[anchor=west] {$\scriptstyle +$};
+		\draw (1, -0.1) node[anchor=west] {$V_{2a}$};
+		\draw (1, -0.4) node[anchor=west] {$\scriptstyle -$};
+
+		\draw (3, 0.3) node[anchor=east] {$\scriptstyle +$};
+		\draw (3, -0.1) node[anchor=east] {$V_{1b}$};
+		\draw (3, -0.4) node[anchor=east] {$\scriptstyle -$};
+
+		\node at (0, 0) {$T_A$}; 
+		\node at (4, 0) {$T_B$};
 
 	\end{circuitikz}
 \end{center}
+dove si nota che le correnti discordi sullo stesso ramo sono semplicemente quelle che le porte "interne" dei due circuiti intendono su quel ramo. 
 
-Non dobbiamo dimostrare che anche questo circuito è una porta, in quanto si prende come ingresso l'ingresso della porta $T_A$ ($I_{1c})$ , $V_{1c}$) e come uscita l'uscita della porta $T_B$ ($I_{2c})$ , $V_{2c}$).
+Non dobbiamo dimostrare che anche questo circuito è una porta, in quanto si prende come ingresso l'ingresso della porta $T_A$ ($I_{1c}$ , $V_{1c}$) e come uscita l'uscita della porta $T_B$ ($I_{2c}$ , $V_{2c}$).
 
 Possiamo quindi esprimere queste relazioni fra le i circuiti interni e le porte esterne come segue:
 $$
@@ -522,47 +579,67 @@ $$
 	\dot{V}_{2c} \\ -\dot{I}_{2c}
 \end{pmatrix}
 $$
-
-# questo sopra boh
+e la parametrizzazione T complessiva è $\overline{T_a}\overline{T_b}$.
+Notiamo quindi il significato del segno negativo a $\dot{I}_2$ nella parametrizzazione T: tenere conto del verso negativo della corrente entrante sul circuito $T_A$ considerata come uscente da $T_B$. 
 
 \subsection{Collegamento ibrido serie/parallelo}
 Attraverso le porte abbiamo a disposizione un ulteriore tipo di collegamento, il cosiddetto collegamento \textbf{ibrido}, cioè dove una coppia di porte viene connessa in serie e l'altra coppia in parallelo:
+
 \begin{center}
 	\begin{circuitikz}
 		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,0) {};
+		\draw (-4, 0.6) to [ short, i=$I_{1m}$] (-2, 0.6);
 		\draw (-2, 0.6) to [ short, i=$I_{1a}$] (-1, 0.6);
 		\draw(-1, -0.6) to [ short, i=$I_{1a}$ ] (-2, -0.6);	
 	
-		\draw (-2.6, 0.6) node[anchor=west] {$+$};
-		\draw (-2.6, 0) node[anchor=west] {$V_{1a}$};
-		\draw (-2.6, -0.6) node[anchor=west] {$-$};
+		\draw (-2, 0.4) node[anchor=west] {$\scriptstyle +$};
+		\draw (-2, 0) node[anchor=west] {$V_{1a}$};
+		\draw (-2, -0.3) node[anchor=west] {$\scriptstyle -$};
 		
+		\draw (4, 0.6) to [ short, i_=$I_{2m}$] (2, 0.6);
 		\draw (2, 0.6) to [ short, i_=$I_{2a}$] (1, 0.6);
-		\draw(1, -0.6) to [ short, i_=$I_{2a}$ ] (2, -0.6);	
+		\draw(1, -0.6) to [ short, i_=$I_{2a}$ ] (2, -0.6) -- (2.2, -0.6);	
 	
-		\draw (2.6, 0.6) node[anchor=east] {$+$};
-		\draw (2.6, 0) node[anchor=east] {$V_{2b}$};
-		\draw (2.6, -0.6) node[anchor=east] {$-$};
+		\draw (2.6, 0.4) node[anchor=east] {$\scriptstyle +$};
+		\draw (2.6, 0) node[anchor=east] {$V_{2a}$};
+		\draw (2.6, -0.3) node[anchor=east] {$\scriptstyle -$};
 
 
 		\node[rectangle, draw, minimum width = 2cm, minimum height = 2cm] (a) at (0,-3) {};
-		\draw (-2, -2.4) to [ short, i=$I_{1b}$] (-1, -2.4);
-		\draw(-1, -3.6) to [ short, i=$I_{1b}$ ] (-2, -3.6);	
-	
-		\draw (-2.6, -2.4) node[anchor=west] {$+$};
-		\draw (-2.6, -3) node[anchor=west] {$V_{1b}$};
-		\draw (-2.6, -3.6) node[anchor=west] {$-$};
 		
-		\draw (2, -2.4) to [ short, i_=$I_{2b}$] (1, -2.4);
-		\draw(1, -3.6) to [ short, i_=$I_{2b}$ ] (2, -3.6);	
+		\draw (-2, -2.4) to [ short, i=$I_{1b}$] (-1, -2.4);
+		\draw(-1, -3.6) to [ short, i=$I_{1b}$ ] (-2, -3.6);
+		\draw (-2, -3.6) to [ short, i=$I_{1m}$] (-4, -3.6);
 	
-		\draw (2.6, -2.4) node[anchor=east] {$+$};
-		\draw (2.6, -3) node[anchor=east] {$V_{2b}$};
-		\draw (2.6, -3.6) node[anchor=east] {$-$};
+		\draw (-2, -2.7) node[anchor=west] {$\scriptstyle +$};
+		\draw (-2, -3.1) node[anchor=west] {$V_{1b}$};
+		\draw (-2, -3.4) node[anchor=west] {$\scriptstyle -$};
+		
+		\draw (1.8, -2.4) to [ short, i_=$I_{2b}$] (1, -2.4);
+		\draw(1, -3.6) to [ short, i_=$I_{2b}$ ] (2, -3.6);	
+		\draw (2, -3.6) to [ short, i_=$I_{2m}$] (4, -3.6);
+	
+		\draw (2, -2.7) node[anchor=east] {$\scriptstyle +$};
+		\draw (2, -3.1) node[anchor=east] {$V_{2b}$};
+		\draw (2, -3.4) node[anchor=east] {$\scriptstyle -$};
 
-		\node at (0, 0) {$h_A$}; \TODO % finisci circuito ibrido 
-		\node at (0, -3) {$h_B$};
+		\node at (0, 0) {$Y_A$};
+		\node at (0, -3) {$Y_B$};
 
+		\draw (1.8, -2.4) -- (1.8, 0.6);
+		\draw (2.2, -3.6) -- (2.2, -0.6);
+
+		\draw (-2, -2.4) -- (-2, -0.6);
+
+		\node[rectangle, draw, minimum width = 5.3cm, minimum height = 6cm] at (0, -1.5) {};
+		
+		\draw (-4, 0) node[anchor=west] {$+$};
+		\draw (-4, -1.5) node[anchor=west] {$V_{1m}$};
+		\draw (-4, -3) node[anchor=west] {$-$};
+
+		\draw (4, 0) node[anchor=east] {$+$};
+		\draw (4, -1.5) node[anchor=east] {$V_{2m}$};
+		\draw (4, -3) node[anchor=east] {$-$};
 	\end{circuitikz}
 \end{center}
 
@@ -596,5 +673,6 @@ $$
 \end{pmatrix}
 $$
 
+e quindi la parametrizzazione h complessiva è data da $(\overline{h_a} + \overline{h_b})$.
+
 \end{document}
-# chiudi tutto il discorso che parametrizzazioni diverse aiutano a risolvere circuiti diversi
