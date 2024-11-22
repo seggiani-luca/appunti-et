@@ -378,7 +378,7 @@ Dovremmo dividere il problema in intervalli temporali:
 
 A questo punto l'incognita sarà la corrente $i_x(t)$ sul circuito, che potremo trovare con la seconda legge di Kirchoff:
 $$
--2 \frac{E_0}{s} + R I_x(s) + s L I_x(s) - L \frac{E_0}{R} = 0 \Rightarrow I_x(s) \frac{L \frac{E_0}{R} + 2 \frac{E_0}{s}}{r + s L} = \frac{L E_0 s + 2 R E_0}{R L s^2 + R^2 s}
+-2 \frac{E_0}{s} + R I_x(s) + s L I_x(s) - L \frac{E_0}{R} = 0 \Rightarrow I_x(s) =  \frac{L \frac{E_0}{R} + 2 \frac{E_0}{s}}{r + s L} = \frac{L E_0 s + 2 R E_0}{R L s^2 + R^2 s}
 $$
 
 Infine, vorremo riportare l'espressione ottenuta nel dominio del tempo, in quanto quello che abbiamo trovato è effettivamente:
@@ -425,14 +425,26 @@ $$
 Vediamo un metodo rapido per il calcolo dei fratti semplici.
 
 \subsubsection{Teorema dei residui}
-Potremo dire che: # introducilo non l'ho mai sentito
+Abbiamo visto che le trasformate di Laplace sulle funzioni che ricaviamo dai circuiti danno forme del tipo:
 $$
-I(s) = \sum_{i = 1}^n \frac{A_i}{s - P_i}
+I(s) = \frac{N(s)}{D(s)}
 $$
-e quindi:
+dove sia $N(s)$ che $D(s)$ sono polinomi.
+Scomponendo $D(s)$ in fattori $(s - p_1)^{\mu_1}, (s - p_2)^{\mu_2}, ...$, dove ogni fattore ha la sua molteplicità $\mu$, si ha che $I(s)$ può ridursi a:
 $$
-A_i = \lim_{s \rightarrow P_i} (s - P_i) I(s)
+I(s) = \frac{A_1}{(s - p_1)^{\mu_1}} + \frac{A_2}{(s - p_2)^{\mu_2}} + ...
 $$
+cioè assunti tutti $\mu = 1$:
+$$
+I(s) = \sum_{i = 1}^n \frac{A_i}{s - p_i}
+$$
+
+Veniamo a come ricavare gli $A_i$.
+Dall'analisi complessa, possiamo usare il \textbf{teorema dei residui}:
+$$
+A_i = \lim_{s \rightarrow p_i} (s - p_i) I(s)
+$$
+dove i singoli $p_i$ sono i \textbf{poli} della nostra funzione.
 
 Ad esempio, applichiamo sull'esempio precedente:
 $$
@@ -441,9 +453,9 @@ A_1 = \lim_{s \rightarrow 0} s \cdot \frac{\frac{s^2}{3} + \frac{5}{3}}{s(s+1)(s
 $$
 e via dicendo.
 
-\par\smallskip
+\par\medskip
 
-Risolviamo quindi l'ultimo passaggio dell'esercizio precendente.
+Possiamo quindi risolvere l'ultimo passaggio dell'esercizio precendente.
 Avevamo ricavato la trasformata:
 $$
 I_x(s) = \frac{L E_0 s + 2 R E_0}{R L s^2 + R^2 s}
@@ -458,7 +470,13 @@ A questo punto possiamo impostare i fratti semplici:
 $$
 I(s) = \frac{A_1}{s} + \frac{A_2}{s + \frac{R}{L}}
 $$
-e risolvere, ad esempio col metodo dei residui:
+e risolvere col metodo dei residui:
+$$
+A_1 = \lim_{s \rightarrow 0} s \cdot \frac{ \frac{E_0}{R}s + 2 \frac{E_0}{L} }{s\left(s+ \frac{R}{L}\right)} = \frac{2 E_0}{L} \cdot \frac{L}{R} = \frac{2 E_0}{R}
+$$
+$$
+A_2 = \lim_{s \rightarrow -\frac{R}{L}} \left( s + \frac{R}{L} \right) \cdot \frac{ \frac{E_0}{R}s + 2 \frac{E_0}{L} }{s\left(s+ \frac{R}{L}\right)} = \frac{ \frac{2 E_0}{L} - \frac{E_0}{L} }{-\frac{R}{L}} = \frac{E_0}{R}
+$$
 
 Si ritrova quindi la funzione di $t$:
 $$
@@ -477,10 +495,14 @@ che equivale a quanto avevamo trovato risolvendo direttamente l'equazione differ
 Potremmo voler fare una verifica della validità dei risultati ottenuti dopo la risoluzione di un circuito con la trasformata di Laplace.
 Una prima verifica potrebbe essere considerare il limite:
 $$
-\lim_{t\rightarrow\infty} i(t)
+\lim_{t \rightarrow +\infty} i(t)
 $$
-cioè, dopo un tempo $t >> 0$, il circuito tende a un regime stazionario che corrisponde con quello che avremmo prendendo il circuito a corrente continua? 
-Nel caso precedente, notiamo come la corrente $i(t)$ tende giustamente a $\frac{2 E_0}{R}$.
+cioè, dopo un tempo $t >> 0$, il circuito tende a un regime stazionario che corrisponde con quello che avremmo previsto prendendo il circuito a corrente continua? 
+Nel caso precedente, notiamo come la corrente $i(t)$ dà:
+$$
+\lim_{t \rightarrow +\infty} \frac{E_0}{R} \left( 2 - e^{-\frac{R}{L}t} \right)
+$$
+che tende giustamente a $\frac{2 E_0}{R}$.
 
 Una verifica più sofisticata si può fare considerando le \textbf{variabili di stato} del circuito, cioè quei valori che non possono variare in maniera discontinua. 
 Ad esempio, nell'esempio precedente, una variabile di stato è l'energia nell'induttore, cioè:
@@ -488,11 +510,11 @@ $$
 W_L(t) = \frac{1}{2}L i_L^2(t)
 $$
 
-Questa non potrà mai essere discontinua, in quanto implicherebbe derivata infinità sulla discontinuità, e visto che $\frac{d W_L(t)}{dt} = P$ potenza, avremmo dal teorema di Boucherot che da qualche parte nel circuito erogherebbe (seppur istantaneamente) una potenza infinita, che è impossibile.
+Questa non potrà mai essere discontinua, in quanto implicherebbe derivata infinita sulla discontinuità, e visto che $\frac{d W_L(t)}{dt} = P$ potenza, avremmo dal teorema di Boucherot che da qualche parte nel circuito erogherebbe (seppur istantaneamente) una potenza infinita, che è impossibile.
 
 Verifichiamo quindi la continuità:
 $$
-\lim_{t \rightarrow 0^-} i_L(t) =^? \lim_{t \rightarrow 0^+} i_L(t)
+\lim_{t \rightarrow 0^-} i_L(t) \stackrel{?}{=} \lim_{t \rightarrow 0^+} i_L(t)
 $$
 che nell'esempio è verificata da:
 $$

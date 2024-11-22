@@ -1,5 +1,5 @@
-\documentclass[a4paper,11pt]{article}
-\usepackage[a4paper, margin=8em]{geometry}
+\documentclass[a4paper,14pt]{memoir}
+\usepackage[a4paper, margin=4em]{geometry}
 
 % usa i pacchetti per la scrittura in italiano
 \usepackage[french,italian]{babel}
@@ -24,10 +24,7 @@
 % usa helvetica
 \usepackage[scaled]{helvet}
 % usa palatino
-\usepackage{palatino}
-% usa un font monospazio guardabile
-\usepackage{lmodern}
-
+\usepackage{mathpazo}
 \renewcommand{\rmdefault}{ppl}
 \renewcommand{\sfdefault}{phv}
 \renewcommand{\ttdefault}{lmtt}
@@ -146,7 +143,12 @@
 % disponi numeri di pagina
 \usepackage{fancyhdr}
 \fancyhf{} 
-\fancyfoot[L]{\sffamily{\thepage}}
+
+\setlength{\headheight}{28pt} 
+\setlength{\headsep}{10pt} 
+\setlength{\footskip}{28pt} 
+
+\fancyfoot[L]{\raisebox{1ex}[36pt][0pt]{\sffamily{\thepage}}}
 
 \makeatletter
 \fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
@@ -259,7 +261,7 @@ $$
 
 Questa lunghezza d'onda diventa rilevante in trasmissioni elettriche su larga scala.
 
-Possiamo fare considerazioni diverse se prendiamo in esempio le comunicazioni radio: lì si parla di frequenze $f >> 50 \ \text{Hz}$, nell'ordine dei megahertz o gigahertz.
+Possiamo fare considerazioni diverse se prendiamo in esempio le comunicazioni radio, dove si parla di frequenze $f >> 50 \ \text{Hz}$, nell'ordine dei megahertz o gigahertz.
 
 L'elevata velocità della corrente ci permette di fare un'importante approssimazione e considerare \textbf{circuiti a parametri concetrati}.
 Quest'ipotesi, in inglese \textit{lumped element model}, ci permette di ignorare l'estensione fisica del circuito, e quindi le variazioni delle funzioni d'onda sulla variabille spazio $s$, concentradosi sulla variabile tempo $t$.

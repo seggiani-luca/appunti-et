@@ -245,7 +245,10 @@ Diciamo che il condensatore ideale è:
 		$$
 		Possiamo quindi integrare:
 		$$
-		v(t) = \int_{-\infty}^{t} \frac{1}{C} \cdot i(\tau) \, d\tau = \frac{1}{C} \int_{-\infty}^{t} i(\tau) \, d\tau = \frac{1}{C} \left[ \int_{-\infty}^{t_0} i(\tau) + \int_{t_0}^{t} i(\tau) \right] = v(t_0) + \frac{1}{C} \int_{t_0}^{t} i(\tau) \, d\tau
+		v(t) = \int_{-\infty}^{t} \frac{1}{C} \cdot i(\tau) \, d\tau = \frac{1}{C} \int_{-\infty}^{t} i(\tau) \, d\tau = \frac{1}{C} \left[ \int_{-\infty}^{t_0} i(\tau) + \int_{t_0}^{t} i(\tau) \right] 
+		$$
+		$$
+		= v(t_0) + \frac{1}{C} \int_{t_0}^{t} i(\tau) \, d\tau
 		$$
 
 		Abbiamo quindi che la tensione sul condensatore dipende dalla tensione iniziale $v(t_0)$ e dalle correnti precedeneti $i(t')$ a $t' < t$, ergo è un componente con memoria.
@@ -256,7 +259,10 @@ Diciamo che il condensatore ideale è:
 		da cui si ottiene che $p(t)$ ha qualsiasi segno.
 		Vediamo quindi l'energia:
 		$$
-		w(t) = \int_{-\infty}^t p(\tau) \, d\tau = \int_{-\infty}^t C v_C(\tau) \frac{dv_C(\tau)}{d\tau} \, d\tau = C \int_{-\infty}^t v_C(\tau) dv_C(\tau) = C \left[ \frac{1}{2} v_C^2 (\tau) \right]_{-\infty}^{t} 
+		w(t) = \int_{-\infty}^t p(\tau) \, d\tau = \int_{-\infty}^t C v_C(\tau) \frac{dv_C(\tau)}{d\tau} \, d\tau 
+		$$
+		$$
+		= C \int_{-\infty}^t v_C(\tau) dv_C(\tau) = C \left[ \frac{1}{2} v_C^2 (\tau) \right]_{-\infty}^{t} 
 		$$
 		da cui si ha, risolvendo:
 		$$
@@ -397,12 +403,16 @@ $$
 E l'energia integrando la potenza:
 $$
 w(t) = \int_{-\infty}^t p(\tau) d\tau 
+= L_1 \int_{-\infty}^t i_1(\tau) \frac{d i_1 (\tau)}{d\tau}d\tau + L_2 \int_{-\infty}^t i_2(\tau) \frac{d i_2 (\tau)}{d\tau}d\tau 
 $$
 $$
-= L_1 \int_{-\infty}^t i_1(\tau) \frac{d i_1 (\tau)}{d\tau}d\tau + L_2 \int_{-\infty}^t i_2(\tau) \frac{d i_2 (\tau)}{d\tau}d\tau \pm M \int_{-\infty}^t \left[ i_1(\tau) \frac{d i_2(\tau)}{d \tau} + i_2(\tau) \frac{d i_1(\tau)}{d \tau} \right] d\tau
+\pm M \int_{-\infty}^t \left[ i_1(\tau) \frac{d i_2(\tau)}{d \tau} + i_2(\tau) \frac{d i_1(\tau)}{d \tau} \right] d\tau
 $$
 $$
-= L_1 \cdot \frac{1}{2} i_1^2(t) + L_2 \cdot \frac{1}{2} i_2^2(t) \pm M \int_{-\infty}^t \frac{d(i_1(\tau) \cdot i_2(\tau))}{d\tau}d\tau = L_1 \cdot \frac{1}{2} i_1^2(t) + L_2 \cdot \frac{1}{2} i_2^2(t) \pm M i_1(t)i_2(t) 
+= L_1 \cdot \frac{1}{2} i_1^2(t) + L_2 \cdot \frac{1}{2} i_2^2(t) \pm M \int_{-\infty}^t \frac{d(i_1(\tau) \cdot i_2(\tau))}{d\tau}d\tau
+$$
+$$
+= L_1 \cdot \frac{1}{2} i_1^2(t) + L_2 \cdot \frac{1}{2} i_2^2(t) \pm M i_1(t)i_2(t) 
 $$
 
 Si può dimostrare che $ M \leq \sqrt{L_1 L_2}$, e nel caso $M = \sqrt{L_1 L_2}$ si parla di \textbf{accoppiamento ideale}. Nel caso peggiore si ha quindi:

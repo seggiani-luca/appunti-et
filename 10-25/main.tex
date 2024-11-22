@@ -242,11 +242,16 @@ $$
 
 Possiamo quindi sostituire la definizione che avevamo dato di $i(t)$, ottenendo:
 $$
-I_{eff} = \sqrt{\frac{1}{T} \int_0^T I_M^2 \cdot \sin^2(\omega t) dt} = \sqrt{\frac{1}{T}I_M^2 \int_0^T \left( 1 - \cos^2(\omega t) \right) dt} = \sqrt{\frac{1}{T} \int_0^T \frac{1-\cos(2\omega t)}{2} dt}
+I_{eff} = \sqrt{\frac{1}{T} \int_0^T I_M^2 \cdot \sin^2(\omega t) dt} = \sqrt{\frac{1}{T}I_M^2 \int_0^T \left( 1 - \cos^2(\omega t) \right) dt}
+$$
+
+$$= \sqrt{\frac{1}{T} \int_0^T \frac{1-\cos(2\omega t)}{2} dt}
 $$
 $$
 = \sqrt{\frac{1}{T} I_M^2 \left( \int_0^T \frac{1}{2}dt - \int_0^T \frac{\cos(2 \omega t)}{2}dt \right)}
 = \sqrt{\frac{1}{T} I_M^2 \left( \frac{1}{2}\int_0^T 1\cdot dt - \frac{1}{2} \int_0^T \cos(2 \omega t)dt \right)}
+$$
+$$
 =\sqrt{\frac{I_M^2}{2}} 
 $$
 da cui abbiamo il valore:
@@ -260,7 +265,7 @@ Questo non è altro che il valore efficace della tensione. Si ha infatti:
 $$
 V_{M} = 220 \cdot \sqrt{2} \approx 311 \mathrm{V}
 $$
-cioè il valore di picco della tensione alla presa.
+cioè il valore di picco della tensione alla presa è circa 331 V.
 
 \subsubsection{Calcolo della potenza}
 Definiamo quindi la potenza su circuiti a regime periodico sinusoidale.
@@ -282,13 +287,19 @@ $$
 p(t) = V_M \sin(\omega t + \phi) \cdot I_M \sin(\omega t) = V_M I_M \sin(\omega t) \sin(\omega t + \phi) 
 $$
 $$
-= V_M I_M \sin(\omega t)\left( \sin(\omega t) \cos(\phi) + \cos{\omega t} \sin{\phi} \right) = V_M I_M \left( \sin^2 (\omega t) \cos (\phi) + \sin(\omega t) \cos(\omega t) \sin(\phi) \right)
+= V_M I_M \sin(\omega t)\left( \sin(\omega t) \cos(\phi) + \cos{\omega t} \sin{\phi} \right)
+$$
+$$
+= V_M I_M \left( \sin^2 (\omega t) \cos (\phi) + \sin(\omega t) \cos(\omega t) \sin(\phi) \right)
 $$
 $$
 = V_M I_M \left( \left( 1 - \cos^2(\omega t) \right) \cos(\phi) + \sin(\omega t)\cos(\omega t)\sin(\phi) \right)
 $$
 $$
-= V_M I_M \left( \frac{1 - \cos(2 \omega t)}{2}\cos(\phi) + \frac{\sin(2 \omega t){2}}\sin(\phi) \right) = \frac{V_M I_M}{2} \left( \left( 1 - \cos(2 \omega t) \cos (\phi) + \sin(2\omega t) \sin(\phi) \right) \right)
+= V_M I_M \left( \frac{1 - \cos(2 \omega t)}{2}\cos(\phi) + \frac{\sin(2 \omega t){2}}\sin(\phi) \right)
+$$
+$$
+= \frac{V_M I_M}{2} \left( \left( 1 - \cos(2 \omega t) \cos (\phi) + \sin(2\omega t) \sin(\phi) \right) \right)
 $$
 da cui:
 $$
@@ -339,7 +350,10 @@ $$
 La potenza reattiva si misura in $[\mathrm{VAR}]$, cioè \textit{Volt Ampere Reattivi}.
 Si ha anche qui, riguardo il triangolo delle impedenze:
 $$
-Q = \frac{V_{eff} \sqrt{2} \cdot I_{eff} \sqrt{2}}{2} \sin(\phi) = V_{eff}I_{eff} \sin(\phi) = ZI^2 \sin(\phi) = XI^2 = YV^2 \sin(\phi) = - BV^2
+Q = \frac{V_{eff} \sqrt{2} \cdot I_{eff} \sqrt{2}}{2} \sin(\phi) = V_{eff}I_{eff} \sin(\phi) 
+$$
+$$
+= ZI^2 \sin(\phi)= XI^2 = YV^2 \sin(\phi) = - BV^2
 $$
 
 \par\smallskip 

@@ -373,7 +373,10 @@ Questa trasformata risulta molto utile in quanto ci permette di ricondurre le fu
 		dove compare un termine $f(0^-)$ dovuto alle condizioni iniziali.
 \item \textbf{Integrale:} la trasformata di Laplace dell'integrale $g(t) = \int_{-\infty}^t f(\tau) d\tau$ sarà:
 		$$
-		\mathcal{L}\left\{ \frac{d\,g(t)}{dt} \right\} = \mathcal{L}\left\{ f(t) \right\} = s \mathcal{L}\left\{ g(t) \right\} - g(0^-) =  s \mathcal{L}\left\{ \int_\infty^t f(\tau) d\tau \right\} - \int_{-\infty}^{0^-} f(\tau) d\tau
+		\mathcal{L}\left\{ \frac{d\,g(t)}{dt} \right\} = \mathcal{L}\left\{ f(t) \right\} = s \mathcal{L}\left\{ g(t) \right\} - g(0^-) 
+		$$
+		$$
+		=  s \mathcal{L}\left\{ \int_\infty^t f(\tau) d\tau \right\} - \int_{-\infty}^{0^-} f(\tau) d\tau
 		$$
 		da cui possiamo ricavare la trasformata dell'integrale:
 		$$
