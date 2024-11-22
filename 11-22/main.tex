@@ -1,0 +1,488 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=~\thetcbcounter: #2,
+	#1
+}
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+% sezione (data)
+\section{Lezione del 22-11-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Leggi dei bipoli con la trasformata di Laplace}
+Vediamo quindi come possiamo esprimere il legame fra corrente e tensione dei bipoli visti finora attraverso la trasformata di Laplace.
+\subsubsection{Resistori}
+Poniamo di avere un resistore. Avevamo che:
+$$
+v_R = R i_R
+$$
+Visto che non abbiamo derivate o integrali, possiamo passare direttamente al dominio $s$:
+$$
+V_R(s) = R I_R(s)
+$$
+
+# riguarda parte fasori
+
+\subsubsection{Induttori}
+Rispetto agli induttori, avevamo che:
+$$
+v_L(t) = L\frac{di_L(t)}{dt}
+$$
+
+che nella trasformata di Laplace, applicando la legge di derivata, diventerà:
+$$
+V_L(s) = L \left( s I_L(s) - i_L(0^-) \right) = s L I_L(s) - L i_L (0^-)
+$$
+dove appare un termine dovuto alle condizioni iniziali, cioè $L i_L (0^-)$. 
+
+Abbiamo quindi che un circuito equivalente all'induttore secondo la trasformata di Laplace è dato da una serie fra un induttore con induttanza generalizzata $sL$ e un generatore di tensione (detto \textbf{generatore di condizioni iniziali}) $L i_L(0^-)$, cioè:
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) to [ inductor, l=$sL$] (2, 0)
+			to [ voltage source, v<=$L i_L(0^-)$] (4, 0);
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection{Condensatori}
+Rispetto ai condensatori, avevamo che:
+$$
+v_C(t) = \frac{1}{C} \int_{-\infty}^t i_C(\tau) d\tau
+$$
+
+che nella trasformata di Laplace, applicando la legge di integrale, diventerà:
+$$
+V_C(s) = \frac{1}{C} \left( \frac{I_C(s)}{s} + \frac{1}{s}\int_{-\infty}^{0^-}i_C(t)dt \right) = \frac{I_C(s)}{sC} + \frac{1}{sC} q(0^-)
+$$
+ricordando che $\int_{-\infty}^{0^-} i(t) dt = q(t)$.
+Potrebbe però essere più conveniente applicare la definizione di capacità, da cui $v_C(t) = \frac{q(t)}{C}$ e quindi:
+$$
+V_C(s) = \frac{I_C(s)}{sC} + \frac{v_C(0^-)}{s}
+$$
+cioè anche qui appare un termine dovuto alle condizioni iniziali,$ \frac{v_C(0^-)}{s}$.
+
+Abbiamo quindi che un circuito equivalente al condensatore secondo la trasformata di Laplace è dato da una serie fra un condensatore $\frac{1}{sC}$ e un generatore di tensione (il generatore di condizioni iniziali) $\frac{v_C(0^-)}{s}$, cioè:
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) to [ capacitor, l=$\frac{1}{sC}$] (2, 0)
+			to [ voltage source, v<=$\frac{v_C(0^-)}{s}$] (4, 0);
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection{Induttanze mutuamente accoppiate}
+Due induttanze mutuamente accoppiate venivano governate dalla legge:
+\[
+	\begin{cases}			
+		v_1(t) = L_1 \frac{d i_1(t)}{dt} \pm M \frac{d i_2(t)}{dt} \\
+		v_2(t) = L_2 \frac{d i_2(t)}{dt} \pm M \frac{d i_1(t)}{dt}
+	\end{cases}
+\]
+
+Nel dominio $s$, queste diventano:
+\[
+	\begin{cases}
+		V_1(s) = L_1 \left( s I_1(s) - i_1(0^-) \right) \pm M \left( s I_2(s) - i_2(0^-) \right) \\
+		V_2(s) = L_2 \left( s I_2(s) - i_2(0^-) \right) \pm M \left( s I_1(s) - i_1(0^-) \right)
+	\end{cases}
+\]
+che dà:
+\[
+	\begin{cases}
+		V_1(s) = s L_1 I_1(s) \pm s M I_2(s) - L_1 i_1(0^-) \mp M i_2(0^-) \\
+		V_2(s) = s L_2 I_2(s) \pm s M I_1(s) - L_2 i_2(0^-) \mp M i_1(0^-)
+	\end{cases}
+\]
+
+Abbiamo allora che un circuito equivalente alle induttanze mutuamente accoppiate secondo la trasformata di Laplace è dato da, su ogni ramo, una serie di:
+\begin{itemize}
+	\item Un generatore di tensione $L_1 i_1(0^-)$ ($L_2 i_2 (0^-))$;
+	\item Un generatore di tensione $\pm M i_2(0^-)$ ($\pm M i_1(0^-)$)
+\end{itemize}
+entrambi con contrassegni concordi alla direzione della corrente.
+
+# fai disegno
+
+\subsection{Analisi circuitale nel dominio s}
+Vediamo quindi come usare la trasformata di Laplace per risolvere il circuito (RL) che abbiamo usato per introdurre i circuiti a regime aperiodico:
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) to [ voltage source,  l=$e(t)$] (0,3)
+			to [ resistor, l=$R$] (3,3)
+			to [ inductor, l=$L$] (3,0)
+			-- (0,0);
+	\end{tikzpicture}
+\end{center}
+
+Dove avevamo che il generatore di tensione $e(t)$ ha forma d'onda:
+\[
+	e(t) =
+	\begin{cases}
+		E_0, \quad t < 0 \\ 
+		2E_0, \quad t \geq 0
+	\end{cases}
+\]
+di cui si riporta un grafico:
+\begin{center}
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel={$t$},
+        ylabel={$e(t)$},
+        domain=-10:10, % set the x range you want,
+				samples=100,
+        grid=major, % add a grid
+				ytick={1, 2},
+				yticklabels={$E_0$, $2 E_0$},
+				xtick={0},
+				xticklabels={$0$},
+				width=15cm,
+				height=7cm
+    ]
+    \addplot[
+        red,
+        thick,
+				domain=-10:0
+    ] {1};
+
+    \addplot[
+        red,
+        thick,
+				domain=0:10
+    ] {2}; 
+    \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Iniziamo la risoluzione.
+Dovremmo dividere il problema in intervalli temporali:
+\begin{itemize}
+	\item $t < 0$: qui saranno incognite, oltre a $i(t)$, anche la condizione iniziale $i_L(0^-)$.
+		Appare quindi chiaro come mai abbiamo usato $0^-$ nelle formule: le condizioni iniziali che ci interessano sono quelle \textit{un attimo prima} della transizione, e non dopo.
+
+		La corrente $i_L(0^-)$ sull'induttore varrà quindi quanto quella nel circuito a regime costante, ergo $i_L(0^-) = \frac{E_0}{R}$.
+	\item $t \geq 0$: ci troviamo sul transitorio, e dobbiamo quindi usare Laplace.
+		Trasformiamo l'induttanza nel circuito equivalente col generatore di condizioni iniziali:
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) to [ voltage source,  v=$2 \frac{E_0}{s}$] (0,3)
+			to [ resistor, l=$R$] (3,3)
+			to [ inductor, l=$sL$] (3,1.5)
+			to [ voltage source, v=$L \frac{E_0}{R}$] (3,0)
+			-- (0,0);
+	\end{tikzpicture}
+\end{center}
+dove ci assicuriamo che il generatore di tensione sia diretto nella direzione in cui calcoliamo la corrente (# credo ?).
+
+A questo punto l'incognita sarà la corrente $i_x(t)$ sul circuito, che potremo trovare con la seconda legge di Kirchoff:
+$$
+-2 \frac{E_0}{s} + R I_x(s) + s L I_x(s) - L \frac{E_0}{R} = 0 \Rightarrow I_x(s) \frac{L \frac{E_0}{R} + 2 \frac{E_0}{s}}{r + s L} = \frac{L E_0 s + 2 R E_0}{R L s^2 + R^2 s}
+$$
+
+Infine, vorremo riportare l'espressione ottenuta nel dominio del tempo, in quanto quello che abbiamo trovato è effettivamente:
+$$I_x(s) = \mathcal{L}\{ i_x(t) \}$$
+Per fare questo abbiamo bisogno dell'\textbf{antitrasformata} di Laplace.
+Vediamo come si ricava.
+\end{itemize}
+
+\subsection{Antitrasformata di Laplace}
+Data una forma $I_x(s) = \mathcal{L}\{ i_x(t) \}$, vediamo come calcolare $ i_x(t) = \mathcal{L}^{-1} \{ I_x(t) \}$.
+Facciamo l'esempio con la trasformata:
+$$
+I(s) = \frac{s^2 + 5}{3s^3 + 9s^2 + 6s}
+$$
+
+Innanzitutto vorremo riportare il denominatore in forma \textit{normalizzata}, cioè esprimere il termine di grado più alto senza coefficienti:
+$$
+I(s) = \frac{\frac{s^2}{3} + \frac{5}{3}}{s^3 + 3s^2 + 2s}
+$$
+
+A questo punto vorremo \textbf{fattorizzare} il denominatore:
+$$
+I(s) = \frac{\frac{s^2}{3} + \frac{5}{3}}{s (s^2 + 3s +1)} = \frac{\frac{s^2}{3} + \frac{5}{3}}{s (s + 1) (s + 2)}
+$$
+
+Poniamo quindi:
+$$
+I(s) = \frac{A_1}{s} + \frac{A_2}{s + 1} + \frac{A_3}{s+2}
+$$
+che ci permetterà di sfruttare il fatto che $\mathcal{L}^-1\left\{ \frac{1}{s + a} \right\} = e^{-at}$ e $\mathcal{L}^{-1} \left\{ \frac{1}{s} \right\} = u(t)$ (gradino di Heaviside), e quindi dire che:
+$$
+i(t) = \left( A_1 + A_2 e^{-t} + A_3 e^{-2t} \right) u(t)
+$$
+
+Questo equivale a riportare la frazione trovata in \textbf{fratti semplici}, da cui si ottiene:
+$$
+A_1 = \frac{5}{6}, \quad A_2 = -2, \quad \frac{A_3} = \frac{3}{2} 
+$$
+e quindi:
+$$
+i(t) = \left( \frac{5}{6} -2e^{-t} + \frac{3}{2}e^{-2t} \right) u(t)
+$$
+
+Vediamo un metodo rapido per il calcolo dei fratti semplici.
+
+\subsubsection{Teorema dei residui}
+Potremo dire che: # introducilo non l'ho mai sentito
+$$
+I(s) = \sum_{i = 1}^n \frac{A_i}{s - P_i}
+$$
+e quindi:
+$$
+A_i = \lim_{s \rightarrow P_i} (s - P_i) I(s)
+$$
+
+Ad esempio, applichiamo sull'esempio precedente:
+$$
+A_1 = \lim_{s \rightarrow 0} s \cdot \frac{\frac{s^2}{3} + \frac{5}{3}}{s(s+1)(s+2)}
+= \frac{\frac{s^2}{3} + \frac{5}{3}}{(s+1)(s+2)} = \frac{\frac{5}{3}}{3} = \frac{5}{6}
+$$
+e via dicendo.
+
+\par\smallskip
+
+Risolviamo quindi l'ultimo passaggio dell'esercizio precendente.
+Avevamo ricavato la trasformata:
+$$
+I_x(s) = \frac{L E_0 s + 2 R E_0}{R L s^2 + R^2 s}
+$$
+
+Normalizzando, si ha:
+$$
+I_x(s) = \frac{\frac{E_0}{R} s + 2 \frac{E_0}{L}}{s^2 + \frac{R}{L}s} = \frac{\frac{E_0}{R} s + 2 \frac{E_0}{L}}{s \left(s + \frac{R}{L}\right)}
+$$
+
+A questo punto possiamo impostare i fratti semplici:
+$$
+I(s) = \frac{A_1}{s} + \frac{A_2}{s + \frac{R}{L}}
+$$
+e risolvere, ad esempio col metodo dei residui:
+# rifallo corre troppo
+
+Si ritrova quindi la funzione di $t$:
+$$
+i(t) = \left( 2\frac{E_0}{R} - \frac{E_0}{R} e^{-\frac{R}{L}t} \right) u(t) = \frac{E_0}{R} \left( 2 - e^{-\frac{R}{L}t} \right) u(t)
+$$
+che equivale a quanto avevamo trovato risolvendo direttamente l'equazione differenziale, salvo il termine $u(t)$ per il gradino di Heaviside, che però non ci interessa in quanto avremmo preso comunque il transiente da $t = 0$ in poi, cioè combinando le soluzioni:
+\[
+	i(t) = 
+	\begin{cases}
+		\frac{E_0}{R}, \quad t < 0 \\ 
+		\frac{E_0}{R} \left( 2 - e^{-\frac{R}{L}t} \right), \quad t \geq 0
+	\end{cases}
+\]
+
+\subsubsection{Verifica dei risultati}
+Potremmo voler fare una verifica della validità dei risultati ottenuti dopo la risoluzione di un circuito con la trasformata di Laplace.
+Una prima verifica potrebbe essere considerare il limite:
+$$
+\lim_{t\rightarrow\infty} i(t)
+$$
+cioè, dopo un tempo $t >> 0$, il circuito tende a un regime stazionario che corrisponde con quello che avremmo prendendo il circuito a corrente continua? 
+Nel caso precedente, notiamo come la corrente $i(t)$ tende giustamente a $\frac{2 E_0}{R}$.
+
+Una verifica più sofisticata si può fare considerando le \textbf{variabili di stato} del circuito, cioè quei valori che non possono variare in maniera discontinua. 
+Ad esempio, nell'esempio precedente, una variabile di stato è l'energia nell'induttore, cioè:
+$$
+W_L(t) = \frac{1}{2}L i_L^2(t)
+$$
+
+Questa non potrà mai essere discontinua, in quanto implicherebbe derivata infinità sulla discontinuità, e visto che $\frac{d W_L(t)}{dt} = P$ potenza, avremmo dal teorema di Boucherot che da qualche parte nel circuito erogherebbe (seppur istantaneamente) una potenza infinita, che è impossibile.
+
+Verifichiamo quindi la continuità:
+$$
+\lim_{t \rightarrow 0^-} i_L(t) =^? \lim_{t \rightarrow 0^+} i_L(t)
+$$
+che nell'esempio è verificata da:
+$$
+\lim_{t \rightarrow 0^-} i_L(t) = \lim_{t \rightarrow 0^+} i_L(t) = \frac{E_0}{R}
+$$
+
+\end{document}
