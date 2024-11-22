@@ -187,172 +187,29 @@
 \makeatother
 
 \begin{document}
-% sezione (data)
-\section{Lezione del 21-11-24}
 
-% stili pagina
-\thispagestyle{empty}
 \pagestyle{fancy}
+\thispagestyle{empty}
+\renewcommand{\thispagestyle}[1]{}
 
-% testo
-\subsection{Analisi di circuiti aperiodici}
-Finora abbiamo studiato circuiti in \textbf{corrente continua} e in \textbf{regime sinusoidale}.
-Adesso vedremo come studiare circuiti dove le forme d'onda dei generatori sono arbitrarie.
-
-\subsubsection{Circuito RL}
-Poniamo un circuito formato da un resistore in serie a un induttore, come segue:
-
-\begin{center}
-	\begin{tikzpicture}
-		\draw (0,0) to [ voltage source,  l=$e(t)$] (0,3)
-			to [ resistor, l=$R$] (3,3)
-			to [ inductor, l=$L$] (3,0)
-			-- (0,0);
-	\end{tikzpicture}
-\end{center}
-
-Diciamo che il generatore di tensione $e(t)$ ha forma d'onda:
-\[
-	e(t) =
-	\begin{cases}
-		E_0, \quad t < 0 \\ 
-		2E_0, \quad t \geq 0
-	\end{cases}
-\]
-di cui si riporta un grafico:
-\begin{center}
-\begin{tikzpicture}
-    \begin{axis}[
-        xlabel={$t$},
-        ylabel={$e(t)$},
-        domain=-10:10, % set the x range you want,
-				samples=100,
-        grid=major, % add a grid
-				ytick={1, 2},
-				yticklabels={$E_0$, $2 E_0$},
-				xtick={0},
-				xticklabels={$0$},
-				width=15cm,
-				height=7cm
-    ]
-    \addplot[
-        red,
-        thick,
-				domain=-10:0
-    ] {1};
-
-    \addplot[
-        red,
-        thick,
-				domain=0:10
-    ] {2}; 
-    \end{axis}
-\end{tikzpicture}
-\end{center}
-
-Nell'intervallo negativo possiamo assumere che il circuito sia rimasto a $E_0$ costante per un tempo tale da poterlo studiare nello stato di equilibrio.
-Cioè, se cercavamo $i(t)$, avremo semplicemente:
-$$
-i(t) = \frac{E_0}{R}, \quad t < 0
-$$
-
-Allo stesso modo, per tempi $t >> 0$, quindi con $t \rightarrow \infty$, potremo immaginare che il circito si trova nuovamente allo stato di equilibrio, cioè:
-$$
-i(t) = \frac{2 E_0}{R} \quad t >> 0
-$$
-
-La domanda è quindi come \textit{varia} la corrente $i(t)$ nell'intervallo immediatamente $t \geq 0$.
-Chiamiamo il comportamento della corrente in questa fase \textbf{transitorio}.
-
-Potremo applicare la prima legge di Kirchoff all'unica maglia del circuito, ricordando la caduta di potenziale sull'induttanza in funzione della corrente $i(t)$:
-$$
--2 E_0 + R i(t) + L \frac{d \, i(t)}{dt} = 0
-$$
-
-Questa è un'equazione differenziale del primo ordine, che sappiamo ha soluzione omogenea e disomogenea (o generale e particolare \textit{specifica}, insomma qualsiasi nomenclatura viene riportata nel testo di Analisi 1 preferito del lettore):
-$$
-i(t) = i_o(t) + i_p(t)
-$$
-
-Risolvendo per $i_o(t)$:
-$$
-R i_o(t) + L \frac{d \, i_o(t)}{dt} = 0, \quad i_o(t) = Ae^{\lambda t}
-$$
-$$
-R \lambda^0 + L \lambda^1 = 0 \Rightarrow \lambda = -\frac{R}{L}
-$$
-da cui:
-$$
-i_o(t) = Ae^{-\frac{R}{L}t}
-$$
-
-Troviamo quindi $i_p(t)$, posto $i_p(t) = I$ e dal regime costante in $t < 0$, $\frac{dI}{dt} = 0$:
-$$
--2 E_0 + RI = 0 \Rightarrow I = i_p(t) = 2 \frac{E_0}{R}
-$$
-
-Otteniamo quindi la soluzione:
-$$
-i(t) = i_o(t) + i_p(t) = 2 \frac{E_0}{R} + A e^{-\frac{R}{l}t}
-$$
-
-Imponiamo la condizione iniziale, cioè $i(t) = \frac{E_0}{R}$ per $t < 0$:
-$$
-i(0) = \frac{E_0}{R} = \frac{2 E_0}{R} + A \Rightarrow A = \frac{E_0}{R} - \frac{2 E_0}{R} = -\frac{E_0}{R}
-$$
-da cui:
-$$
-i(t) = \frac{2 E_0}{R} - \frac{E_0}{R} e^{-\frac{R}{L}t} = \frac{E_0}{R}\left( 2 - e^{-\frac{R}{L}t} \right)
-$$
-
-Da cui la soluzione finale.
-Possiamo tracciare un grafico dell'andamento della corrente:
-
-\begin{center}
-\begin{tikzpicture}
-    \begin{axis}[
-        xlabel={$t$},
-        ylabel={$i(t)$},
-        domain=-10:10, % set the x range you want,
-				samples=100,
-        grid=major, % add a grid
-				ytick={1, 2},
-				yticklabels={$\frac{E_0}{R}$, $\frac{2 E_0}{R}$},
-				xtick={0},
-				xticklabels={$0$},
-				width=15cm,
-				height=7cm
-    ]
-    \addplot[
-        blue,
-        thick,
-				domain=-10:0
-    ] {1};
-
-    \addplot[
-        blue,
-        thick,
-				domain=0:10
-    ] {2-exp(-x)};
-
-		\addplot[
-        red,
-        dotted,
-				domain=0:10
-    ] {2}; 
-    \end{axis}
-\end{tikzpicture}
-\end{center}
-
-Questa procedura, sebbene sia completamente generale, è difficilmente applicabile su circuiti più complessi.
-Conviene quindi spostarsi in un nuovo dominio, seguendo un procedimento simile a quello che avevamo seguito usando i fasori.
-
-\subsection{Trasformata di Laplace}
-Rappresentato un segnale come una funzione $f(t)$, la \textbf{trasformata di Laplace} viene indicata come:
-$$
-F(s) = \mathcal{L} \left\{ f(t) \right\} = \int_{0^-}^{+\infty} f(t)e^{-st} \, dt
-$$
-
-\TODO % finito il discorso riporta tutto
-
+\maketitle
+\input{../09-25/main.tex}
+\input{../09-26/main.tex}
+\input{../09-27/main.tex}
+\input{../10-02/main.tex}
+\input{../10-03/main.tex}
+\input{../10-04/main.tex}
+\input{../10-09/main.tex}
+\input{../10-10/main.tex}
+\input{../10-11/main.tex}
+\input{../10-17/main.tex}
+\input{../10-23/main.tex}
+\input{../10-24/main.tex}
+\input{../10-25/main.tex}
+\input{../10-30/main.tex}
+\input{../11-06/main.tex}
+\input{../11-13/main.tex}
+\input{../11-14/main.tex}
+\input{../11-15/main.tex}
+\input{../11-21/main.tex}
 \end{document}
