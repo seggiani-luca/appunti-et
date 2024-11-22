@@ -200,14 +200,12 @@ Vediamo quindi come possiamo esprimere il legame fra corrente e tensione dei bip
 \subsubsection{Resistori}
 Poniamo di avere un resistore. Avevamo che:
 $$
-v_R = R i_R
+v_R(t) = R i_R(t)
 $$
 Visto che non abbiamo derivate o integrali, possiamo passare direttamente al dominio $s$:
 $$
 V_R(s) = R I_R(s)
 $$
-
-# riguarda parte fasori
 
 \subsubsection{Induttori}
 Rispetto agli induttori, avevamo che:
@@ -226,7 +224,7 @@ Abbiamo quindi che un circuito equivalente all'induttore secondo la trasformata 
 \begin{center}
 	\begin{tikzpicture}
 		\draw (0,0) to [ inductor, l=$sL$] (2, 0)
-			to [ voltage source, v<=$L i_L(0^-)$] (4, 0);
+			to [ voltage source, v=$L i_L(0^-)$] (4, 0);
 	\end{tikzpicture}
 \end{center}
 
@@ -285,9 +283,27 @@ Abbiamo allora che un circuito equivalente alle induttanze mutuamente accoppiate
 	\item Un generatore di tensione $L_1 i_1(0^-)$ ($L_2 i_2 (0^-))$;
 	\item Un generatore di tensione $\pm M i_2(0^-)$ ($\pm M i_1(0^-)$)
 \end{itemize}
-entrambi con contrassegni concordi alla direzione della corrente.
+entrambi con contrassegni concordi alla direzione della corrente:
 
-# fai disegno
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[ short, i=$i_1$] (1,0)
+			to[ inductor , l=$sL_1$] (1,-2)
+			to[ voltage source, v_=$M i_2(0^-)$] (1, -4)
+			to[ voltage source, v_=$L_1 i_1(0^-)$] (1, -6)
+			-- (0, -6);
+
+		\draw (4,0) to[ short, i_=$i_2$] (3,0)
+			to[ inductor , l_=$sL_2$] (3,-2)
+			to[ voltage source, v=$M i_1(0^-)$] (3, -4)
+			to[ voltage source, v=$L_2 i_2(0^-)$] (3, -6)
+			-- (4, -6);
+
+			\draw (0.9,-0.6) node {$\scriptscriptstyle\bullet$};
+			\draw (2.9,-0.6) node {$\scriptscriptstyle\bullet$};
+	\end{circuitikz}
+\end{center}
+
 
 \subsection{Analisi circuitale nel dominio s}
 Vediamo quindi come usare la trasformata di Laplace per risolvere il circuito (RL) che abbiamo usato per introdurre i circuiti a regime aperiodico:
@@ -343,7 +359,7 @@ di cui si riporta un grafico:
 Iniziamo la risoluzione.
 Dovremmo dividere il problema in intervalli temporali:
 \begin{itemize}
-	\item $t < 0$: qui saranno incognite, oltre a $i(t)$, anche la condizione iniziale $i_L(0^-)$.
+	\item $t < 0$: qui sarà incognita, oltre a $i(t)$, anche la condizione iniziale $i_L(0^-)$.
 		Appare quindi chiaro come mai abbiamo usato $0^-$ nelle formule: le condizioni iniziali che ci interessano sono quelle \textit{un attimo prima} della transizione, e non dopo.
 
 		La corrente $i_L(0^-)$ sull'induttore varrà quindi quanto quella nel circuito a regime costante, ergo $i_L(0^-) = \frac{E_0}{R}$.
@@ -359,7 +375,6 @@ Dovremmo dividere il problema in intervalli temporali:
 			-- (0,0);
 	\end{tikzpicture}
 \end{center}
-dove ci assicuriamo che il generatore di tensione sia diretto nella direzione in cui calcoliamo la corrente (# credo ?).
 
 A questo punto l'incognita sarà la corrente $i_x(t)$ sul circuito, che potremo trovare con la seconda legge di Kirchoff:
 $$
@@ -400,7 +415,7 @@ $$
 
 Questo equivale a riportare la frazione trovata in \textbf{fratti semplici}, da cui si ottiene:
 $$
-A_1 = \frac{5}{6}, \quad A_2 = -2, \quad \frac{A_3} = \frac{3}{2} 
+A_1 = \frac{5}{6}, \quad A_2 = -2, \quad A_3 = \frac{3}{2} 
 $$
 e quindi:
 $$
@@ -444,7 +459,6 @@ $$
 I(s) = \frac{A_1}{s} + \frac{A_2}{s + \frac{R}{L}}
 $$
 e risolvere, ad esempio col metodo dei residui:
-# rifallo corre troppo
 
 Si ritrova quindi la funzione di $t$:
 $$

@@ -354,14 +354,23 @@ F(s) = \mathcal{L} \left\{ f(t) \right\} = \int_{0^-}^{+\infty} f(t)e^{-st} \, d
 $$
 dove $s$ è un complesso $\sigma + i \omega$.
 
-Questa trasformata risulta molto utile in quanto ci permette di ricondurre le funzioni con cui lavoriamo nel cosiddetto spazio $s$, all'interno del cui le operazioni di derivazione e integrazione si riducono a divisioni e moltiplicazioni, quindi all'algebra.
+Questa trasformata risulta molto utile in quanto ci permette di ricondurre le funzioni con cui lavoriamo nel cosiddetto spazio $s$, all'interno del cui le operazioni di derivazione e integrazione si riducono a divisioni e moltiplicazioni, e quindi all'algebra.
 
 \subsubsection{Proprietà della trasformata di Laplace}
+
 \begin{itemize}
 	\item \textbf{Derivata:} la trasformata di Laplace di $f'(t)$ sarà:
 		$$
-			...
+		\mathcal{L}\left\{ f'(t) \right\} = \int_{0^-}^{+\infty} f'(t) e^{-st} dt	
 		$$
+		dove possiamo applicare la formula di integrazione per parti:
+		$$ 
+		\int_{0^-}^{+\infty} f'(t) e^{-st} dt = f(t) e^{-st} \Big|_{0^-}^{+\infty} - \int_{0^-}^{+\infty} f(t) \cdot -s e^{-st} dt 
+		$$
+		$$
+		= s \int_{0^-}^{+\infty} f(t) e^{-st} dt + \lim_{t \rightarrow +\infty} f(t)e^{-st} - f(0^-) = s F(s) - f(0^-)
+		$$
+		dove compare un termine $f(0^-)$ dovuto alle condizioni iniziali.
 \item \textbf{Integrale:} la trasformata di Laplace dell'integrale $g(t) = \int_{-\infty}^t f(\tau) d\tau$ sarà:
 		$$
 		\mathcal{L}\left\{ \frac{d\,g(t)}{dt} \right\} = \mathcal{L}\left\{ f(t) \right\} = s \mathcal{L}\left\{ g(t) \right\} - g(0^-) =  s \mathcal{L}\left\{ \int_\infty^t f(\tau) d\tau \right\} - \int_{-\infty}^{0^-} f(\tau) d\tau
@@ -370,9 +379,7 @@ Questa trasformata risulta molto utile in quanto ci permette di ricondurre le fu
 		$$
 		\mathcal{L}\left\{ \int_{-\infty}^t f(\tau) d\tau \right\} = \frac{F(s)}{s} + \frac{1}{s} \int_{-\infty}^{0^-} f(\tau) d \tau
 		$$
-\end{itemize}
 dove nuovamente compare un termine $\frac{1}{s} \int_{-\infty}^{0^-} f(\tau) d \tau$ dovuto alle condizioni iniziali.
-
-\TODO % finito il discorso riporta tutto
+\end{itemize}
 
 \end{document}
