@@ -1,0 +1,442 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=~\thetcbcounter: #2,
+	#1
+}
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+% sezione (data)
+\section{Lezione del 06-12-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Macchine elettriche}
+Nei circuiti visti finora scorrono \textbf{correnti elettriche}.
+Una corrente elettrica genera inevitabilmente \textbf{campi magnetici}.
+A volte questi campi magnetici sono effetti indesiderati che vogliamo schermare attraverso appositi meccanismi per evitare l'interferenza fra i componenti.
+Altre volte questi campi possono esserci utili a compiere lavoro, come nel caso delle \textbf{macchine elettriche}.
+
+\subsubsection{Campo magnetico}
+Introduciamo le grandezze $H$, detta \textbf{intensità di campo magnetico} e misurata in $\frac{\mathrm{A}}{\mathrm{m}}$, e $B$, detta \textbf{induzione magnetica} e misurata in Tesla ($\mathrm{T}$).
+Intensità e induzione magnetica sono legati da:
+$$
+B = \mu H = \mu \mu_r H
+$$
+dove $\mu_r$ è la \textbf{permeabilità magnetica di un certo materiale} e $\mu$ è la permeabilità elettrica \textbf{del vuoto}.
+
+Introduciamo poi il \textbf{flusso magnetico} $\Phi$, misurato in Weber ($\mathrm{Wb}$), e definito come l'integrale di superficie dell'induzione magnetica:
+$$
+\Phi = \int_S B \, ds = BS
+$$
+
+Da questa definizione, a volte, l'induzione magnetica viene dettà \textbf{densità di flusso magnetico}.
+
+\subsubsection{Legge di Ampere}
+La legge che ci aiuta a studiare i campi magnetici è la legge di Ampere:
+\begin{theorem}{Legge di Ampere}
+	La circuitazione  del capmo magnetico lungo una curva chiusa $\Phi$ è data dalla sommatoria delle correnti concatenate alla curva $i_j$:
+	$$
+	\int_\Phi H \, dl = \sum_{j=1}^m i_j(t)
+	$$
+\end{theorem}
+
+\par\smallskip
+
+# disegnino di un mezzo trasformatore
+
+Un caso di esempio che possiamo studiare è quello di un avvolgimento di filo attorno a un corpo ferromagnetico, nel nostro caso un blocco perforato.
+All'interno del campo magnetico, il materiale ferromagnetico si magnetizza nella direzione imposta dalle correnti che scorrono nell'avvolgimento di filo.
+
+Un ipotesi comune che facciamo nello studio di sistemi che coinvolgono materiali ferromagnetici, e che la permeabilità magnetica associata $\mu_{fe}$ tenda a $+\infty$, cioè che non ci siano linee di campo magnetico che si chiudono al di fuori del materiale ferromagnetico stesso.
+
+Prendiamo quindi una superficie chiusa $\gamma$ all'interno del blocco perforato.
+Sarà che:
+$$
+\sum_{i=1}^A H_i \cdot l_i = N i = \sum_{i=1}^A \frac{B_i}{\mu \mu_r} \cdot l_i = N i = \sum_{i=1}^A \frac{\Phi_i}{\mu \mu s_i} l_i = Ni
+$$
+dove abbiamo potuto considerare il solo campo all'interno del tronco del blocco perforato per la semplificazione notata prima.
+
+Notiamo quindi che il campo magnetico magnetico scorre effettivamente come una corrente all'interno dei tronchi del blocco cavo.
+Potremo infatti definire la grandezza $\mathcal{R}$, detta \textbf{riluttanza}:
+$$
+\mathcal{R}_i = \frac{l_i}{\mu \mu_r s_i}
+$$
+
+E definire quanto segue; 
+\begin{definition}{Tensione magnetica}
+	Definiamo la tensione magnetica $Ni$ come segue:
+	$$
+	\sum_{i=1}^A \Phi_i R_i = N i
+	$$
+\end{definition}
+
+Notiamo come questa relazione ha una forma simile alla legge di Ohm, dove si possono confrontare le seguenti grandezze:
+\begin{table}[h!]
+	\center \rowcolors{2}{white}{black!10}
+	\begin{tabular} { c | c }
+		\bfseries Campi elettrici & \bfseries Campi magnetici \\ 
+		\hline
+		$V$ & $N i$ \\ 
+		$I$ & $\Phi$ \\ 
+		$R$ & $\mathcal{R}$ \\ 
+	\end{tabular}
+\end{table}
+
+La legge riportata sopra, che aveva forma simile alla legge di Ohm, è detta \textbf{legge di Hopkinson}.
+Possiamo riportare la forma completa:
+$$
+\sum_{i=1}^n \Phi_i \mathcal{R}_i = \sum_{j=1}^m N_j i_j
+$$
+
+\subsection{Trasformatore}
+
+# disegnino di un trasformatore
+
+Collegando un'ulteriore spira al lato destro del blocco perforato cavo visto prima, otteniamo una macchina elettrica detta \textbf{trasformatore}.
+Chiamiamo l'avvolgimento a sinistra \textbf{primario}, che assumiamo come \textit{alimentato}, e l'avvolgimento a destra \textbf{secondario}, che assumiamo come legato a un \textbf{carico} resistivo o induttivo.
+
+Notiamo il circuito elettrico dovrà a trovarsi a regime non costante, in quanto in caso contrario l'induttore si comporterà come un cortocircuito e non ci sarà variazione di campo magnetico: prendiamo nel nosro caso un generatore di funzione sinusoidale.
+
+Scelte le correnti entranti secondo la convenzione delle reti due porte, possiamo disegnare il circuito magnetico:
+
+# circuito magnetico
+
+dove si trattano gli avvolgimenti di filo come generatori di tensione $N_1 i_1$ e $N_2 i_2$ e i tronchi come riluttanze $\mathcal{R}_i$ con $i = 1, ..., 4$.
+Potremo studiare questo circuito come qualsiasi altro:
+$$
+-N_1 I_1 + \mathcal{R}_1 \Phi_1 + \mathcal{R}_2 \Phi_2 + \mathcal{R}_3 \Phi_3 - N_2 I_2 + R_4 \Phi_4 = 0
+$$
+che non è altro che la legge di Hopkinson applicata all'unica maglia del circuito:
+$$
+\mathcal{R}_1 \Phi_1 + \mathcal{R}_2 \Phi_2 + \mathcal{R}_3 \Phi_3 + R_4 \Phi_4 = N_1 I_1 + N_2 I_2
+$$
+
+\subsubsection{Trasformatore ideale}
+Nel trasformatore ideale facciamo 3 ipotesi semplificative:
+\begin{enumerate}
+	\item La resistenza $R$ degli avvolgimenti dovrà essere uguale a 0;
+	\item $\mu_{fe}$ del materiale ferromagnetico tenderà a $+\infty$, quindi non ci sono flussi dispersi in aria: questo ci permette di ridurre i flussi $\Phi_i$ a un unico flusso $\Phi$;
+	\item $\mu_{fe}$ è inoltre costante nel tempo.
+\end{enumerate}
+
+Possiamo quindi riportare l'equazione precedente, dalla (2), a:
+$$
+(\mathcal{R}_1 + \mathcal{R}_2 + \mathcal{R}_3 + \mathcal{R}_4) \Phi = N_1 I_1 + N_2 I_2
+$$
+
+Ricordando la definizione di riluttanza:
+$$
+\mathcal{R}_i = \frac{l_i}{\mu \mu_r s_i}
+$$
+e imponendo la sempre la (2), si avrà che $\mathcal{R} \rightarrow 0$, quindi:
+$$
+N_1 I_1 + N_2 I_2 = 0 \implies I_1 = -\frac{N_2}{N_1} I_2 = -\frac{1}{n} I_2
+$$
+dove $n$ viene detto \textbf{rapporto spire} $n = \frac{N_1}{N_2}$.
+
+Reintroducendo le tensioni ai capi degli avvolgimenti $\dot{E}_1$ ed $\dot{E}_2$, abbiamo nel dominio fasoriale:
+$$
+\dot{E}_1 = j \omega \dot{\Phi}_1 N_1, \quad \dot{E}_2 = j \omega \dot{\Phi}_2 N_2
+$$
+da cui prendiamo il rapporto:
+$$
+\frac{\dot{E}_1}{\dot{E}_2} = \frac{j \omega \dot{\Phi}_1 N_1}{j \omega \dot{\Phi}_2 N_2} = \frac{N_1}{N_2} = n
+$$
+
+Abbiamo quindi le due relazioni per il trasformatore ideale:
+\[
+	\begin{cases}
+		\dot{I} = - \frac{1}{n} \dot{I}_2 \\ 
+		\dot{E}_1 = n \dot{E}_2
+	\end{cases}
+\]
+
+Distinguiamo quindi 3 casi, notando che la convenzione si riferisce alle tensioni:
+\begin{itemize}
+	\item $n > 1$: trasformatore \textbf{riduttore} di tensione, \textit{elevatore} di corrente;
+	\item $n < 1$: trasformatore \textbf{elevatore} di tensione, \textit{riduttore} di corrente;
+	\item $n = 1$: \textbf{disaccoppiatore}.
+\end{itemize}
+
+\subsubsection{Potenza sui trasformatori ideali}
+
+Facciamo le solite considerazioni di \textbf{potenza}.
+Si ha riguardo alla potenza apparente che:
+$$
+S_1 = E_1 N_1 = n E_2 \left( -\frac{1}{n} I_2 \right) = -E_2 I_2 = S_2
+$$
+
+\subsubsection{Circuito equivalente del trasformatore ideale}
+
+Un circuito equivalente a un trasformatore ideale è dato alle induttanze mutuamente accoppiate:
+
+# disegno
+
+dove si impone alle induttanze:
+$$
+L_1 = \mu \mu_r \frac{s}{l} N_1^2
+$$
+$$
+L_2 = \mu \mu_r \frac{s}{l} N_2^2
+$$
+
+Con mutuo accoppiamento ideale si ha:
+$$
+M = \sqrt{L_1 L_2} = \mu \mu_r \frac{s}{l} N_1 N_2 
+$$
+
+Possiamo applicare le relazioni tensione corrente delle mutue induttanze:
+\[
+	\begin{cases}
+		v_1(t) = L_1 \frac{d\,i_1(t)}{dt} + M \frac{d\, i_2(t)}{dt} \\ 	
+		v_2(t) = M \frac{d\,i_1(t)}{dt} + L_2 \frac{d\, i_2(t)}{dt} \\ 	
+	\end{cases}
+	\implies
+	\begin{cases}
+		v_1(t) = L_1 \left( \frac{d\,i_1(t)}{dt} + \frac{M}{L_1} \frac{d\, i_2(t)}{dt} \right) \\ 	
+		v_2(t) = M \left( \frac{d\,i_1(t)}{dt} + \frac{L_2}{M} \frac{d\, i_2(t)}{dt} \right) \\ 	
+	\end{cases}
+\]
+da cui il rapporto:
+$$
+\frac{v_1(t)}{v_2(t)} = \frac{ L_1 \left( \frac{d\,i_1(t)}{dt} + \frac{M}{L_1} \frac{d\, i_2(t)}{dt} \right)}{ M \left( \frac{d\,i_1(t)}{dt} + \frac{L_2}{M} \frac{d\, i_2(t)}{dt} \right)} = \frac{L_1}{M} = \frac{N_1}{N_2} = n
+$$
+
+Abbiamo quindi dimostrato che il circuito è effettivamente equivalente a un trasformatore ideale.
+
+\subsubsection{Disaccoppiatore}
+Possiamo fare un esempio dell'utilità di un trasformatore con $n=1$ riprendendo il circuito equivalente di una rete due porte recipreca a parametri Z:
+
+# rete due porte reciproca a parametri Z
+
+Questa non era altro che la semplificazione della rete generale a parametri Z:
+
+# rete due porte a parametri Z
+
+Notiamo che il potenziale ai due nodi in basso non è identico nel caso del circuito generale, mentre lo abbiamo posto come tale nel circuito reciproco.
+Questa è una semplificazione che potremmo non voler fare: possiamo permettere potenziali diversi introducendo appunto un disaccoppiatore:
+
+# io penso si chiami disaccoppiatore poi che ne so, cmq disegno
+
+\subsubsection{Adattamento di impedenza}
+
+Poniamo il circuito magnetico dato da generatore di tensione che alimenta, attraverso un trasformatore, un carico $\overline{z_C}$:
+
+# disegno
+
+Si avrà che, preso il circuito come una rete due porte:
+$$
+\dot{E}_2 = - \overline{z_C} \dot{I}_2
+$$
+e dal circuito magnetico:
+$$
+\dot{E}_1 = n \dot{E}_2 \Rightarrow \dot{E}_2 = \frac{\dot{E}_1}{n}
+$$
+$$
+\dot{I}_1 = -\frac{1}{n} \dot{I_2} \Rightarrow \dot{I}_2 = -n \dot{I}_1
+$$
+quindi sostituendo:
+$$
+\frac{\dot{E}_1}{n} = - \overline{z_C} (-n \dot{I_1}) \Rightarrow \dot{E}_1 = \overline{z_C} n^2 \dot{I}_1
+$$
+
+# troppo forte riguarda
+
+\subsubsection{Trasformatore reale}
+Riprendiamo il trasformatore reale.
+Il circuito equivalente non può più essere formato prendendo due induttori in accoppiamento ideale.
+Introduciamo quindi due resistenze $R_{1d}$ e $R_{2d}$ in entrata agli induttori in maniera tale da modellizzare la resistenza $R$ degli avvolgimenti (ipotesi 1), e altre due induttanze $L_{1d}$ e $L_{2d}$ per modellizzare i flussi dispersi in aria da un coefficiente $\mu_{fe}$ non ideale (cioè non tendente a $+\infty$, dall'ipotesi 2).
+
+Notiamo che la permeabilità $\mu_{fe}$ non è nemmeno costante: il rapporto fra intensità di campo magnetico e induzinoe magnetica, che finora avevamo descritto come:
+$$
+B = \mu \mu_{fe} H
+$$
+presenta in verità delle non linearità date dall'\textbf{isteresi} del materiale.
+
+# grafichino classico 
+
+\end{document}
