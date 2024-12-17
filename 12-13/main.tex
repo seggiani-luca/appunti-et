@@ -1,0 +1,470 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=~\thetcbcounter: #2,
+	#1
+}
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+% sezione (data)
+\section{Lezione del 13-12-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Circuito equivalente alla macchina asincrona}
+Vediamo 3 circuiti equivalenti alla macchina asincrona.
+
+\begin{enumerate}
+	\item Di base, possiamo intendere lo statore e il rotore di una macchina asincrona come il primario e il secondario di un trasformatore, e quindi il circuito equivalente alla macchina asincrona è molto simile a quello del trasformatore reale:
+
+\begin{center}
+	\begin{circuitikz}
+		\draw (-6,0) -- (-3.5, 0)
+		to[ short, i=$i_1$] (-3,0)
+			to [ resistor, l=$R_{1d}$] (-1,0)
+			to [ inductor, l=$L_{1d}$] (1,0)
+			to [ inductor , l=$N_1$] (1,-2)
+			-- (-6, -2);
+		
+		\draw (3, 0) to [ resistor, l=$R_{2d}$] (5,0)
+			to [ inductor, l=$L_{2d}$] (7,0) 
+			to[ short, i<=$i_2$] (8,0);
+			
+			\draw (3,0) to[ inductor , l_=$N_2$] (3,-2)
+			-- (8, -2);
+
+		\draw (-5.5, 0) to [ resistor, l=$R_m$] (-5.5, -2);
+		\draw (-4, 0) to [ inductor, l=$L_m$] (-4, -2);
+
+			\draw (0.9,-0.6) node {$\scriptscriptstyle\bullet$};
+			\draw (2.9,-0.6) node {$\scriptscriptstyle\bullet$};
+
+
+			\draw (-6,-0.5) node[anchor=east] {$+$};
+			\draw (-6,-1.5) node[anchor=east] {$-$};
+
+			\draw (8,-0.5) node[anchor=west] {$+$};
+			\draw (8,-1.5) node[anchor=west] {$-$};
+
+			\draw (-6,-1) node[anchor=east] {$V_1$};
+			\draw (8,-1) node[anchor=west] {$V_2$};
+
+			\draw (0.7,-0.5) node[anchor=east] {$+$};
+			\draw (0.7,-1.5) node[anchor=east] {$-$};
+
+			\draw (3.3,-0.5) node[anchor=west] {$+$};
+			\draw (3.3,-1.5) node[anchor=west] {$-$};
+
+			\draw (0.7,-1) node[anchor=east] {$E_1$};
+			\draw (3.3,-1) node[anchor=west] {$E_2$};
+
+	\end{circuitikz}
+\end{center}
+
+Le differenze stanno nel fatto che:
+\begin{enumerate}
+	\item $X_{1d}$ e $X_{2d}$ sono solitamente maggiori rispetto al trasformatore.
+Questo è dato dal traferro fra statore e rotore (che possiamo assumere come \textit{primario} e \textit{secondario} di un trasformatore), che ha una permeabilità molto più bassa del blocco cavo del trasformatore.
+Per questo motivo è utile realizzare traferri il più sottili possibile (nell'ordine del millimetro);
+\item La possibilità di avere \textbf{cortocircuiti} di rotore;
+	\item $\omega_2 = s \omega_1$, cioè non ci troviamo a regime puramente sinusoidale ma la pulsazione di $\omega_2$ è $s$ volte $\omega_1$.
+\end{enumerate}
+
+Riguardo alla (3), notiamo le grandezze:
+$$
+X_{2d} = \omega_2 L_{2d}
+$$
+$$
+\dot{E}_2 = j \omega_2 N_2 \dot{\Phi}_2
+$$
+proporzionali a $\omega_2$.
+
+Rivediamo quindi i casi particolari che avevamo distinto sullo scorrimento $s$:
+\begin{itemize}
+	\item $s = 0$: l'equivalente è identico al trasformatore per la \textit{prova a vuoto}, in quanto sul lato destro del circuito non scorre corrente, e quindi nemmeno sull'induttanza al lato sinistro. Ricordiamo che questo era il caso di \textbf{rotore libero}.
+	\item $s = 1$: l'equivalente è identico al trasformatore per la \textit{prova in cortocircuito}. Ricordiamo che questo era il caso di \textbf{rotore bloccato}. 
+\end{itemize}
+
+Abbiamo quindi che, nella macchina asincrona, la \textit{prova a vuoto} corrisponde alla \textbf{prova a rotore libero}, mentre la \textit{prova in cortocircuito} corrisponde alla \textbf{prova a rotore bloccato}.
+
+\item Un'altra modellizzazione può portarci a regime sinusoidale puro.
+	Prendiamo il lato destro del circuito, cioè il rotore. La caduta di potenziale su $X_{2d}$ sarà:
+$$
+j X_{2d} \dot{I}_2 + R_{2d} \dot{I}_2 + \dot{E}_2 = 0 \Rightarrow X_{2d} = \omega_2 L_{2d} = \omega_2 \frac{\omega_1}{\omega_1} L_{2d} = \frac{\omega_2}{\omega_1} (\omega_1 L_{2d}) = s X_{2d0}
+$$
+Allo stesso modo, riguardo a $\dot{E}_2$, si avrà:
+$$
+\dot{E}_2 = j \omega_2 N_2 \dot{\Phi}_2 = j \frac{\omega_2}{\omega_1} N_2 \dot{\Phi}_2 \omega_1 = s (j \omega_2 N_2 \dot{\Phi}_2) = s \dot{E}_{20}
+$$
+
+Possiamo quindi ridisegnare il circuito equivalente come:
+
+\begin{center}
+	\begin{circuitikz}
+		\draw (-6,0) -- (-3.5, 0)
+		to[ short, i=$i_1$] (-3,0)
+			to [ resistor, l=$R_{1d}$] (-1,0)
+			to [ inductor, l=$L_{1d}$] (1,0)
+			to [ inductor , l=$N_1$] (1,-2)
+			-- (-6, -2);
+		
+		\draw (3, 0) to [ resistor, l=$sR_{2d}$] (5,0)
+			to [ inductor, l=$sL_{2d}$] (7,0) 
+			to[ short, i<=$i_2$] (8,0);
+			
+			\draw (3,0) to[ inductor , l_=$N_2$] (3,-2)
+			-- (8, -2);
+
+		\draw (-5.5, 0) to [ resistor, l=$R_m$] (-5.5, -2);
+		\draw (-4, 0) to [ inductor, l=$L_m$] (-4, -2);
+
+			\draw (0.9,-0.6) node {$\scriptscriptstyle\bullet$};
+			\draw (2.9,-0.6) node {$\scriptscriptstyle\bullet$};
+
+
+			\draw (-6,-0.5) node[anchor=east] {$+$};
+			\draw (-6,-1.5) node[anchor=east] {$-$};
+
+			\draw (8,-0.5) node[anchor=west] {$+$};
+			\draw (8,-1.5) node[anchor=west] {$-$};
+
+			\draw (-6,-1) node[anchor=east] {$V_1$};
+			\draw (8,-1) node[anchor=west] {$V_2$};
+
+			\draw (0.7,-0.5) node[anchor=east] {$+$};
+			\draw (0.7,-1.5) node[anchor=east] {$-$};
+
+			\draw (3.3,-0.5) node[anchor=west] {$+$};
+			\draw (3.3,-1.5) node[anchor=west] {$-$};
+
+			\draw (0.7,-1) node[anchor=east] {$E_1$};
+			\draw (3.3,-1) node[anchor=west] {$sE_{20}$};
+
+	\end{circuitikz}
+\end{center}
+
+Con la differenza che in questo caso prendiamo $\omega_s = \omega_r$, cioè "normalizziamo" per avere pulsazione identica sui due lati.
+
+\item Vediamo infine una modellizzazione che tiene conto di un eventuale carico al rotore.
+	Si introduce una resistenza, detta \textbf{resistenza di carico}, $R_c$, al secondario:
+
+\begin{center}
+	\begin{circuitikz}
+		\draw (-6,0) -- (-3.5, 0)
+		to[ short, i=$i_1$] (-3,0)
+			to [ resistor, l=$R_{1d}$] (-1,0)
+			to [ inductor, l=$L_{1d}$] (1,0)
+			to [ inductor , l=$N_1$] (1,-2)
+			-- (-6, -2);
+		
+		\draw (3, 0) to [ resistor, l=$sR_{2d}$] (5,0)
+			to [ inductor, l=$sL_{2d}$] (7,0) 
+			to[ short, i<=$i_2$] (8,0);
+			
+			\draw (3,0) to[ inductor , l_=$N_2$] (3,-2)
+			-- (8, -2);
+
+			\draw (8,0) to [ resistor, l=$R_c$] (8, -2);
+
+		\draw (-5.5, 0) to [ resistor, l=$R_m$] (-5.5, -2);
+		\draw (-4, 0) to [ inductor, l=$L_m$] (-4, -2);
+
+			\draw (0.9,-0.6) node {$\scriptscriptstyle\bullet$};
+			\draw (2.9,-0.6) node {$\scriptscriptstyle\bullet$};
+
+			\draw (-6,-0.5) node[anchor=east] {$+$};
+			\draw (-6,-1.5) node[anchor=east] {$-$};
+
+			\draw (-6,-1) node[anchor=east] {$V_1$};
+
+			\draw (0.7,-0.5) node[anchor=east] {$+$};
+			\draw (0.7,-1.5) node[anchor=east] {$-$};
+
+			\draw (3.3,-0.5) node[anchor=west] {$+$};
+			\draw (3.3,-1.5) node[anchor=west] {$-$};
+
+			\draw (0.7,-1) node[anchor=east] {$E_1$};
+			\draw (3.3,-1) node[anchor=west] {$sE_{20}$};
+
+	\end{circuitikz}
+\end{center}
+
+	La $R_C$, nella pratica, va effettivamente a rappresentare un \textit{carico meccanico} collegato al rotore, e non una \textit{resistenza elettrica} vera è proprio. Addirittura, può accadere che $R_C < 0$.
+\end{enumerate}
+
+\subsection{Modalità di funzionamento della macchina asincrona}
+Vediamo quindi come si comporta la macchina asincrona per diversi valori di scorrimento $s$, ricordando i casi già visti di rotore \textit{libero} e \textit{bloccato}:
+\begin{table}[h!]
+	\center \rowcolors{2}{white}{black!10}
+	\begin{tabular} { c | p{3cm} | c | c | c }
+		$s$ & \bfseries Funzionamento & $\Omega_r = (1 - s) \Omega_s$ & $R_c = \frac{1 - s}{s} R_{2d}$ & $P_c = R_c I_2^2$ \\
+		\hline 
+		$s < 0$ & Generatore & $\Omega_r > \Omega_s$ & $R_c < 0$ & $P_c < 0$ \\
+		$s = 0$ & Rotore libero & $\Omega_r = \Omega_s$ & $R_c \rightarrow +\infty$ & $P_c = 0$ \\ 
+		$0 < s < 1$ & Motore & $\Omega_r < \Omega_s$ & $R_c > 0$ & $P_c > 0$ \\
+		$s = 1$ & Rotore bloccato & $\Omega_r = 0$ & $R_c = 0$ & $P_c = 0$ \\ 
+		$s > 1$ & Freno & $\Omega_r \cdot \Omega_s < 0$ & - & - 
+	\end{tabular}
+\end{table}
+
+\subsection{Coppia nelle macchine asincrone}
+Vediamo come calcolare la coppia erogata da una macchina asincrona.
+Innanzitutto definiamo la coppia come la potenza $P_m$ su $\Omega_r$ 
+$$
+C_T = \frac{P_m}{\Omega_r} = \frac{R_c I_2^2}{(1 - s) \Omega_s}
+$$
+$$
+\dot{I}_2 = -\frac{s \dot{E}_{20}}{R_{2d} + js X_{2d0}}
+$$
+
+Usiamo il valore efficace della corrente:
+$$
+I_2 = |\dot{I}_2| = \left| -\frac{s \dot{E_{20}}}{R_{2d} + j X_{2d0}} \right|
+$$
+Notiamo che, per due complessi $\overline{z}_1$ e $\overline{z}_2$, si ha:
+$$
+\left| \frac{\overline{z}_1}{\overline{z}_2} \right| = \left| \frac{\rho_1 e^{j \vartheta_1}}{\rho_2 e^{j \vartheta_2}} \right| = \frac{\rho_1}{\rho_2} e^{j(\vartheta_1 - \vartheta_2)}
+$$
+da cui
+$$
+I_2 = \frac{s E_{20}}{\sqrt{R_{2d}^2 + s^2 X_{2d0}^2}}
+$$
+
+Avremo allora che:
+$$
+C_T = \frac{\frac{1-s}{s}R_{2d} I_2^2}{(1 - s) \frac{\omega_1}{\rho}} = \frac{\frac{1-s}{s}R_{2d}  \frac{s E_{20}}{\sqrt{R_{2d}^2 + s^2 X_{2d0}^2}} }{(1 - s) \frac{\omega_1}{\rho}} = \frac{\rho R_{2d}}{\omega_1} \cdot \frac{s E_{20}^2}{R_{2d}^2 + s^2 X^2_{2d0}} = \frac{\rho R_{2d} \frac{E_1^2}{n^2}}{\omega_1 \left( \frac{R_{2d}^2}{s}  + s X_{2d0}^2 \right)}
+$$
+dove $\rho$ è la coppia dipolie $n$ è il rapporto dipoli.
+
+\begin{center}
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel={$s$},
+        ylabel={$C_T$},
+        domain=-10:10, % set the x range you want
+				samples=100,
+        grid=major, % add a grid
+				ytick={0, 2},
+				yticklabels={ $0$, $C_{max}$},
+				xtick={0, 1},
+				xticklabels={$0$, $s^*$},
+				ymin = -0.9, ymax = 3,
+				xmin = -0.9,
+				width=15cm,
+				height=7cm
+    ]
+   \addplot[
+        red,
+        thick,
+				domain= 0:10
+		] {4/(1/x + x)}; 
+    \end{axis}
+\end{tikzpicture}
+\end{center}
+
+
+Potremmo voler calcolare la coppia massima nel punto $s = s^*$.
+Prendiamo allora la derivata, notando che il numeratore è costante:
+$$
+\frac{\partial \frac{R_{2d}^2}{s} + s X_{2d0}^2}{\partial s} = 0 \Rightarrow - \frac{R_{2d}^2}{s^2} + X^2_{r2d0} = 0 \Rightarrow  \frac{R_{2d}^2}{s^2} = X^2_{r2d0} \Rightarrow s^2 = \frac{R_{2d}^2}{X_{2d0}^2} \Rightarrow s^* = \frac{R_{2d}}{X_{2d0}}
+$$
+
+Un problema comune è quello di volere coppia massima sia all'avvio della macchina che allo stato a regime: all'avvio $s = 1$, e va via via a scendere tendendo a $0$.
+Quello che si fa è introdurre una resistenza iniziale:
+$$
+1 = \frac{R_{2d} + R_{agg}}{x_{2d0}}
+$$
+che avvicini il più possibile il valore $s^*$ di coppia massima alla $s$ corrente.
+
+\subsection{Rendimento nelle macchine asincrone}
+Definiamo il \textbf{rendimento} come:
+$$
+\eta = \frac{P_{utile}}{P_{assorbita}} \cdot 100 = \frac{R_c I_2^2}{R_c I_2^2 + R_{1d} I_1^2 + R_{2d} I_2^2 + \frac{V_1^2}{R_m} + P_{add}} \cdot 100
+$$
+dove $P_{add}$ modellizza altre potenze addizionali che vengono dissipate.
+
+\end{document}

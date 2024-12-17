@@ -194,67 +194,143 @@
 \pagestyle{fancy}
 
 % testo
-\subsection{Macchine elettriche}
 Nei circuiti visti finora scorrono \textbf{correnti elettriche}.
 Una corrente elettrica genera inevitabilmente \textbf{campi magnetici}.
 A volte questi campi magnetici sono effetti indesiderati che vogliamo schermare attraverso appositi meccanismi per evitare l'interferenza fra i componenti.
 Altre volte questi campi possono esserci utili a compiere lavoro, come nel caso delle \textbf{macchine elettriche}.
 
 \subsubsection{Campo magnetico}
-Introduciamo le grandezze $H$, detta \textbf{intensità di campo magnetico} e misurata in $\frac{\mathrm{A}}{\mathrm{m}}$, e $B$, detta \textbf{induzione magnetica} e misurata in Tesla ($\mathrm{T}$).
+Introduciamo le grandezze $\vec{H}$, detta \textbf{intensità di campo magnetico} e misurata in $\frac{\mathrm{A}}{\mathrm{m}}$, e $\vec{B}$, detta \textbf{induzione magnetica} e misurata in Tesla ($\mathrm{T}$).
 Intensità e induzione magnetica sono legati da:
 $$
-B = \mu H = \mu \mu_r H
+\vec{B} = \mu \vec{H} = \mu_0 \mu_r \vec{H}
 $$
-dove $\mu_r$ è la \textbf{permeabilità magnetica di un certo materiale} e $\mu$ è la permeabilità elettrica \textbf{del vuoto}.
+dove $\mu_r$ è la \textbf{permeabilità magnetica} \textit{di un certo materiale} e $\mu_0$ è la \textbf{permeabilità magnetica del vuoto}.
+In particolare, quindi, la prima equazione si riferisce all'induzione magnetica \textit{nel vuoto}, e la seconda all'induzione magnetica \textit{in un certo materiale}.
 
-Introduciamo poi il \textbf{flusso magnetico} $\Phi$, misurato in Weber ($\mathrm{Wb}$), e definito come l'integrale di superficie dell'induzione magnetica:
+Introduciamo poi il \textbf{flusso magnetico} $\Phi$, o più propriamente $\Phi(\vec{B})$ (anche se lo indicheremo spesso solo come $\Phi$), misurato in Weber ($\mathrm{Wb}$), e definito come l'integrale di superficie dell'induzione magnetica:
 $$
-\Phi = \int_S B \, ds = BS
+\Phi(\vec{B}) = \int_S \vec{B} \, ds = \vec{B} \cdot \hat{N} = BS
 $$
+dove l'ultima relazione vale se $\vec{B} \cdot \hat{N}$ con $N$ normale a $s$ è uguale a 1 (altrimenti compare il solito termine $\cos{\theta}$).
 
 Da questa definizione, a volte, l'induzione magnetica viene dettà \textbf{densità di flusso magnetico}.
 
-\subsubsection{Legge di Ampere}
-La legge che ci aiuta a studiare i campi magnetici è la legge di Ampere:
-\begin{theorem}{Legge di Ampere}
-	La circuitazione  del capmo magnetico lungo una curva chiusa $\Phi$ è data dalla sommatoria delle correnti concatenate alla curva $i_j$:
+\subsubsection{Legge di Ampère}
+La relazione matematica che ci aiuta a studiare i campi magnetici è la legge di Ampère:
+\begin{theorem}{Legge di Ampère}
+	La circuitazione  del campo magnetico lungo una curva chiusa $\gamma$ è data dalla sommatoria delle correnti concatenate alla curva $I_j$:
 	$$
-	\int_\Phi H \, dl = \sum_{j=1}^m i_j(t)
+	\int_\gamma \vec{H} \, dl = \sum_{j=1}^n I_j(t)
 	$$
 \end{theorem}
 
+Possiamo esprimere la legge di Ampère anche attraverso l'induzione magnetica, come:
+$$
+\int_\gamma \vec{B} \, dl = \mu_0 \sum_{j=1}^{n} I_j(t)
+$$
+nel vuoto e:
+$$
+\int_\gamma \vec{B} \, dl = \mu_0 \mu_r \sum_{j=1}^{n} I_j(t)
+$$
+in un materiale con permeabilità magnetica $\mu_r$. 
+
 \par\smallskip
 
-# disegnino di un mezzo trasformatore
+Un caso di esempio che possiamo studiare è quello di un avvolgimento di filo in $N$ spire attorno a un corpo ferromagnetico, nel nostro caso un blocco perforato:
 
-Un caso di esempio che possiamo studiare è quello di un avvolgimento di filo attorno a un corpo ferromagnetico, nel nostro caso un blocco perforato.
-All'interno del campo magnetico, il materiale ferromagnetico si magnetizza nella direzione imposta dalle correnti che scorrono nell'avvolgimento di filo.
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) 
+			-- (3,0)
+			-- (3,-3)
+			-- (0,-3)
+			-- (0,0);
+		\draw (0.5,-0.5) 
+			-- (2.5,-0.5)
+			-- (2.5,-2.5)
+			-- (0.5,-2.5)
+			-- (0.5,-0.5);
+ 
+		\ctikzset{bipoles/thickness=1}
+		\ctikzset{bipoles/cuteinductor/width=1.13}
+		\ctikzset{bipoles/cuteinductor/height=0.9}
+		
+		\ctikzset{bipoles/cuteinductor/coils = 6}
+		
+		\draw (-1, -0.7)
+			to [short, i=$i$] (0, -0.7) 
+			to [inductor] (0, -2.3)
+			-- (-1, -2.3);
 
-Un ipotesi comune che facciamo nello studio di sistemi che coinvolgono materiali ferromagnetici, e che la permeabilità magnetica associata $\mu_{fe}$ tenda a $+\infty$, cioè che non ci siano linee di campo magnetico che si chiudono al di fuori del materiale ferromagnetico stesso.
+		\draw (-1,-0.7) node[anchor=east] {$+$};
+		\draw (-1,-2.3) node[anchor=east] {$-$};
+
+		\draw (-1,-1.5) node[anchor=east] {$E$};
+		\draw (-0.2,-1.5) node[anchor=east] {$N$};
+	\end{circuitikz}
+\end{center}
+
+Ogni sezione del blocco viene detta \textbf{tronco}, e assumiamo le superfici trasversali $S$ dei tronchi pressoché costanti fra tronchi e sulla lunghezza di un tronco.
+Sottoposto a un campo magnetico, il materiale ferromagnetico si magnetizza nella direzione imposta dalle correnti che scorrono nell'avvolgimento di filo, e il blocco presenta effettivamente quello che possiamo modellizzare come un fenomeno di conduzione di $\vec{B}$.
+In particolare, nello studio di sistemi che coinvolgono materiali ferromagnetici, facciamo due ipotesi:
+\begin{enumerate}
+	\item Il rapporto fra le permeabiltà magnetiche associate al materiale ferromagnetico $\mu_{fe}$ e all'aria circostante $\mu_{a}$ tende a $+\infty$ o comunque è $\mu_{fe} >> \mu_{a}$, cioè non ci sono (o sono molto limitate) linee di campo magnetico che si chiudono al di fuori del materiale ferromagnetico stesso;
+	\item In ogni sezione del ferromagnetico si ha una distribuzione uniforme dell'induzione magnetica $\vec{B}$, cioè modulo, verso e direzione di $\vec{B}$ sono costanti su ogni superficie $S$ trasversale dei tronchi del ferromagnetico.
+\end{enumerate}
 
 Prendiamo quindi una superficie chiusa $\gamma$ all'interno del blocco perforato.
-Sarà che:
+Le ipotesi scelte ci permetteranno di dire:
 $$
-\sum_{i=1}^A H_i \cdot l_i = N i = \sum_{i=1}^A \frac{B_i}{\mu \mu_r} \cdot l_i = N i = \sum_{i=1}^A \frac{\Phi_i}{\mu \mu s_i} l_i = Ni
+\int_\gamma H \, dl = Ni
 $$
-dove abbiamo potuto considerare il solo campo all'interno del tronco del blocco perforato per la semplificazione notata prima.
+che riportandosi al caso discreto dei 4 tronchi dell'esempio significa:
+$$
+\int_\gamma H \, dl = \sum_{i=1}^A H_i \cdot l_i = \sum_{i=1}^A \frac{\vec{B_i}}{\mu_0 \mu_r} \cdot l_i = \sum_{i=1}^A \frac{\Phi_i}{\mu_0 \mu_r S_i} \cdot l_i = Ni
+$$
 
-Notiamo quindi che il campo magnetico magnetico scorre effettivamente come una corrente all'interno dei tronchi del blocco cavo.
-Potremo infatti definire la grandezza $\mathcal{R}$, detta \textbf{riluttanza}:
+In particolare, l'ipotesi (1) ci permette di passare alla sommatoria in $\vec{B_i}$, cioè affermare che il campo magnetico è tutto interno al tronco, mentre l'ipotesi (2) ci permette invece di prendere il campo come $\vec{B_i} = \frac{\Phi_i}{S_i}$ su una superficie $S_i$ assunta costante.
+Inoltre, l'ipotesi (1) ci permette di ridurre i flussi $\Phi_i$ all'unico flusso $\Phi$ che scorrerà in comune su tutti i tronchi del corpo ferromagnetico, mentre attraverso la (2), assunti tronchi di superficie identica, ridurremo le $S_i$ a un unica $S$ comune:
+$$
+Ni = \sum_{i=1}^A \frac{\Phi}{\mu_0 \mu_r S} \cdot l_i
+$$
+
+Notiamo quindi che il campo magnetico magnetico, o meglio il flusso magnetico $\Phi$, scorre effettivamente come una corrente all'interno dei tronchi del blocco cavo.
+Potremo definire la grandezza $\mathcal{R}$, detta \textbf{riluttanza}:
 $$
 \mathcal{R}_i = \frac{l_i}{\mu \mu_r s_i}
 $$
+in generale:
+$$
+\mathcal{R} = \frac{l}{\mu \mu_r s}
+$$
 
-E definire quanto segue; 
-\begin{definition}{Tensione magnetica}
-	Definiamo la tensione magnetica $Ni$ come segue:
-	$$
-	\sum_{i=1}^A \Phi_i R_i = N i
-	$$
-\end{definition}
+Diciamo poi che $N i$ rappresenta una \textbf{tensione magnetica}, da cui:
+$$
+\sum\limits_{i=1}^A \Phi_i \mathcal{R}_i = N i
+$$
 
-Notiamo come questa relazione ha una forma simile alla legge di Ohm, dove si possono confrontare le seguenti grandezze:
+Le definizioni di riluttanza e tensione magnetica ci permettono quindi di realizzare, sempre sotto le precedenti ipotesi, una modellizzazione che prende il nome di \textbf{circuito magnetico}:
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to [resistor, R=$\mathcal{R}_2$] (3, 0)
+		to [resistor, R=$\mathcal{R}_3$] (3, -3)
+		to [resistor, R=$\mathcal{R}_4$] (0, -3)
+		to [voltage source, v=$Ni$] (0, -1.5)
+		to [resistor, R=$\mathcal{R}_1$] (0, 0);
+	\end{circuitikz}
+\end{center}
+
+La legge riportata sopra, che aveva forma simile alla legge di Ohm, è detta \textbf{legge di Hopkinson}.
+Riportiamo la forma completa:
+\begin{theorem}{Legge di Hopkinson}
+	Su un circuito magnetico con $n$ avvolgimenti di $N_i$ spire dove scorre corrente $I_i$, e $m$ tronchi con riluttanza $\mathcal{R}_j$ su cui scorre un flusso $\Phi_j$, si ha che:
+$$
+\sum_{i=1}^n N_i i_i = \sum_{j=1}^m \Phi_j \mathcal{R}_j 
+$$
+\end{theorem}
+
+Notiamo come questa relazione ha una forma simile alla legge di Ohm $V = IR$, dove si possono confrontare le seguenti grandezze:
 \begin{table}[h!]
 	\center \rowcolors{2}{white}{black!10}
 	\begin{tabular} { c | c }
@@ -266,24 +342,69 @@ Notiamo come questa relazione ha una forma simile alla legge di Ohm, dove si pos
 	\end{tabular}
 \end{table}
 
-La legge riportata sopra, che aveva forma simile alla legge di Ohm, è detta \textbf{legge di Hopkinson}.
-Possiamo riportare la forma completa:
-$$
-\sum_{i=1}^n \Phi_i \mathcal{R}_i = \sum_{j=1}^m N_j i_j
-$$
-
 \subsection{Trasformatore}
+Collegando un'ulteriore spira al lato destro del blocco perforato cavo visto prima, otteniamo una macchina elettrica detta \textbf{trasformatore}:
 
-# disegnino di un trasformatore
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) 
+			-- (3,0)
+			-- (3,-3)
+			-- (0,-3)
+			-- (0,0);
+		\draw (0.5,-0.5) 
+			-- (2.5,-0.5)
+			-- (2.5,-2.5)
+			-- (0.5,-2.5)
+			-- (0.5,-0.5);
+ 
+		\ctikzset{bipoles/thickness=1}
+		\ctikzset{bipoles/cuteinductor/width=1.13}
+		\ctikzset{bipoles/cuteinductor/height=0.9}
+		
+		\ctikzset{bipoles/cuteinductor/coils = 6}
+		
+		\draw (-1, -0.7)
+			to [short, i=$i_1$] (0, -0.7) 
+			to [inductor] (0, -2.3)
+			-- (-1, -2.3);
 
-Collegando un'ulteriore spira al lato destro del blocco perforato cavo visto prima, otteniamo una macchina elettrica detta \textbf{trasformatore}.
-Chiamiamo l'avvolgimento a sinistra \textbf{primario}, che assumiamo come \textit{alimentato}, e l'avvolgimento a destra \textbf{secondario}, che assumiamo come legato a un \textbf{carico} resistivo o induttivo.
+		\ctikzset{bipoles/cuteinductor/coils = 4}
 
-Notiamo il circuito elettrico dovrà a trovarsi a regime non costante, in quanto in caso contrario l'induttore si comporterà come un cortocircuito e non ci sarà variazione di campo magnetico: prendiamo nel nosro caso un generatore di funzione sinusoidale.
+		\draw (4, -2.3)
+			-- (3, -2.3) 
+			to [inductor] (3, -0.7)
+			to [short, i<=$i_2$] (4, -0.7);
 
-Scelte le correnti entranti secondo la convenzione delle reti due porte, possiamo disegnare il circuito magnetico:
+		\draw (-1,-0.7) node[anchor=east] {$+$};
+		\draw (-1,-2.3) node[anchor=east] {$-$};
 
-# circuito magnetico
+		\draw (4,-0.7) node[anchor=west] {$+$};
+		\draw (4,-2.3) node[anchor=west] {$-$};
+
+		\draw (-1,-1.5) node[anchor=east] {$E_1$};
+		\draw (-0.2,-1.5) node[anchor=east] {$N_1$};
+		\draw (4,-1.5) node[anchor=west] {$E_2$};
+		\draw (3.2,-1.5) node[anchor=west] {$N_2$};
+
+	\end{circuitikz}
+\end{center}
+
+Chiamiamo l'avvolgimento a sinistra \textbf{primario}, che assumiamo come \textit{alimentato}, e l'avvolgimento a destra \textbf{secondario}, che assumiamo come legato a un \textbf{carico}, solitamente resistivo, induttivo o ohmico-induttivo (carichi ohmico-capacitivi o puramente capacitivi sono più rari, in quanto solitamente le macchine elettriche lavorano con campi magnetici, quindi intrinsecamente induttivi).
+Il primario avrà $N_1$ spire e il secondario $N_2$.
+Notiamo il circuito elettrico dovrà a trovarsi a regime non costante, in quanto in caso contrario l'induttore si comporterà come un cortocircuito e non ci sarà variazione di campo magnetico: prendiamo, ad esempio, un generatore di funzione sinusoidale.
+
+Possiamo disegnare il circuito magnetico:
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to [resistor, R=$\mathcal{R}_2$] (3, 0)
+		to [voltage source, v=$N_2 i_2$] (3, -1.5)
+		to [resistor, R=$\mathcal{R}_3$] (3, -3)
+		to [resistor, R=$\mathcal{R}_4$] (0, -3)
+		to [voltage source, v=$N_1 i_1$] (0, -1.5)
+		to [resistor, R=$\mathcal{R}_1$] (0, 0);
+	\end{circuitikz}
+\end{center}
 
 dove si trattano gli avvolgimenti di filo come generatori di tensione $N_1 i_1$ e $N_2 i_2$ e i tronchi come riluttanze $\mathcal{R}_i$ con $i = 1, ..., 4$.
 Potremo studiare questo circuito come qualsiasi altro:
@@ -299,8 +420,8 @@ $$
 Nel trasformatore ideale facciamo 3 ipotesi semplificative:
 \begin{enumerate}
 	\item La resistenza $R$ degli avvolgimenti dovrà essere uguale a 0;
-	\item $\mu_{fe}$ del materiale ferromagnetico tenderà a $+\infty$, quindi non ci sono flussi dispersi in aria: questo ci permette di ridurre i flussi $\Phi_i$ a un unico flusso $\Phi$;
-	\item $\mu_{fe}$ è inoltre costante nel tempo.
+	\item Il rapporto fra le permeabiltà magnetiche associate al materiale ferromagnetico $\mu_{fe}$ e all'aria circostante $\mu_{a}$ tenderà a $+\infty$, quindi non ci saranno flussi dispersi in aria: questo ci permette di ridurre i flussi $\Phi_i$ a un unico flusso $\Phi$;
+	\item $\mu_{fe}$ è costante nel tempo.
 \end{enumerate}
 
 Possiamo quindi riportare l'equazione precedente, dalla (2), a:
@@ -312,7 +433,11 @@ Ricordando la definizione di riluttanza:
 $$
 \mathcal{R}_i = \frac{l_i}{\mu \mu_r s_i}
 $$
-e imponendo la sempre la (2), si avrà che $\mathcal{R} \rightarrow 0$, quindi:
+e imponendo sempre la (2), si avrà che $\mu_r \rightarrow +\infty$, cioè:
+$$
+\mathcal{R}_i = \lim_{\mu_r \rightarrow +\infty} \frac{l_i}{\mu \mu_r s_i} = 0
+$$ 
+e quindi:
 $$
 N_1 I_1 + N_2 I_2 = 0 \implies I_1 = -\frac{N_2}{N_1} I_2 = -\frac{1}{n} I_2
 $$
@@ -330,83 +455,232 @@ $$
 Abbiamo quindi le due relazioni per il trasformatore ideale:
 \[
 	\begin{cases}
-		\dot{I} = - \frac{1}{n} \dot{I}_2 \\ 
+		\dot{I}_1 = - \frac{1}{n} \dot{I}_2 \\ 
 		\dot{E}_1 = n \dot{E}_2
 	\end{cases}
 \]
 
 Distinguiamo quindi 3 casi, notando che la convenzione si riferisce alle tensioni:
 \begin{itemize}
-	\item $n > 1$: trasformatore \textbf{riduttore} di tensione, \textit{elevatore} di corrente;
-	\item $n < 1$: trasformatore \textbf{elevatore} di tensione, \textit{riduttore} di corrente;
-	\item $n = 1$: \textbf{disaccoppiatore}.
+	\item $n > 1$: trasformatore \textbf{riduttore} di tensione, \textit{elevatore} di corrente (detto anche \textit{step-up});
+	\item $n < 1$: trasformatore \textbf{elevatore} di tensione, \textit{riduttore} di corrente (detto anche \textit{step-down});
+	\item $n = 1$: in questo caso il trasformatore si comporta da \textbf{isolatore galvanico} e viene detto \textbf{accoppiamento induttivo}.
 \end{itemize}
 
 \subsubsection{Potenza sui trasformatori ideali}
 
 Facciamo le solite considerazioni di \textbf{potenza}.
-Si ha riguardo alla potenza apparente che:
+Si ha, ad esempio riguardo alla potenza apparente, che posto quanto trovato prima ($\dot{I}_1 = -\frac{1}{n} \dot{I}_2$ e $\dot{E}_1 = n \dot{E}_2$):
 $$
 S_1 = E_1 N_1 = n E_2 \left( -\frac{1}{n} I_2 \right) = -E_2 I_2 = S_2
 $$
+cioè che la potenza ai due lati del trasformatore è identica.
+Questo significa che il trasformatore ci permette di trasferire energia da un lato all'altro variando il rapporto fra corrente e voltaggio.
+Assumendo condizioni ideali, quindi, si può applicare la legge di Ohm, ad esempio:
+$$
+V_2 = 2 \cdot V_1 \implies I_2 = \frac{I_1}{2}
+$$
+cioè si può trasmettere energia a voltaggio doppio con una corrente dimezzata.
+
+Questo torna particolarmente utile nella trasmissione di energia elettrica nelle reti di distribuzione.
+Per esigenze tecniche, le centrali eletriche producono energia a tensioni relativamente basse. 
+Prese le linee di trasmissione come enormi resistori con $R$ determinata dalla seconda legge di Ohm ($R = \rho \frac{l}{A}$), e trascurando l'errore che otteniamo dall'applicazione del modello a \textit{lumped circuit} ad una linea di trasmissione (con estensione possibilmente anche di diverse centinaia di chilometri), abbiamo che su queste viene dissipata una potenza $P = I^2 R$.
+Chiaramente, vorremo trasmettere energia a correnti il più basse possibili per risparmiare sulla potenza.
+Un trasformatore \textit{step-up} alla centrale ci permette quindi di portare la corrente a tensioni molto alte, mentre un trasformatore \textit{step-up} al centro di distribuzione locale ci permette di riabbassare la tensione a livelli utili, appunto, alla distribuzione locale. 
+La differenza di potenziale $\Delta V$ complessiva fra i due capi della linea risulterà quindi piccola, ergo sarà piccola la corrente $I$, e otterremo quanto desiderato in termini di potenza dissipata. 
 
 \subsubsection{Circuito equivalente del trasformatore ideale}
+Possiamo modellizzare il trasformatore ideale attraverso induttanze mutuamente accoppiate:
 
-Un circuito equivalente a un trasformatore ideale è dato alle induttanze mutuamente accoppiate:
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[ short, i=$i_1$] (1,0)
+			to[ inductor , l=$N_1$] (1,-2)
+			-- (0, -2);
 
-# disegno
+		\draw (4,0) to[ short, i_=$i_2$] (3,0)
+			to[ inductor , l_=$N_2$] (3,-2)
+			-- (4, -2);
 
-dove si impone alle induttanze:
-$$
-L_1 = \mu \mu_r \frac{s}{l} N_1^2
-$$
-$$
-L_2 = \mu \mu_r \frac{s}{l} N_2^2
-$$
+			\draw (0.9,-0.6) node {$\scriptscriptstyle\bullet$};
+			\draw (2.9,-0.6) node {$\scriptscriptstyle\bullet$};
 
-Con mutuo accoppiamento ideale si ha:
+			\draw (0,-0.5) node[anchor=east] {$+$};
+			\draw (0,-1.5) node[anchor=east] {$-$};
+
+			\draw (4,-0.5) node[anchor=west] {$+$};
+			\draw (4,-1.5) node[anchor=west] {$-$};
+
+			\draw (0,-1) node[anchor=east] {$E_1$};
+			\draw (4,-1) node[anchor=west] {$E_2$};
+	\end{circuitikz}
+\end{center}
+
+Si impone alle induttanze:
+$$
+L_1 = \frac{N_1^2}{\mathcal{R}_{eq}} = \mu \mu_r \frac{s}{l} N_1^2
+$$
+$$
+L_2 = \frac{N_2^2}{\mathcal{R}_{eq}} = \mu \mu_r \frac{s}{l} N_2^2
+$$
+e, assunto mutuo accoppiamento ideale:
 $$
 M = \sqrt{L_1 L_2} = \mu \mu_r \frac{s}{l} N_1 N_2 
 $$
 
+Notiamo che nel caso ideale ($\mathcal{R}_{eq} \rightarrow 0$), si ha che $L_1, L_2, M \rightarrow + \infty$.
+
+Vediamo allora di dimostrare che questa configurazione è effettivamente equivalente al trasformatore ideale.
 Possiamo applicare le relazioni tensione corrente delle mutue induttanze:
-\[
+$$
 	\begin{cases}
 		v_1(t) = L_1 \frac{d\,i_1(t)}{dt} + M \frac{d\, i_2(t)}{dt} \\ 	
 		v_2(t) = M \frac{d\,i_1(t)}{dt} + L_2 \frac{d\, i_2(t)}{dt} \\ 	
 	\end{cases}
-	\implies
+$$
+Operiamo quindi il raggruppamento:
+$$
 	\begin{cases}
 		v_1(t) = L_1 \left( \frac{d\,i_1(t)}{dt} + \frac{M}{L_1} \frac{d\, i_2(t)}{dt} \right) \\ 	
 		v_2(t) = M \left( \frac{d\,i_1(t)}{dt} + \frac{L_2}{M} \frac{d\, i_2(t)}{dt} \right) \\ 	
 	\end{cases}
-\]
-da cui il rapporto:
+$$
+
+Vediamo che:
+$$
+\frac{M}{L_1} = \frac{N_1 N_2}{\mathcal{R}_{eq}} \cdot \frac{\mathcal{R}_{eq}}{N_1^2} = \frac{N_2}{N_1}, \quad
+\frac{L_2}{M} = \frac{N_2^2}{\mathcal{R}_{eq}} \cdot \frac{\mathcal{R}_{eq}}{N_1 N_2} = \frac{N_2}{N_1}
+$$
+
+Possiamo quindi semplificare, ricordando da sopra che  $\frac{M}{L_1} = \frac{N_2}{N_1}$ e quindi $\frac{L_1}{M_1} = \left( \frac{M}{L_1} \right)^{-1} = \frac{N_1}{N_1}$:
 $$
 \frac{v_1(t)}{v_2(t)} = \frac{ L_1 \left( \frac{d\,i_1(t)}{dt} + \frac{M}{L_1} \frac{d\, i_2(t)}{dt} \right)}{ M \left( \frac{d\,i_1(t)}{dt} + \frac{L_2}{M} \frac{d\, i_2(t)}{dt} \right)} = \frac{L_1}{M} = \frac{N_1}{N_2} = n
 $$
 
 Abbiamo quindi dimostrato che il circuito è effettivamente equivalente a un trasformatore ideale.
 
-\subsubsection{Disaccoppiatore}
+\subsubsection{Trasformtore isolatore}
 Possiamo fare un esempio dell'utilità di un trasformatore con $n=1$ riprendendo il circuito equivalente di una rete due porte recipreca a parametri Z:
 
-# rete due porte reciproca a parametri Z
+\begin{center}
+	\begin{circuitikz}
+		\draw (-4, 1) -- (-3, 1) 
+			to [ european resistor, l=$\overline{z_a}$, i=$I_1$] (0, 1)
+			to [ european resistor, l=$\overline{z_b}$] (0, -1) 
+			to [ short, i=$I_1$ ] (-3, -1)	
+			-- (-4, -1);
+			
+		\draw (-4.6, 1) node[anchor=west] {$+$};
+		\draw (-4.6, 0) node[anchor=west] {$V_1$};
+		\draw (-4.6, -1) node[anchor=west] {$-$};
+
+		\draw (4, 1) -- (3, 1) 
+			to [ european resistor, l_=$\overline{z_c}$, i_=$I_2$] (0, 1);
+
+		\draw (0, -1) to [ short, i_=$I_2$ ] (3, -1)
+			-- (4, -1);
+	
+		\draw (4.6, 1) node[anchor=east] {$+$};
+		\draw (4.6, 0) node[anchor=east] {$V_2$};
+		\draw (4.6, -1) node[anchor=east] {$-$};
+		
+		\node[rectangle, draw, minimum width = 6.5cm, minimum height = 4cm] (a) at (0,0) {};
+	\end{circuitikz}
+\end{center}
 
 Questa non era altro che la semplificazione della rete generale a parametri Z:
 
-# rete due porte a parametri Z
+\begin{center}
+	\begin{circuitikz}
+		\draw (-4, 1) -- (-3, 1) 
+			to [ european resistor, l=$\overline{z_{11}}$, i=$I_1$] (-1, 1)
+			to [ controlled voltage source, v<=$\overline{z_{12}} \dot{I}_2$ ] (-1, -1) 
+			to [ short, i=$I_1$ ] (-3, -1)	
+			-- (-4, -1);
+			
+		\draw (-4.6, 1) node[anchor=west] {$+$};
+		\draw (-4.6, 0) node[anchor=west] {$V_1$};
+		\draw (-4.6, -1) node[anchor=west] {$-$};
+
+		\draw (6,1) -- (5, 1) 
+			to [ european resistor, l_=$\overline{z_{12}}$, i_=$I_2$] (3, 1)
+			to [ controlled voltage source, v_<=$\overline{z_{21}} \dot{I}_1$ ] (3, -1) 
+			to [ short, i_=$I_2$ ] (5, -1)
+			-- (6, -1);
+	
+		\draw (6.6, 1) node[anchor=east] {$+$};
+		\draw (6.6, 0) node[anchor=east] {$V_2$};
+		\draw (6.6, -1) node[anchor=east] {$-$};
+		
+		\node[rectangle, draw, minimum width = 8.5cm, minimum height = 4cm] (a) at (1,0) {};
+	\end{circuitikz}
+\end{center}
 
 Notiamo che il potenziale ai due nodi in basso non è identico nel caso del circuito generale, mentre lo abbiamo posto come tale nel circuito reciproco.
-Questa è una semplificazione che potremmo non voler fare: possiamo permettere potenziali diversi introducendo appunto un disaccoppiatore:
+Questa è una semplificazione che potremmo non voler fare.
+Possiamo permettere potenziali diversi introducendo appunto un trasformatore a rapporto spire $n$ unitario:
 
-# io penso si chiami disaccoppiatore poi che ne so, cmq disegno
+\begin{center}
+	\begin{circuitikz}
+		\draw (-4, 1) -- (-3, 1) 
+			to [ european resistor, l=$\overline{z_a}$, i=$I_1$] (0, 1)
+			to [ european resistor, l=$\overline{z_b}$] (0, -1) 
+			to [ short, i=$I_1$ ] (-3, -1)	
+			-- (-4, -1);
+			
+		\draw (-4.6, 1) node[anchor=west] {$+$};
+		\draw (-4.6, 0) node[anchor=west] {$V_1$};
+		\draw (-4.6, -1) node[anchor=west] {$-$};
+
+		\draw (3, 1) 
+			to [ european resistor, l_=$\overline{z_c}$, i_=$I_2$] (0, 1);
+
+		\draw (0, -1) to [ short, i_=$I_2$ ] (3, -1);
+	
+		\draw (7, 1) -- (5, 1);
+		\draw (7, -1) -- (5, -1);
+
+		\draw (3, 1) to [ inductor, l=$L_1$] (3, -1);
+		\draw (5, 1) to [ inductor, l_=$L_2$] (5, -1);
+
+		\draw (7.6, 1) node[anchor=east] {$+$};
+		\draw (7.6, 0) node[anchor=east] {$V_2$};
+		\draw (7.6, -1) node[anchor=east] {$-$};
+	
+		\draw (2.9,0.4) node {$\scriptscriptstyle\bullet$};
+		\draw (4.9,0.4) node {$\scriptscriptstyle\bullet$};
+
+		\node[rectangle, draw, minimum width = 8.5cm, minimum height = 4cm] (a) at (1.5,0) {};
+	\end{circuitikz}
+\end{center}
+
+Assunto $L_1, L2, M \rightarrow +\infty$, cioè mutuo accoppiamento ideale.
+Una modifica analoga si può operare all'equivalente reciproco a parametri Y, con gli stessi vantaggi.
 
 \subsubsection{Adattamento di impedenza}
 
-Poniamo il circuito magnetico dato da generatore di tensione che alimenta, attraverso un trasformatore, un carico $\overline{z_C}$:
+Poniamo il circuito magnetico considerato prima, dato da generatore di tensione che alimenta, attraverso un trasformatore, un carico $\overline{z_C}$:
 
-# disegno
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[ short, i=$i_1$] (1,0)
+			to[ inductor , l=$N_1$] (1,-2)
+			-- (0, -2);
+
+		\draw (5,0) to[ short, i_=$i_2$] (3,0)
+			to[ inductor , l_=$N_2$] (3,-2)
+			-- (5, -2)
+			to [ european resistor, l_=$Z_c$] (5, 0);
+
+			\draw (0.9,-0.6) node {$\scriptscriptstyle\bullet$};
+			\draw (2.9,-0.6) node {$\scriptscriptstyle\bullet$};
+
+			\draw (0,-0.5) node[anchor=east] {$+$};
+			\draw (0,-1.5) node[anchor=east] {$-$};
+
+			\draw (0,-1) node[anchor=east] {$E_1$};
+	\end{circuitikz}
+\end{center}
 
 Si avrà che, preso il circuito come una rete due porte:
 $$
@@ -423,20 +697,99 @@ quindi sostituendo:
 $$
 \frac{\dot{E}_1}{n} = - \overline{z_C} (-n \dot{I_1}) \Rightarrow \dot{E}_1 = \overline{z_C} n^2 \dot{I}_1
 $$
-
-# troppo forte riguarda
+cioè, l'impedenza di $\overline{z_C}$ su secondario viene "vista" dal primario come moltiplicata per un fattore pari al quadrato del rapporto spire:
+$$
+\overline{z_C}_1 = \overline{z_C}_2 \cdot n^2
+$$
 
 \subsubsection{Trasformatore reale}
-Riprendiamo il trasformatore reale.
-Il circuito equivalente non può più essere formato prendendo due induttori in accoppiamento ideale.
-Introduciamo quindi due resistenze $R_{1d}$ e $R_{2d}$ in entrata agli induttori in maniera tale da modellizzare la resistenza $R$ degli avvolgimenti (ipotesi 1), e altre due induttanze $L_{1d}$ e $L_{2d}$ per modellizzare i flussi dispersi in aria da un coefficiente $\mu_{fe}$ non ideale (cioè non tendente a $+\infty$, dall'ipotesi 2).
+Riprendiamo il trasformatore reale sollevando le ipotesi prese finora (resistenza degli avvolgimenti nulla, permeabilità $\rightarrow \infty$ e costante).
+Il circuito equivalente non può più essere formato prendendo i soli due induttori in accoppiamento ideale.
+Introduciamo quindi due resistenze $R_{1d}$ e $R_{2d}$ in entrata agli induttori in maniera tale da modellizzare la resistenza $R$ degli avvolgimenti (ipotesi 1), e altre due induttanze $L_{1d}$ e $L_{2d}$ per modellizzare i flussi dispersi in aria da un coefficiente $\mu_{fe}$ non ideale (cioè non tendente a $+\infty$, dall'ipotesi 2):
 
-Notiamo che la permeabilità $\mu_{fe}$ non è nemmeno costante: il rapporto fra intensità di campo magnetico e induzinoe magnetica, che finora avevamo descritto come:
+\begin{center}
+	\begin{circuitikz}
+		\draw (-4,0) to[ short, i=$i_1$] (-3,0)
+			to [ resistor, l=$R_{1d}$] (-1,0)
+			to [ inductor, l=$L_{1d}$] (1,0)
+			to [ inductor , l=$N_1$] (1,-2)
+			-- (-4, -2);
+		
+		\draw (3, 0) to [ resistor, l=$R_{2d}$] (5,0)
+			to [ inductor, l=$L_{2d}$] (7,0) 
+			to[ short, i<=$i_2$] (8,0);
+			
+			\draw (3,0) to[ inductor , l_=$N_2$] (3,-2)
+			-- (8, -2);
+
+			\draw (0.9,-0.6) node {$\scriptscriptstyle\bullet$};
+			\draw (2.9,-0.6) node {$\scriptscriptstyle\bullet$};
+
+			\draw (-4,-0.5) node[anchor=east] {$+$};
+			\draw (-4,-1.5) node[anchor=east] {$-$};
+
+			\draw (8,-0.5) node[anchor=west] {$+$};
+			\draw (8,-1.5) node[anchor=west] {$-$};
+
+			\draw (-4,-1) node[anchor=east] {$V_1$};
+			\draw (8,-1) node[anchor=west] {$V_2$};
+
+			\draw (0.7,-0.5) node[anchor=east] {$+$};
+			\draw (0.7,-1.5) node[anchor=east] {$-$};
+
+			\draw (3.3,-0.5) node[anchor=west] {$+$};
+			\draw (3.3,-1.5) node[anchor=west] {$-$};
+
+			\draw (0.7,-1) node[anchor=east] {$E_1$};
+			\draw (3.3,-1) node[anchor=west] {$E_2$};
+	\end{circuitikz}
+\end{center}
+dove si è distinto fra $V$ e $E$, rispettivamente la differenza di potenziale ai capi del trasformatore e la forza elettromtrice generata sui rispettivi avvolgimenti.
+
+Notiamo che la permeabilità $\mu_{fe}$ non è nemmeno costante (come lo era dal'ipotesi 3): il rapporto fra intensità di campo magnetico e induzinoe magnetica, che finora avevamo descritto come:
 $$
 B = \mu \mu_{fe} H
 $$
 presenta in verità delle non linearità date dall'\textbf{isteresi} del materiale.
+Si mostra un grafico della classica curva di isteresi, con l'intensità del campo magnetico $H$ alle ascisse e l'induzione magnetica corrispondente $B(H)$ alle ordinate, nelle due direzioni di magnetizzazione:
 
-# grafichino classico 
+\begin{center}
+\begin{tikzpicture}
+    \begin{axis}[
+        xlabel={$H$},
+        ylabel={$B(H)$},
+        domain=-10:10, % set the x range you want
+				samples=100,
+        grid=major, % add a grid
+				ytick={-2, 0, 2},
+				yticklabels={$-B_s$, $0$, $B_s$},
+				xtick={-2.6, 0, 2.6},
+				xticklabels={$-H_0$, $0$, $H_0$},
+				ymin = -3, ymax = 3,
+				width=15cm,
+				height=7cm
+    ]
+   \addplot[
+        blue,
+        thick,
+				domain=0:2.6
+    ] {2 * tanh(2 * x) * (1 - exp(-x/0.4)^3)}; 
+
+    \addplot[
+        red,
+        thick,
+				domain=-2.6:2.6
+    ] {2 * tanh(2 * (x - 1)};
+
+    \addplot[
+        red,
+        thick,
+				domain=-2.6:2.6
+    ] {2 * tanh(2 * (x + 1)}; 
+    \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Sul grafico chiamiamo $B_s$ la \textbf{magnetizzazione di saturazione}, cioè la magnetizzazione massima che il materiale è capace di ottenere, e con $H_0$ il \textbf{campo di saturazione}, cioè l'intensità del campo magnetico per cui il materiale raggiunge il punto di saturazione. 
 
 \end{document}

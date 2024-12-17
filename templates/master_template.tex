@@ -1,5 +1,5 @@
-\documentclass[a4paper,14pt]{memoir}
-\usepackage[a4paper, margin=4em]{geometry}
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
 
 % usa i pacchetti per la scrittura in italiano
 \usepackage[french,italian]{babel}
@@ -24,7 +24,10 @@
 % usa helvetica
 \usepackage[scaled]{helvet}
 % usa palatino
-\usepackage{mathpazo}
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
 \renewcommand{\rmdefault}{ppl}
 \renewcommand{\sfdefault}{phv}
 \renewcommand{\ttdefault}{lmtt}
@@ -175,12 +178,7 @@
 % disponi numeri di pagina
 \usepackage{fancyhdr}
 \fancyhf{} 
-
-\setlength{\headheight}{28pt} 
-\setlength{\headsep}{10pt} 
-\setlength{\footskip}{28pt} 
-
-\fancyfoot[L]{\raisebox{1ex}[36pt][0pt]{\sffamily{\thepage}}}
+\fancyfoot[L]{\sffamily{\thepage}}
 
 \makeatletter
 \fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 

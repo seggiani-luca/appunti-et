@@ -1,0 +1,342 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper, margin=8em]{geometry}
+
+% usa i pacchetti per la scrittura in italiano
+\usepackage[french,italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing 
+
+% usa i pacchetti per la formattazione matematica
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+
+% usa altri pacchetti
+\usepackage{gensymb}
+\usepackage{hyperref}
+\usepackage{standalone}
+
+% imposta il titolo
+\title{Appunti Elettrotecnica}
+\author{Luca Seggiani}
+\date{2024}
+
+% imposta lo stile
+% usa helvetica
+\usepackage[scaled]{helvet}
+% usa palatino
+\usepackage{palatino}
+% usa un font monospazio guardabile
+\usepackage{lmodern}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{lmtt}
+
+% disponi il titolo
+\makeatletter
+\renewcommand{\maketitle} {
+	\begin{center} 
+		\begin{minipage}[t]{.8\textwidth}
+			\textsf{\huge\bfseries \@title} 
+		\end{minipage}%
+		\begin{minipage}[t]{.2\textwidth}
+			\raggedleft \vspace{-1.65em}
+			\textsf{\small \@author} \vfill
+			\textsf{\small \@date}
+		\end{minipage}
+		\par
+	\end{center}
+
+	\thispagestyle{empty}
+	\pagestyle{fancy}
+}
+\makeatother
+
+% disponi teoremi
+\usepackage{tcolorbox}
+\newtcolorbox[auto counter, number within=section]{theorem}[2][]{%
+	colback=blue!10, 
+	colframe=blue!40!black, 
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries, 
+	title=~\thetcbcounter: #2, 
+	#1
+}
+
+% disponi definizioni
+\newtcolorbox[auto counter, number within=section]{definition}[2][]{%
+	colback=red!10,
+	colframe=red!40!black,
+	sharp corners=northwest,
+	fonttitle=\sffamily\bfseries,
+	title=~\thetcbcounter: #2,
+	#1
+}
+
+% U.D.M
+\newcommand{\amp}{\ensuremath{\mathrm{A}}}
+\newcommand{\volt}{\ensuremath{\mathrm{V}}}
+\newcommand{\meter}{\ensuremath{\mathrm{m}}}
+\newcommand{\second}{\ensuremath{\mathrm{s}}}
+\newcommand{\farad}{\ensuremath{\mathrm{F}}}
+\newcommand{\henry}{\ensuremath{\mathrm{H}}}
+\newcommand{\siemens}{\ensuremath{\mathrm{S}}}
+
+% circuiti
+\usepackage{circuitikz}
+\usetikzlibrary{babel}
+
+% disegni
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% disponi codice
+\usepackage{listings}
+\usepackage[table]{xcolor}
+
+\lstdefinestyle{codestyle}{
+		backgroundcolor=\color{black!5}, 
+		commentstyle=\color{codegreen},
+		keywordstyle=\bfseries\color{magenta},
+		numberstyle=\sffamily\tiny\color{black!60},
+		stringstyle=\color{green!50!black},
+		basicstyle=\ttfamily\footnotesize,
+		breakatwhitespace=false,         
+		breaklines=true,                 
+		captionpos=b,                    
+		keepspaces=true,                 
+		numbers=left,                    
+		numbersep=5pt,                  
+		showspaces=false,                
+		showstringspaces=false,
+		showtabs=false,                  
+		tabsize=2
+}
+
+\lstdefinestyle{shellstyle}{
+		backgroundcolor=\color{black!5}, 
+		basicstyle=\ttfamily\footnotesize\color{black}, 
+		commentstyle=\color{black}, 
+		keywordstyle=\color{black},
+		numberstyle=\color{black!5},
+		stringstyle=\color{black}, 
+		showspaces=false,
+		showstringspaces=false, 
+		showtabs=false, 
+		tabsize=2, 
+		numbers=none, 
+		breaklines=true
+}
+
+\lstdefinelanguage{javascript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+% disponi sezioni
+\usepackage{titlesec}
+
+\titleformat{\section}
+	{\sffamily\Large\bfseries} 
+	{\thesection}{1em}{} 
+\titleformat{\subsection}
+	{\sffamily\large\bfseries}   
+	{\thesubsection}{1em}{} 
+\titleformat{\subsubsection}
+	{\sffamily\normalsize\bfseries} 
+	{\thesubsubsection}{1em}{}
+
+% disponi alberi
+\usepackage{forest}
+
+\forestset{
+	rectstyle/.style={
+		for tree={rectangle,draw,font=\large\sffamily}
+	},
+	roundstyle/.style={
+		for tree={circle,draw,font=\large}
+	}
+}
+
+% disponi algoritmi
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
+
+% disponi numeri di pagina
+\usepackage{fancyhdr}
+\fancyhf{} 
+\fancyfoot[L]{\sffamily{\thepage}}
+
+\makeatletter
+\fancyhead[L]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@title \ \@date}}} 
+\fancyhead[R]{\raisebox{1ex}[0pt][0pt]{\sffamily{\@author}}}
+\makeatother
+
+\begin{document}
+% sezione (data)
+\section{Lezione del 12-12-24}
+
+% stili pagina
+\thispagestyle{empty}
+\pagestyle{fancy}
+
+% testo
+\subsection{Macchina rotante asincrona}
+Abbiamo visto una semplice macchina elettrica che sfruttava il moto traslazionale di una bobina mobile.
+Adesso vediamo una macchina più comune, che sfrutta il moto rotazionale.
+
+La macchina rotante è composta da una parte statica, detta \textbf{statore}, composta da un materiale ferromagnetico su cui sono ricavati apposite \textbf{cave} dove scorrono fili percorsi da correnti, e una parte rotante, detta \textbf{rotore}, coassiale allo statore.
+Fra rotore e statore c'è uno strato di aria, detto \textbf{traferro}.
+
+La macchina rotante che andremo a vedere è detta \textbf{macchina asincrona}, in quanto il rotore ruota con una pulsazione minore della pulsazione del campo magnetico rotante generato dallo statore.
+Esistono anche \textbf{macchine sincrone}, comunemente dette \textbf{alternatori}, dove le pulsazioni combaciano.
+
+\subsubsection{Principio di funzionamento}
+\begin{itemize}
+	\item \textbf{\textsf{Statore}} \\ 
+	Assumiamo uno statore con 6 cave disposte esagonalmente. P
+	ossiamo immaginare all'interno delle cave singoli grandi fili percorsi da corrente. che si richiudono arrivati all'estremo longitudinale dello statore sulla cava opposta, a formare delle \textit{bobine}. 
+	\begin{center}
+\begin{tikzpicture}
+    \coordinate (A) at (1,0);       
+    \coordinate (B) at (0.5,0.866);       
+    \coordinate (C) at (-0.5,0.866);      
+    \coordinate (D) at (-1,0);      
+    \coordinate (E) at (-0.5,-0.866);     
+    \coordinate (F) at (0.5,-0.866);      
+
+		\node at (A) {$\times$};
+		\node at (B) {$\bullet$};
+		\node at (C) {$\times$};
+		\node at (D) {$\bullet$};
+		\node at (E) {$\times$};
+		\node at (F) {$\bullet$};
+
+		\draw[dotted] (A) -- (D);
+		\draw[dotted] (B) -- (E);
+		\draw[dotted] (C) -- (F);
+
+    \node[right] at (A) {$i_1$};
+    \node[above right] at (B) {$i_2$};
+    \node[above left] at (C) {$i_3$};
+    \node[left] at (D) {$i_1$};
+    \node[below left] at (E) {$i_2$};
+    \node[below right] at (F) {$i_3$};
+\end{tikzpicture}
+	\end{center}
+Quindi, se su un lato avremo una corrente $I$, sul lato opposto dello statore avremo una corrente $-I$.
+Una qualsiasi di queste correnti $i_i$ sarà data dalla funzione sinusoidale:
+$$
+i_1(t) = I_m \sin{\omega t}
+$$ 
+Dalla legge di Biot-Savart si andrà a formare un campo di induzione magnetica diretto tangenzialmente rispetto ai fili, secondo la legge della mano destra.
+Avremo però che la somma vettoriale dei campi generati dai due fili  è effettivamente un campo radiale, che risulterà uscente sul lato destro dello statore, e entrante sul lato sinistro.
+In funzione di un angolo $\theta$ all'origine, questa sarà approssimativamente cosinusoidale, cioè:
+$$
+B_1(t) = c_1 i_1(t) \cos (\rho \theta)
+$$
+dove $\rho$ è il numero delle \textbf{paia polari} (nel caso dei sistemi trifase, coppie di triple di avvolgimenti di filo, cioè il numero di coppie \textit{nord-sud} nello statore).
+Modificando il numero di paia polari si può variare il periodo di rotazione del campo oltre $\frac{2\pi}{\omega}$, cioè ottenere velocità angolari minori, ma coppie maggiori.
+
+La coppia dei fili percorsi da $i_1(t)$ e $-i_1(t)$ non sarà però l'unica coppia di fili sullo statore.
+Assumiamo 6 cave che portano corrente trifase (1 paia polare), quindi 3 correnti in forma:
+\[
+	\begin{cases}
+		i_1(t) = I_m \sin(\omega t) \\
+		i_2(t) = I_m \sin(\omega t + \frac{2}{3} \pi)	\\
+		i_3(t) = I_m \sin(\omega t + \frac{4}{3} \pi)	
+	\end{cases}
+\]
+
+Vediamo quindi l'intensità del campo di induzione magnetica generato, rispetto all'angolo $\theta$ sull'asse $x$ da cui viene osservato, da ogni avvolgimento:
+\[
+	\begin{cases}
+B_1(t) = c_1 i_1(t) \sin (\rho \theta) \\ 
+B_2(t) = c_2 i_2(t) \sin (\rho \theta + \frac{2}{3} \pi) \\ 
+B_3(t) = c_3 i_3(t) \sin (\rho \theta + \frac{4}{3} \pi)
+	\end{cases}
+\]
+
+Il campo magnetico totale sarà quindi dato dalla somma dei singoli campi generati da coppie di fili, cioè:
+$$
+B(t) = B_1(t) + B_2(t) + B_3(t) = k I_m \cos(\omega t - \rho \theta) = B(t, \theta)
+$$
+con $k$ dipendente da $c_1$, $c_2$ e $c_3$.
+
+Il campo $B(t, \theta)$ prende il nome di \textbf{campo magnetico rotante}, \textbf{campo sincronizzato} o \textit{campo magnetico di statore} ed è funzione sia del tempo che dell'angolo $\theta$ su cui lo osserviamo.
+Indichiamo la velocità di rotazione del campo, in radianti al secondo, come $\Omega_s$.
+Per valutarla prendiamo due valori themporali su due angoli dove il campo è nullo:
+\[
+	\begin{cases}
+		\omega t_1 - \rho \theta_1 = 0 \\
+		\omega t_2 - \rho \theta_2 = 0
+	\end{cases}
+\]
+Sarà allora che:
+$$
+\Omega_s = \frac{\Delta \theta}{\Delta t} = \frac{\theta_2 - \theta_1}{t_2 - t_1} = \frac{\frac{\omega t_2}{\rho} - \frac{\omega t_1}{\rho}}{t_2 - t_1} = \frac{\frac{\omega}{\rho}(t_2 - t_1)}{t_2 - t_1} = \frac{\omega}{\rho}
+$$
+
+\item \textbf{\textsf{Statore}} \\ 
+Esistono due possibilità realizzative per il rotore:
+\begin{itemize}
+	\item Costruzione \textit{analoga allo statore}, dove si dice \textbf{rotore avvolto}, con l'unica differenza che gli avvolgimenti di rotore non sono alimentati, ma chiusi in cortocircuito sulle estremità longitudinali del rotore stesso;
+	\item Attraverso barre longitudinali al rotore, dove si dice \textbf{rotore a gabbia di scoiattolo}.
+\end{itemize}
+
+Qualsiasi sia la modalità di realizzazione del rotore, si ha che le spire disposte longitudinalmente sono chiuse su stesse, cioè quando il rotore inizia a ruotare si ha forza elettromotrice indotta data dalla legge di Faraday:
+$$
+\varepsilon = -\frac{d \Phi(t)}{dt}
+$$
+
+Definiamo allora la velocità di rotazione del campo magnetico di statore come $\Omega_s$. Chiamiamo la $\omega$ associata allo statore \textit{pulsazione delle grandezze elettriche di statore} $\omega_1$, e introduciamo la \textit{pulsazione delle grandezze elettriche di rotore} $\omega_2$, da cui la velocità di rotazione del \textbf{campo magnetico di rotore} o del \textbf{campo asincrono} $\Omega_s$.
+
+Definiremo la differenza di velocità $\Omega_{sr} = \Omega_s - \Omega_r$. 
+Questa sarà utile a definire lo \textbf{scorrimento} $s$, con:
+$$
+s = \frac{\Omega_s - \Omega_r}{\Omega_s} = \frac{\Omega_{sr}}{\Omega_s}
+$$
+Possiamo distinguere più situazioni sulla base di $s$:
+\begin{itemize}
+	\item $s = 0$, $\Omega_{sr} = 0$, $\Omega_s = \Omega_r$: si parla di \textbf{rotore libero};
+	\item $s = 1$, $\Omega_{sr} = \Omega_s$, $\Omega_r = 0$: si parla di \textbf{rotore bloccato} (chiaramente, da $\Omega_r = 0$).
+\end{itemize}
+
+Notiamo che, se:
+$$
+s = \frac{\Omega_s - \Omega_r}{\Omega_s} \Rightarrow s \Omega_s = \Omega_s - \Omega_r \Rightarrow \Omega_r = (1-s)\Omega_s
+$$
+e inoltre, se:
+$$
+\Omega_s = \frac{\omega_1}{\rho} \Rightarrow \Omega_{sr} = \Omega_s - \Omega_r = \frac{\omega_2}{\rho}
+$$
+$$
+s \frac{\omega_1}{\rho} = \frac{\omega_2}{\rho}
+$$
+
+\end{itemize}
+
+Possiamo quindi riassumere il principio di funzionamento della macchina rotante in:
+\begin{enumerate}
+	\item Alimentiamo i circuiti dello statore con 3 correnti trifasem cioè sfasate di 120°. Questo genera un campo magnetico rotante con velocità $\Omega_s = \frac{\omega}{\rho}$;
+	\item Sugli avvolgimenti o le barre della gabbia di scoiattolo del rotore si genera una forza elettromotrice indotta, e quindi per momento meccanico una coppia che la porta a ruotare con una velocità di $\Omega_r = (1-s) \Omega_s$ dove $s$ è lo \textit{scorrimento}.
+\end{enumerate}
+
+La macchina asincrona lavora in un continuo stato di scorrimento (in quanto quando $s=0$ non si genera f.e.m. per Faraday e quindi non c'è coppia sul rotore).
+In seguito vedremo nel dettaglio come questa coppia dipende da $s$, e quindi qual'è la condizione di regime della macchina.
+
+\end{document}
